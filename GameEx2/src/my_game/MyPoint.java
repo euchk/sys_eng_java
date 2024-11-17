@@ -45,6 +45,7 @@ public class MyPoint {
     }
 
     // Tests
+    // TO DO: comment out
     public static void main(String[] args) {
         MyPoint p1 = new MyPoint();
         MyPoint p2 = new MyPoint(3, 4);
