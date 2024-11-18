@@ -2,10 +2,10 @@ package my_game;
 
 public class MyCircle {
     private MyPoint center;
-    private double radius;
+    private int radius;
     
     // Constructor with 3 parameters
-    public MyCircle(double x, double y, double radius){
+    public MyCircle(int x, int y, int radius){
         if (radius < 0){
             throw new IllegalArgumentException("Radius must be non-negative");
         }
@@ -15,7 +15,7 @@ public class MyCircle {
     }
 
     // Constructor with 2 parameters
-    public MyCircle(MyPoint center, double radius){
+    public MyCircle(MyPoint center, int radius){
         if (radius < 0){
             throw new IllegalArgumentException("Radius must be non-negative");
         }
@@ -28,7 +28,7 @@ public class MyCircle {
         return this.center;
     }
 
-    public double getRadius(){
+    public int getRadius(){
         return this.radius;
     }
 
@@ -36,7 +36,7 @@ public class MyCircle {
         this.center = center;
     }
 
-    public void setRadius(double radius){
+    public void setRadius(int radius){
         if (radius < 0){
             throw new IllegalArgumentException("Radius must be non-negative");
         }
@@ -96,12 +96,12 @@ public class MyCircle {
         System.out.println("p2: " + p2);
         System.out.println("p2 is in c1? " + c1.pointInCircle(p2)); // Expects False
 
-        // Testing circleOverlaps()
-        System.out.println("c1 and c2 overlap? " + c1.intersects(c2)); // Expects False
+        // Testing intersects()
+        System.out.println("c1 and c2 intersect? " + c1.intersects(c2)); // Expects False
         System.out.println("Editing c2");
         c2.setRadius(8);
         System.out.println("c2: " + c2);
-        System.out.println("c1 and c2 overlap? " + c1.intersects(c2)); // Expects True
+        System.out.println("c1 and c2 intersect? " + c1.intersects(c2)); // Expects True
         
     }
 

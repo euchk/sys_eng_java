@@ -40,11 +40,11 @@ public class Ex2 {
 
         // Remove the nulls and create 3 circles and 2 points (assume an area of 400 X 400)
 
-        MyCircle mc1 = null;
-        MyCircle mc2 = null;
-        MyCircle mc3 = null;
-        MyPoint mp1 = null;
-        MyPoint mp2 = null;
+        MyCircle mc1 = new MyCircle(200, 200, 50);
+        MyCircle mc2 = new MyCircle(200, 100, 60);
+        MyCircle mc3 = new MyCircle(350, 350, 70);
+        MyPoint mp1 = new MyPoint(200, 220);
+        MyPoint mp2 = new MyPoint(60, 60);
 
         // Fill in your details
         String student1 = "FullName" + ", " + "ID";

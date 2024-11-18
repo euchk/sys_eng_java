@@ -2,8 +2,8 @@ package my_game;
 
 public class MyPoint {
 
-    private double x;
-    private double y;
+    private int x;
+    private int y;
 
     // Constructor without parameters
     public MyPoint(){
@@ -12,25 +12,25 @@ public class MyPoint {
     }
 
     // Constructor with parameters
-    public MyPoint(double x, double y){
+    public MyPoint(int x, int y){
         this.x = x;
         this.y = y;
     }
 
     // Getter and setter
-    public double getX(){
+    public int getX(){
         return x;
     }
 
-    public double getY(){
+    public int getY(){
         return y;
     }
 
-    public void setX(double x){
+    public void setX(int x){
         this.x = x;
     }
 
-    public void setY(double y){
+    public void setY(int y){
         this.y = y;
     }
 
@@ -46,14 +46,16 @@ public class MyPoint {
 
     // Tests
     public static void main(String[] args) {
+        // Testing constructions and toString
         MyPoint p1 = new MyPoint();
         MyPoint p2 = new MyPoint(3, 4);
-        MyPoint p3 = new MyPoint(5.5, -4.7);
+        MyPoint p3 = new MyPoint(-4, -3);
 
         System.out.println("p1: " + p1);
         System.out.println("p2: " + p2);
         System.out.println("p3: " + p3);
 
+        // Testing getDistance
         System.out.println("Distance between p1 and p2: " + p1.getDistance(p2));   
         System.out.println("Distance between p1 and p3: " + p1.getDistance(p3)); 
         System.out.println("Distance between p2 and p3: " + p2.getDistance(p3));
