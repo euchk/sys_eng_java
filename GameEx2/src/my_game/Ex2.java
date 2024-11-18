@@ -40,16 +40,16 @@ public class Ex2 {
 
         // Remove the nulls and create 3 circles and 2 points (assume an area of 400 X 400)
 
-        MyCircle mc1 = new MyCircle(200, 200, 50);
+        MyCircle mc1 = new MyCircle(180, 200, 50);
         MyCircle mc2 = new MyCircle(200, 100, 60);
-        MyCircle mc3 = new MyCircle(350, 350, 70);
-        MyPoint mp1 = new MyPoint(200, 220);
-        MyPoint mp2 = new MyPoint(60, 60);
+        MyCircle mc3 = new MyCircle(350, 190, 70);
+        MyPoint mp1 = new MyPoint(190, 240);
+        MyPoint mp2 = new MyPoint(60, 160);
 
         // Fill in your details
         String student1 = "Yaacov Levy" + ", " + "201638640";
         String student2 = "Matan Jefidoff" + ", " + "039986633";
-        String student3 = "None" + ", " + "None";
+        // String student3 = "FullName" + ", " + "ID";
 
         // Write here the code that performs all the checks and prints the results
 
@@ -98,9 +98,26 @@ public class Ex2 {
         // You have to read, understand and modify the visual representation of the elements ...
 
         // Visualize your circles with the infrastructure circle shapes
+        // Add the center of each circle as points
+
         Circle c1 = new Circle("c1", mc1.getCenter().getX(), mc1.getCenter().getY(), mc1.getRadius());
+        c1.setColor(Color.BLUE);
+        Circle pc1 = new Circle("pc1", mc1.getCenter().getX(), mc1.getCenter().getY(),3);
+        pc1.setColor(Color.BLUE);
+        pc1.setIsFilled(true);
+
         Circle c2 = new Circle("c2", mc2.getCenter().getX(), mc2.getCenter().getY(), mc2.getRadius());
+        c2.setColor(Color.GRAY);
+        Circle pc2 = new Circle("pc2", mc2.getCenter().getX(), mc2.getCenter().getY(),3);
+        pc2.setColor(Color.GRAY);
+        pc2.setIsFilled(true);
+
         Circle c3 = new Circle("c3", mc3.getCenter().getX(), mc3.getCenter().getY(), mc3.getRadius());
+        c3.setColor(Color.ORANGE);
+        Circle pc3 = new Circle("pc3", mc3.getCenter().getX(), mc3.getCenter().getY(),3);
+        pc3.setColor(Color.ORANGE);
+        pc3.setIsFilled(true);
+
 
         // Visualize the points with red filled circles
         Circle p1 = new Circle("p1", mp1.getX(), mp1.getY(),3);
@@ -116,15 +133,29 @@ public class Ex2 {
 
         // Add all the shapes to the canvas
 		canvas.addShape(c1);
+        canvas.addShape(pc1);
+        canvas.addShape(new Text("mc1_t", mc1.getCenter().toString(), pc1.getPosX(), pc1.getPosY()));
+
 		canvas.addShape(c2);
+        canvas.addShape(pc2);
+        canvas.addShape(new Text("mc2_t", mc2.getCenter().toString(), pc2.getPosX(), pc2.getPosY()));
+
 		canvas.addShape(c3);
+        canvas.addShape(pc3);
+        canvas.addShape(new Text("mc3_t", mc3.getCenter().toString(), pc3.getPosX(), pc3.getPosY()));
+
 		canvas.addShape(p1);
+        canvas.addShape(new Text("p1_t", mp1.toString(), p1.getPosX(), p1.getPosY()));
         canvas.addShape(p2);
+        canvas.addShape(new Text("p2_t", mp2.toString(), p2.getPosX(), p2.getPosY()));
+
         canvas.addShape(l1);
+        
+        
         
         // Texts are also shapes. Show your details as texts at the bottom of the screen.
         canvas.addShape(new Text("st1", student1, 50, 400));
         canvas.addShape(new Text("st2", student2, 50, 450));
-        canvas.addShape(new Text("st3", student3, 50, 500));
+        // canvas.addShape(new Text("st3", student3, 50, 500));
     }
 }
