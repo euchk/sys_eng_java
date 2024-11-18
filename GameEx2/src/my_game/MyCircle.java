@@ -6,12 +6,19 @@ public class MyCircle {
     
     // Constructor with 3 parameters
     public MyCircle(double x, double y, double radius){
-        this.center = new MyPoint(x, y);
+        if (radius < 0){
+            throw new IllegalArgumentException("Radius must be non-negative");
+        }
         this.radius = radius;
+        this.center = new MyPoint(x, y);
+        
     }
 
     // Constructor with 2 parameters
     public MyCircle(MyPoint center, double radius){
+        if (radius < 0){
+            throw new IllegalArgumentException("Radius must be non-negative");
+        }
         this.center = center;
         this.radius = radius;
     }
@@ -21,7 +28,7 @@ public class MyCircle {
         return this.center;
     }
 
-    public double getradius(){
+    public double getRadius(){
         return this.radius;
     }
 
@@ -29,13 +36,11 @@ public class MyCircle {
         this.center = center;
     }
 
-    public void setradius(double radius){
-        if (radius >= 0){
-            this.radius = radius;
+    public void setRadius(double radius){
+        if (radius < 0){
+            throw new IllegalArgumentException("Radius must be non-negative");
         }
-        else{
-            System.out.println("Radius can't be negative"); // TODO: change to expection
-        }
+        this.radius = radius;
     }
 
     // Overide toString to change formatting
@@ -51,28 +56,53 @@ public class MyCircle {
         return center.getDistance(p) <= radius;
     }
 
+    public boolean intersects(MyCircle c){
+        /* Check if the distance between the centers of the circles
+           is less than the the sum of the radi
+        */
+        return center.getDistance(c.center) <= radius + c.radius;
+    }
+
     // Tests
     public static void main(String[] args) {
-        MyCircle c1 = new MyCircle(1, -1, 14);
+        // Testing constructions and toString
         MyPoint p1 = new MyPoint();
-        MyCircle c2 = new MyCircle(p1, 1);
-
+        MyCircle c1 = new MyCircle(p1, 1);
         System.out.println("c1: " + c1);
+
+        MyCircle c2 = new MyCircle(1, -5, 1);
         System.out.println("c2: " + c2);
 
-        MyPoint p2 = new MyPoint(-1, -1);
-        c1.setCenter(p2);
-        c1.setradius(100);
+        try{
+            MyCircle c_minus = new MyCircle(0, 0, -1);
+            System.out.println("c_minus: " + c_minus);
+        }
+        catch(IllegalArgumentException e){
+            System.out.println("Failed creating instance: " + e.getMessage());
+        }
+        
+        // Testing getter and setter
+        System.out.println("Editing c1");
+        p1.setX(1);
+        p1.setY(5);
+        c1.setCenter(p1);
+        c1.setRadius(2);
         System.out.println("c1: " + c1);
 
-        c1.setradius(-9);
-        System.out.println("c1: " + c1 + ", p1: " + p1);
-        System.out.println("p1 is in c1? " + c1.pointInCircle(p1));
-        c1.setradius(0.1);
-        System.out.println("c1: " + c1 + ", p1: " + p1);
-        System.out.println("p1 is in c1? " + c1.pointInCircle(p1));
+        // Testing pointInCircle()
+        System.out.println("p1: " + p1);
+        System.out.println("p1 is in c1? " + c1.pointInCircle(p1)); // Expects True
+        MyPoint p2 = new MyPoint(1, 2);
+        System.out.println("p2: " + p2);
+        System.out.println("p2 is in c1? " + c1.pointInCircle(p2)); // Expects False
 
-
+        // Testing circleOverlaps()
+        System.out.println("c1 and c2 overlap? " + c1.intersects(c2)); // Expects False
+        System.out.println("Editing c2");
+        c2.setRadius(8);
+        System.out.println("c2: " + c2);
+        System.out.println("c1 and c2 overlap? " + c1.intersects(c2)); // Expects True
+        
     }
 
 }
