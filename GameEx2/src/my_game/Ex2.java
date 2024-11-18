@@ -47,12 +47,48 @@ public class Ex2 {
         MyPoint mp2 = new MyPoint(60, 60);
 
         // Fill in your details
-        String student1 = "FullName" + ", " + "ID";
-        String student2 = "FullName" + ", " + "ID";
-        String student3 = "FullName" + ", " + "ID";
+        String student1 = "Yaacov Levy" + ", " + "201638640";
+        String student2 = "Matan Jefidoff" + ", " + "039986633";
+        String student3 = "None" + ", " + "None";
 
         // Write here the code that performs all the checks and prints the results
 
+        // Check if mp1 is inside mc1
+        if (mc1.pointInCircle(mp1)){
+            System.out.println("mp1 " + mp1 + " is indeed inside mc1 " + mc1);
+        }
+        else{
+            System.out.println("mp1 " + mp1 + " is NOT inside mc1 " + mc1);
+        }
+
+        // Check if mp2 is inside mc2
+        if (mc2.pointInCircle(mp2)){
+            System.out.println("mp2 " + mp2 + " is indeed inside mc2 " + mc2);
+        }
+        else{
+            System.out.println("mp2 " + mp2 + " is NOT inside mc2 " + mc2);
+        }
+
+        // Check if mc1 intersects with mc2
+        if (mc1.intersects(mc2)){
+            System.out.println("mc1 " + mc1 + " intersects with mc2 " + mc2);
+        }
+        else{
+            System.out.println("mc1 " + mc1 + " DOES NOT intersects with mc2 " + mc2);
+        }
+
+        // Check if mc2 intersects with mc3
+        if (mc2.intersects(mc3)){
+            System.out.println("mc2 " + mc2 + " intersects with mc3 " + mc3);
+        }
+        else{
+            System.out.println("mc2 " + mc2 + " DOES NOT intersects with mc3 " + mc3);
+        }
+
+        System.out.println("Submited by: ");
+        System.out.println(student1);
+        System.out.println(student2);
+        
     
         //--------------------------------------------------------------------------
         // -------------- This is where your code ends -----------------------------

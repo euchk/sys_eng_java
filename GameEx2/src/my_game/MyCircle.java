@@ -58,7 +58,7 @@ public class MyCircle {
 
     public boolean intersects(MyCircle c){
         /* Check if the distance between the centers of the circles
-           is less than the the sum of the radi
+           is less than the the sum of the radii
         */
         return center.getDistance(c.center) <= radius + c.radius;
     }
