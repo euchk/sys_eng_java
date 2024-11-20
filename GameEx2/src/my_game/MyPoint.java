@@ -46,6 +46,7 @@ public class MyPoint {
 
     // Tests
     public static void main(String[] args) {
+        /* 
         // Testing constructions and toString
         MyPoint p1 = new MyPoint();
         MyPoint p2 = new MyPoint(3, 4);
@@ -59,5 +60,7 @@ public class MyPoint {
         System.out.println("Distance between p1 and p2: " + p1.getDistance(p2));   
         System.out.println("Distance between p1 and p3: " + p1.getDistance(p3)); 
         System.out.println("Distance between p2 and p3: " + p2.getDistance(p3));
+        
+        */
     }
 }

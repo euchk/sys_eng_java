@@ -63,8 +63,8 @@ public class MyCircle {
         return center.getDistance(c.center) <= radius + c.radius;
     }
 
-    // Tests
     public static void main(String[] args) {
+        /*
         // Testing constructions and toString
         MyPoint p1 = new MyPoint();
         MyCircle c1 = new MyCircle(p1, 1);
@@ -103,6 +103,7 @@ public class MyCircle {
         System.out.println("c2: " + c2);
         System.out.println("c1 and c2 intersect? " + c1.intersects(c2)); // Expects True
         
+         */
     }
 
 }
