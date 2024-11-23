@@ -8,6 +8,7 @@ import ui_elements.ScreenPoint;
 import base.Game;
 import base.GameCanvas;
 import base.GameContent;
+import my_game.MyCharacter;
 import my_game.MyPolygon;
 
 public class MyContent extends GameContent{
@@ -16,6 +17,7 @@ public class MyContent extends GameContent{
 	
 	//TODO
 	//Declare your own character
+	private MyCharacter myCharacter;
 	
 
 	@Override
@@ -32,6 +34,9 @@ public class MyContent extends GameContent{
 		};
 
 		myPolygon = new MyPolygon(points);
+
+		myCharacter = new MyCharacter(new ScreenPoint(100, 100), "myCharacter");
+        
 	}	
 	
 	public Pokimon pokimon() {
@@ -56,7 +61,9 @@ public class MyContent extends GameContent{
 	//TODO
 	//create a method with the name myCharacter which returns
 	//your character for others to use.
-
+	public MyCharacter myCharacter() {
+        return myCharacter;
+	}
 	
 	//TODO
 	//create a changeCharacter method and change inside all the properties you like.
