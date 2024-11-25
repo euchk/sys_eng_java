@@ -19,7 +19,8 @@ public class AddButton extends GameButton{
 		MyContent content = (MyContent) Game.Content();
 		//TODO
 		//Add your character to your game content
-
+		content.addCharacter();
+		
 	}
 
 }

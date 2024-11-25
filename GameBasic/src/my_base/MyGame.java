@@ -30,9 +30,6 @@ public class MyGame extends Game {
 		canvas.setBackground(Color.WHITE);
 		canvas.setBackgroundImage("resources/background1.jpg");
 
-		MyCharacter myCharacter = content.myCharacter();
-		myCharacter.addToCanvas();
-
 		Pokimon pokimon = content.pokimon();
 		pokimon.addToCanvas();
 

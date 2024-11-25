@@ -35,7 +35,6 @@ public class MyContent extends GameContent{
 
 		myPolygon = new MyPolygon(points);
 
-		myCharacter = new MyCharacter(new ScreenPoint(100, 100), "myCharacter");
         
 	}	
 	
@@ -51,10 +50,11 @@ public class MyContent extends GameContent{
 		//TODO
 		//Create an instance of your character and set its properties with
 		//initial values
-		
+		myCharacter = new MyCharacter(new ScreenPoint(400, 300), "myCharacter");
 		
 		//TODO
 		//Add your character visual representation to the canvas using its addToCanvas() method.
+		myCharacter.addToCanvas();
 
 	}
 	
