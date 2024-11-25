@@ -67,4 +67,7 @@ public class MyContent extends GameContent{
 	
 	//TODO
 	//create a changeCharacter method and change inside all the properties you like.
+	public void changeCharacter(){
+	;
+	}
 }

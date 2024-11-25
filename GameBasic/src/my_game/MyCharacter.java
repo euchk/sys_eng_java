@@ -17,10 +17,10 @@ public class MyCharacter implements ShapeListener{
 	//TODO
 	//Add your character properties
 
-	private final int[] imageWidth = {220,260};
-	private final int[] imageHeight = {200,195};
+	private final int[] imageWidth = {320,320};
+	private final int[] imageHeight = {360,360};
 
-	private final String[] images = {"resources/Character_Walk1.png", "resources/Character_Walk2.png"};
+	private final String[] images = {"resources/louis_s.png", "resources/louisEX_s.png"};
 
 	private int imageIndex = 0;
 
@@ -70,6 +70,15 @@ public class MyCharacter implements ShapeListener{
 
 	//TODO
 	//Add setters, getters and other methods that you need for your character
+
+	public void switchImage() {
+		setImage(1 - imageIndex);
+	}
+
+	public void setImage(int index) {
+		this.imageIndex = index;
+		Game.UI().canvas().changeImage(imageID, getImageName(), getImageWidth(), getImageHeight());
+	}
 
 	@Override
 	public void shapeMoved(String shapeID, int dx, int dy) {
