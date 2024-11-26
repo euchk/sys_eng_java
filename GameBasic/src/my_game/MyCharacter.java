@@ -49,6 +49,10 @@ public class MyCharacter implements ShapeListener{
 		return images[imageIndex];
 	}
 
+	public int getImageIndex() {
+		return imageIndex;
+	}
+
 	private int getImageWidth() {
 		return imageWidth[imageIndex];
 	}
@@ -71,6 +75,7 @@ public class MyCharacter implements ShapeListener{
 	//TODO
 	//Add setters, getters and other methods that you need for your character
 
+	// Switches the image of the character to the next image index
 	public void switchImage() {
 		setImage(1 - imageIndex);
 	}

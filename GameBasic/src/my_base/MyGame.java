@@ -10,6 +10,7 @@ import my_game.MyCharacter;
 import my_game.Pokimon;
 import my_ui_elements.AddButton;
 import my_ui_elements.ChangeButton;
+import my_ui_elements.BoostButton;
 import my_ui_elements.DirectionCombo;
 import my_ui_elements.DragCircleCB;
 import my_ui_elements.EditPolygonButton;
@@ -65,6 +66,10 @@ public class MyGame extends Game {
 		// Add the ChangeButton button to the dashboard
 		dashboard.addUIElement(new ChangeButton("changeButton", "Change", 540, 100));
 		dashboard.addUIElement(new MusicButton("musicButton", "Play", 700, 40));
+
+		// Add the BoostButton button to the dashboard
+		dashboard.addUIElement(new BoostButton("boostButton", "Boost", 700, 100));
+		
 
 	}
 	
