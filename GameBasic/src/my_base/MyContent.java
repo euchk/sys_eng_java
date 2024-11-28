@@ -4,6 +4,7 @@ package my_base;
 
 
 import my_game.Pokimon;
+import my_ui_elements.WeaponCombo;
 import ui_elements.ScreenPoint;
 import base.Game;
 import base.GameCanvas;
@@ -18,6 +19,7 @@ public class MyContent extends GameContent{
 	//TODO
 	//Declare your own character
 	private MyCharacter myCharacter;
+	private WeaponCombo weaponCombo;
 	
 
 	@Override
@@ -34,7 +36,7 @@ public class MyContent extends GameContent{
 		};
 
 		myPolygon = new MyPolygon(points);
-
+		
         
 	}	
 	
@@ -50,11 +52,16 @@ public class MyContent extends GameContent{
 		//TODO
 		//Create an instance of your character and set its properties with
 		//initial values
-		myCharacter = new MyCharacter(new ScreenPoint(400, 300), "myCharacter");
 		
 		//TODO
 		//Add your character visual representation to the canvas using its addToCanvas() method.
+		myCharacter = new MyCharacter(new ScreenPoint(400, 300), "myCharacter");
 		myCharacter.addToCanvas();
+
+		// Add a the weapon list combo
+		weaponCombo = new WeaponCombo(280, 120);
+		weaponCombo.addToDashboard();
+		
 
 	}
 	

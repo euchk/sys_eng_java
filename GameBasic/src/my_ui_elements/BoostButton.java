@@ -18,12 +18,9 @@ public class BoostButton extends GameButton{
 		
 		MyContent content = (MyContent) Game.Content();
 		
-		// Changes the image to an upgraded version. 
-		// Works only if the current image is the downgraded version (doesn't toggle between them).
-		// TODO: Maybe change the method from working with index to name or id
-		if (content.myCharacter().getImageIndex() == 0) {
-			content.myCharacter().switchImage();
-		}
+		// Changes the image and update button name
+		content.myCharacter().switchImage();
+		
 		
 		
 	}

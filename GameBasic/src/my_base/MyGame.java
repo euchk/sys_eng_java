@@ -6,7 +6,6 @@ import base.Game;
 import base.GameCanvas;
 import base.GameContent;
 import base.GameDashboard;
-import my_game.MyCharacter;
 import my_game.Pokimon;
 import my_ui_elements.AddButton;
 import my_ui_elements.ChangeButton;
@@ -55,10 +54,12 @@ public class MyGame extends Game {
 		dashboard.addUIElement(new RotatePolygonButton("rotateButton", "Rotate", 60, 100));
 
 		// Add a the Circle drag checkbox
-		dashboard.addUIElement(new DragCircleCB("dragCB", "Drag Circle", 280, 80, 200, 40, false));
+		dashboard.addUIElement(new DragCircleCB("dragCB", "Drag Circle", 280, 55, 200, 40, false));
 
 		// Add a the direction list combo
-		dashboard.addUIElement(new DirectionCombo(280, 40));
+		dashboard.addUIElement(new DirectionCombo(280, 20));
+
+		
 
 		// Add a the AddButton button
 		dashboard.addUIElement(new AddButton("addButton", "Add", 540, 40));
