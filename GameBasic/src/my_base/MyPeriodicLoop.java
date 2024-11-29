@@ -6,6 +6,7 @@ package my_base;
 import base.Game;
 import base.GameCanvas;
 import base.PeriodicLoop;
+import my_game.MyCharacter;
 
 public class MyPeriodicLoop extends PeriodicLoop {
 
@@ -25,6 +26,7 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		
 		//TODO
 		//Redraw your character periodically by calling the correct method
+		redrawCharacter();
 		
 	}
 	
@@ -40,15 +42,15 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		//Remove the comment from the next line so you can easily 
 		//access your character
 
-		//MyCharacter character = content.myCharacter();
+		MyCharacter character = content.myCharacter();
 		
 		//Since this function is called every interval, it will also be called
 		//before the character is created. Therefore, we check if the character 
 		//exists and if not, we return without doing anything.
 		
 		//TODO: Remove comments from next 2 lines
-//		if (character == null)
-//			return;
+		if (character == null)
+			return;
 		
 		//TODO
 		//Call the canvas to change the shape properties according to
@@ -58,6 +60,8 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		//For example, if your shape is a Circle you can use:
 		//Circle circle = (Circle) canvas.getShape(id)
 		//and then change the specific Circle properties.
+		
+		canvas.moveShapeToLocation(character.getImageID(), character.getLocation().x, character.getLocation().y);
 		
 	}
 

@@ -85,9 +85,15 @@ public class MyCharacter implements ShapeListener{
 		Game.UI().canvas().changeImage(imageID, getImageName(), getImageWidth(), getImageHeight());
 	}
 
+	public void moveLocation(int dx, int dy) {
+		this.location.x += dx;
+		this.location.y += dy;
+		Game.UI().canvas().moveShapeToLocation(imageID, location.x, location.y);
+	}
+
 	@Override
 	public void shapeMoved(String shapeID, int dx, int dy) {
-		;
+		moveLocation(dx, dy);
 	}
 
 	@Override
