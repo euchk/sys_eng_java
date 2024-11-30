@@ -8,18 +8,18 @@ import base.GameDashboard;
 import my_base.MyContent;
 import ui_elements.GameComboBox;
 
-public class WeaponCombo extends GameComboBox{
+public class EquipmentCombo extends GameComboBox{
     private TextLabelUIElement textLabel;
     MyContent myContent;
 
-    public WeaponCombo(int posX, int posY) {
-        super("weaponCombo", "Weapon", posX, posY, 160, 30, new String[] {"Yes", "No"});
+    public EquipmentCombo(int posX, int posY) {
+        super("equipmentCombo", "Equipment", posX, posY, 160, 30, new String[] {"Armor", "Weapon"});
         
         // Create label for the combo box
-        JLabel label = new JLabel("Weapon:");
+        JLabel label = new JLabel("Equipment:");
         label.setBounds(posX, posY - 25, 200, 30); // Position the label above the combo box
         label.setForeground(Color.WHITE); 
-        textLabel = new TextLabelUIElement("weaponLabel", label, posX, posY - 25);
+        textLabel = new TextLabelUIElement("equipmentLabel", label, posX, posY - 25);
         
         myContent = (MyContent) Game.Content();
         this.comboBox.setSelectedItem("No");
@@ -33,11 +33,13 @@ public class WeaponCombo extends GameComboBox{
 	public void action() {
         super.action();
         switch (getOption()) {
-            case "Yes":
-                // myContent.myCharacter().setImage(1);
+            case "Armor":
+                myContent.myCharacter().setEquipment("Armor");
+                myContent.myCharacter().setIdleAnimation();
                 break;
-            case "No":
-                // myContent.myCharacter().setImage(0);
+            case "Weapon":
+            myContent.myCharacter().setEquipment("Weapon");
+            myContent.myCharacter().setIdleAnimation();
                 break;
             default:
           }

@@ -13,6 +13,7 @@ public class MyCharacter implements ShapeListener{
 	
 	private ScreenPoint location;
 	private String imageID;
+	private String equipment;
 	
 	//TODO
 	//Add your character properties
@@ -20,22 +21,31 @@ public class MyCharacter implements ShapeListener{
 	private final int imageWidth = 80;
 	private final int imageHeight = 80;
 
-	private final String[] idleFrames = {"resources/louisEX_idle0.png", 
+	private final String[] weaponIdleFrames = {"resources/louisEX_idle0.png", 
 											"resources/louisEX_idle1.png",
 											"resources/louisEX_idle2.png",
 											"resources/louisEX_idle3.png",
 											"resources/louisEX_idle2.png",
 											"resources/louisEX_idle1.png"};
 
+	private final String[] armorIdleFrames = {"resources/louis_idle0.png", 
+											"resources/louis_idle1.png",
+											"resources/louis_idle2.png",
+											"resources/louis_idle3.png",
+											"resources/louis_idle2.png",
+											"resources/louis_idle1.png"};
+
+	private boolean animation = true;
 	private String[] currentFrames; // Current frames being used for animation
 	private int currentFrameIndex;
-	private boolean isIdle = true;
+	
 
 	public MyCharacter(ScreenPoint startLocation, String id) {
         this.location = startLocation;
         this.imageID = id;
-		currentFrames = idleFrames;
-        currentFrameIndex = 0;
+		currentFrameIndex = 0;
+		equipment = "Armor";
+		setIdleAnimation();
     }
 
 	public ScreenPoint getLocation() {
@@ -84,6 +94,22 @@ public class MyCharacter implements ShapeListener{
 	//TODO
 	//Add setters, getters and other methods that you need for your character
 
+	public void setEquipment(String equipment){
+		if (equipment == "Armor" || equipment == "Weapon"){
+			this.equipment = equipment;
+		} else {
+			throw new IllegalArgumentException("Only Armor or Weapon can be set for equipment");
+		}
+	}
+
+	public void stopAnimation(){
+		animation = false;
+	}
+
+	public void startAnimation(){
+		animation = true;
+	}
+
 	// Switches the image of the character to the next image index
 	public void switchImage() {
 		// setImage(1 - imageIndex);
@@ -97,14 +123,16 @@ public class MyCharacter implements ShapeListener{
 	}
 
 	public void setIdleAnimation() {
-        if (!isIdle) { // Only change animation if not already idle
-            currentFrames = idleFrames;
-            isIdle = true;
-        }
-    }
-
+		if(equipment == "Armor"){
+			currentFrames = armorIdleFrames;
+		}
+		else if(equipment == "Weapon"){
+			currentFrames = weaponIdleFrames;
+		}
+	}
+    
 	public void nextFrame() {
-        if (currentFrames == null || currentFrames.length == 0) return;
+        if (animation == false) return;
 
         currentFrameIndex = (currentFrameIndex + 1) % currentFrames.length;
 		setImage(currentFrames[currentFrameIndex]);
@@ -125,12 +153,12 @@ public class MyCharacter implements ShapeListener{
 
 	@Override
 	public void shapeStartDrag(String shapeID) {
-		;
+		stopAnimation();
 	}
 
 	@Override
 	public void shapeEndDrag(String shapeID) {
-		;
+		startAnimation();
 	}
 
 	@Override
