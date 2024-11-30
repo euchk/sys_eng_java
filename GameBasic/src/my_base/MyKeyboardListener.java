@@ -26,11 +26,17 @@ public class MyKeyboardListener extends KeyboardListener{
 		switch (direction) {
 		  case RIGHT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.RIGHT);
+			  if(myContent.myCharacter() != null){
+				myContent.myCharacter().setDirection(MyCharacter.Direction.RIGHT);
+			  }
 			  dx = 10;
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Right");
 			  break;
 		  case LEFT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.LEFT);
+			  if(myContent.myCharacter() != null){
+				myContent.myCharacter().setDirection(MyCharacter.Direction.LEFT);
+			  }
 			  dx = -10;
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Left");
 			  break;

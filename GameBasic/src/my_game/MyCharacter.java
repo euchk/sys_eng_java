@@ -10,7 +10,23 @@ import ui_elements.ScreenPoint;
 //Decide if you want to implemet the ShapeListener interface to handle drag and maouse events.
 //If so, add it to the class definition and implement the methods you want.
 public class MyCharacter implements ShapeListener{
+
+	public enum Direction {
+		RIGHT(0),
+		LEFT(1);
 	
+		private final int index;
+	
+		Direction(int index) {
+			this.index = index;
+		}
+	
+		public int getIndex() {
+			return index;
+		}
+	}
+	
+	private Direction direction;
 	private ScreenPoint location;
 	private String imageID;
 	private String equipment;
@@ -21,19 +37,35 @@ public class MyCharacter implements ShapeListener{
 	private final int imageWidth = 80;
 	private final int imageHeight = 80;
 
-	private final String[] weaponIdleFrames = {"resources/louisEX_idle0.png", 
-											"resources/louisEX_idle1.png",
-											"resources/louisEX_idle2.png",
-											"resources/louisEX_idle3.png",
-											"resources/louisEX_idle2.png",
-											"resources/louisEX_idle1.png"};
+	private final String[][] weaponIdleFrames = {
+												{"resources/louisEX_idle0.png", 
+												"resources/louisEX_idle1.png",
+												"resources/louisEX_idle2.png",
+												"resources/louisEX_idle3.png",
+												"resources/louisEX_idle2.png",
+												"resources/louisEX_idle1.png"}, // Right
+												{"resources/louisEX_idle_mirror0.png", 
+												"resources/louisEX_idle_mirror1.png",
+												"resources/louisEX_idle_mirror2.png",
+												"resources/louisEX_idle_mirror3.png",
+												"resources/louisEX_idle_mirror2.png",
+												"resources/louisEX_idle_mirror1.png"} // Left
+												};
 
-	private final String[] armorIdleFrames = {"resources/louis_idle0.png", 
-											"resources/louis_idle1.png",
-											"resources/louis_idle2.png",
-											"resources/louis_idle3.png",
-											"resources/louis_idle2.png",
-											"resources/louis_idle1.png"};
+	private final String[][] armorIdleFrames = {
+												{"resources/louis_idle0.png", 
+												"resources/louis_idle1.png",
+												"resources/louis_idle2.png",
+												"resources/louis_idle3.png",
+												"resources/louis_idle2.png",
+												"resources/louis_idle1.png"}, // Right
+												{"resources/louis_idle_mirror0.png", 
+												"resources/louis_idle_mirror1.png",
+												"resources/louis_idle_mirror2.png",
+												"resources/louis_idle_mirror3.png",
+												"resources/louis_idle_mirror2.png",
+												"resources/louis_idle_mirror1.png"} // Left
+												};											
 
 	private boolean animation = true;
 	private String[] currentFrames; // Current frames being used for animation
@@ -45,6 +77,7 @@ public class MyCharacter implements ShapeListener{
         this.imageID = id;
 		currentFrameIndex = 0;
 		equipment = "Armor";
+		setDirection(Direction.RIGHT);
 		setIdleAnimation();
     }
 
@@ -103,6 +136,11 @@ public class MyCharacter implements ShapeListener{
 		}
 	}
 
+	public void setDirection(Direction direction){
+		this.direction = direction;
+		setIdleAnimation();
+	}
+
 	public void stopAnimation(){
 		animation = false;
 	}
@@ -125,11 +163,11 @@ public class MyCharacter implements ShapeListener{
 
 	public void setIdleAnimation() {
 		if(this.equipment == "Armor"){
-			currentFrames = armorIdleFrames;
+			currentFrames = armorIdleFrames[direction.getIndex()];
 			setImage(currentFrames[currentFrameIndex]);
 		}
 		else if(this.equipment == "Weapon"){
-			currentFrames = weaponIdleFrames;
+			currentFrames = weaponIdleFrames[direction.getIndex()];
 			setImage(currentFrames[currentFrameIndex]);
 		}
 	}
