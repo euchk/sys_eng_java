@@ -20,36 +20,36 @@ public class MyKeyboardListener extends KeyboardListener{
 
 	@Override
 	public void directionalKeyPressed(Direction direction) {
+
+		int dx = 0, dy = 0;
+
 		switch (direction) {
 		  case RIGHT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.RIGHT);
-			  if(myContent.myCharacter() != null){
-			  	myContent.myCharacter().moveLocation(10, 0);
-			  }
+			  dx = 10;
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Right");
 			  break;
 		  case LEFT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.LEFT);
-			  if(myContent.myCharacter() != null){
-			  	myContent.myCharacter().moveLocation(-10, 0);
-			  }
+			  dx = -10;
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Left");
 			  break;
 		  case UP:
 			  //myContent.pokimon().setDirectionPolicy(Pokimon.Direction.UP);
 			  myContent.pokimon().setRotation(myContent.pokimon().getRotation() + 20);
-			  if(myContent.myCharacter() != null){
-				myContent.myCharacter().moveLocation(0, -10);
-			  }
-			  
+			  dy = -10;
 			  break;
 		  case DOWN:
 			  //myContent.pokimon().setDirectionPolicy(Pokimon.Direction.DOWN);
 			  myContent.pokimon().setRotation(myContent.pokimon().getRotation() - 20);
-			  if(myContent.myCharacter() != null){ 
-			  	myContent.myCharacter().moveLocation(0, 10);
-			  }
+			  dy = 10;
 			  break;
+		}
+		
+		if(myContent.myCharacter() != null){
+			myContent.myCharacter().moveLocation(dx, dy);
+			// Redraw character for smoother movement
+			Game.UI().canvas().moveShapeToLocation(myContent.myCharacter().getImageID(), myContent.myCharacter().getLocation().x, myContent.myCharacter().getLocation().y);
 		}
 	}
 	

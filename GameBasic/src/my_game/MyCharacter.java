@@ -88,7 +88,6 @@ public class MyCharacter implements ShapeListener{
 	public void moveLocation(int dx, int dy) {
 		this.location.x += dx;
 		this.location.y += dy;
-		Game.UI().canvas().moveShapeToLocation(imageID, location.x, location.y);
 	}
 
 	@Override
