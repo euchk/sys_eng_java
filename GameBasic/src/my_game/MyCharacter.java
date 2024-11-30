@@ -97,6 +97,7 @@ public class MyCharacter implements ShapeListener{
 	public void setEquipment(String equipment){
 		if (equipment == "Armor" || equipment == "Weapon"){
 			this.equipment = equipment;
+			setIdleAnimation();
 		} else {
 			throw new IllegalArgumentException("Only Armor or Weapon can be set for equipment");
 		}
@@ -123,11 +124,13 @@ public class MyCharacter implements ShapeListener{
 	}
 
 	public void setIdleAnimation() {
-		if(equipment == "Armor"){
+		if(this.equipment == "Armor"){
 			currentFrames = armorIdleFrames;
+			setImage(currentFrames[currentFrameIndex]);
 		}
-		else if(equipment == "Weapon"){
+		else if(this.equipment == "Weapon"){
 			currentFrames = weaponIdleFrames;
+			setImage(currentFrames[currentFrameIndex]);
 		}
 	}
     

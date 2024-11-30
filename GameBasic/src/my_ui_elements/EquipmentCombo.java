@@ -35,11 +35,9 @@ public class EquipmentCombo extends GameComboBox{
         switch (getOption()) {
             case "Armor":
                 myContent.myCharacter().setEquipment("Armor");
-                myContent.myCharacter().setIdleAnimation();
                 break;
             case "Weapon":
-            myContent.myCharacter().setEquipment("Weapon");
-            myContent.myCharacter().setIdleAnimation();
+                myContent.myCharacter().setEquipment("Weapon");
                 break;
             default:
           }
