@@ -17,16 +17,25 @@ public class MyCharacter implements ShapeListener{
 	//TODO
 	//Add your character properties
 
-	private final int[] imageWidth = {320,320};
-	private final int[] imageHeight = {360,360};
+	private final int imageWidth = 80;
+	private final int imageHeight = 80;
 
-	private final String[] images = {"resources/louis_s.png", "resources/louisEX_s.png"};
+	private final String[] idleFrames = {"resources/louisEX_idle0.png", 
+											"resources/louisEX_idle1.png",
+											"resources/louisEX_idle2.png",
+											"resources/louisEX_idle3.png",
+											"resources/louisEX_idle2.png",
+											"resources/louisEX_idle1.png"};
 
-	private int imageIndex = 0;
+	private String[] currentFrames; // Current frames being used for animation
+	private int currentFrameIndex;
+	private boolean isIdle = true;
 
 	public MyCharacter(ScreenPoint startLocation, String id) {
         this.location = startLocation;
         this.imageID = id;
+		currentFrames = idleFrames;
+        currentFrameIndex = 0;
     }
 
 	public ScreenPoint getLocation() {
@@ -46,19 +55,19 @@ public class MyCharacter implements ShapeListener{
 	}
 
 	public String getImageName() {
-		return images[imageIndex];
+		return currentFrames[currentFrameIndex];
 	}
 
 	public int getImageIndex() {
-		return imageIndex;
+		return currentFrameIndex;
 	}
 
 	private int getImageWidth() {
-		return imageWidth[imageIndex];
+		return imageWidth;
 	}
 	
 	private int getImageHeight() {
-		return imageHeight[imageIndex];
+		return imageHeight;
 	}
 
 	public void addToCanvas() {
@@ -77,17 +86,36 @@ public class MyCharacter implements ShapeListener{
 
 	// Switches the image of the character to the next image index
 	public void switchImage() {
-		setImage(1 - imageIndex);
-	}
-
-	public void setImage(int index) {
-		this.imageIndex = index;
-		Game.UI().canvas().changeImage(imageID, getImageName(), getImageWidth(), getImageHeight());
+		// setImage(1 - imageIndex);
+		// setImage(1 - currentFrameIndex);
+		;
 	}
 
 	public void moveLocation(int dx, int dy) {
 		this.location.x += dx;
 		this.location.y += dy;
+	}
+
+	public void setIdleAnimation() {
+        if (!isIdle) { // Only change animation if not already idle
+            currentFrames = idleFrames;
+            isIdle = true;
+        }
+    }
+
+	public void nextFrame() {
+        if (currentFrames == null || currentFrames.length == 0) return;
+
+        currentFrameIndex = (currentFrameIndex + 1) % currentFrames.length;
+		setImage(currentFrames[currentFrameIndex]);
+		
+    }
+	
+	public void setImage(String frame) {
+		GameCanvas canvas = Game.UI().canvas();
+		if (canvas.getShape(imageID) != null) {
+		canvas.changeImage(imageID, frame, getImageWidth(), getImageHeight());
+		}
 	}
 
 	@Override

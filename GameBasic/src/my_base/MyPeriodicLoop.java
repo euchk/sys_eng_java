@@ -22,12 +22,17 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		super.execute();
 		
 		// You can comment this line if you don't want the pokimon to move.
-		redrawPokimon();
+		// BUG: for some reason while the 2 characters redraw we get artifacts in myCharacter animation
+		// might be the accesive repaint() use
+		// TODO: fix the bug
+		// redrawPokimon();
 		
 		//TODO
 		//Redraw your character periodically by calling the correct method
+				
 		redrawCharacter();
-		
+		// TODO: try aggregating all the repaint() uses here
+		// canvas.repaint();
 	}
 	
 	private void redrawPokimon() {
@@ -36,7 +41,7 @@ public class MyPeriodicLoop extends PeriodicLoop {
 
 	private void redrawCharacter() {
 		
-		GameCanvas canvas = Game.UI().canvas();
+		
 		
 		//TODO
 		//Remove the comment from the next line so you can easily 
@@ -49,8 +54,7 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		//exists and if not, we return without doing anything.
 		
 		//TODO: Remove comments from next 2 lines
-		if (character == null)
-			return;
+		if (character == null) return;
 		
 		//TODO
 		//Call the canvas to change the shape properties according to
@@ -60,8 +64,10 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		//For example, if your shape is a Circle you can use:
 		//Circle circle = (Circle) canvas.getShape(id)
 		//and then change the specific Circle properties.
+        character.nextFrame(); // Advance the animation frame
 		
-		canvas.moveShapeToLocation(character.getImageID(), character.getLocation().x, character.getLocation().y);
+        
+
 		
 	}
 

@@ -34,10 +34,10 @@ public class WeaponCombo extends GameComboBox{
         super.action();
         switch (getOption()) {
             case "Yes":
-                myContent.myCharacter().setImage(1);
+                // myContent.myCharacter().setImage(1);
                 break;
             case "No":
-                myContent.myCharacter().setImage(0);
+                // myContent.myCharacter().setImage(0);
                 break;
             default:
           }

@@ -57,7 +57,7 @@ public class Pokimon implements ShapeListener, Intersectable {
 		
 		pokimonTable = Game.excelDB().createTableFromExcel("pokimonMoves");
 		pokimonTable.deleteAllRows();
-		setLocation(new ScreenPoint(300, 300));
+		setLocation(new ScreenPoint(600, 200));
 	}	
 
 	public void addToCanvas() {

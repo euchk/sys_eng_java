@@ -55,12 +55,16 @@ public class MyContent extends GameContent{
 		
 		//TODO
 		//Add your character visual representation to the canvas using its addToCanvas() method.
-		myCharacter = new MyCharacter(new ScreenPoint(400, 300), "myCharacter");
-		myCharacter.addToCanvas();
 
-		// Add a the weapon list combo
+		// Add a the weapon list combo to the dashboard
 		weaponCombo = new WeaponCombo(280, 120);
 		weaponCombo.addToDashboard();
+		
+		// Add the character to the canvas
+		myCharacter = new MyCharacter(new ScreenPoint(200, 700), "myCharacter");
+		myCharacter.addToCanvas();
+
+		
 		
 
 	}
