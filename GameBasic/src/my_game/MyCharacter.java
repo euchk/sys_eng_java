@@ -149,16 +149,25 @@ public class MyCharacter implements ShapeListener{
 		animation = true;
 	}
 
-	// Switches the image of the character to the next image index
-	public void switchImage() {
-		// setImage(1 - imageIndex);
-		// setImage(1 - currentFrameIndex);
-		;
+	public void changePosition(){
+		ScreenPoint newLocation;
+		int x, y;
+
+		x = (int) (Math.random() * 701);
+		y = (int) (Math.random() * 701);
+		newLocation = new ScreenPoint(x, y);
+		setLocation(newLocation);
+
+		// Redraw the character on canvas after changing position
+		Game.UI().canvas().moveShapeToLocation(imageID, location.x, location.y);
 	}
 
 	public void moveLocation(int dx, int dy) {
 		this.location.x += dx;
 		this.location.y += dy;
+
+		// Redraw the character on canvas after changing position
+		Game.UI().canvas().moveShapeToLocation(imageID, location.x, location.y);
 	}
 
 	public void setIdleAnimation() {

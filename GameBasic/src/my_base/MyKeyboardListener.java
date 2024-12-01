@@ -54,8 +54,6 @@ public class MyKeyboardListener extends KeyboardListener{
 		
 		if(myContent.myCharacter() != null){
 			myContent.myCharacter().moveLocation(dx, dy);
-			// Redraw character for smoother movement
-			Game.UI().canvas().moveShapeToLocation(myContent.myCharacter().getImageID(), myContent.myCharacter().getLocation().x, myContent.myCharacter().getLocation().y);
 		}
 	}
 	

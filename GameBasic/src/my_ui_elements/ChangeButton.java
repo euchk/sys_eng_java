@@ -22,7 +22,9 @@ public class ChangeButton extends GameButton{
 		//TODO
 		//Change your character properties by calling the appropriate method of
 		//MyContent
-		content.myCharacter().switchImage();
+		if(content.myCharacter() != null){
+			content.myCharacter().changePosition();
+		}
 		
 	}
 

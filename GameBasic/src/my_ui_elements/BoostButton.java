@@ -19,7 +19,7 @@ public class BoostButton extends GameButton{
 		MyContent content = (MyContent) Game.Content();
 		
 		// Changes the image and update button name
-		content.myCharacter().switchImage();
+		// content.myCharacter().switchImage();
 		
 		
 		

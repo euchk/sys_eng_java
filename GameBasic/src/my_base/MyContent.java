@@ -56,7 +56,7 @@ public class MyContent extends GameContent{
 		//TODO
 		//Add your character visual representation to the canvas using its addToCanvas() method.
 
-		// Add a the weapon list combo to the dashboard
+		// Add a the equipment list combo to the dashboard
 		weaponCombo = new EquipmentCombo(280, 120);
 		weaponCombo.addToDashboard();
 		
