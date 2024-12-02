@@ -56,6 +56,7 @@ public class MyContent extends GameContent{
 		//TODO
 		//Add your character visual representation to the canvas using its addToCanvas() method.
 
+		// There is no limit for pressing add so each press will reset the character position and properties
 		// Add a the equipment list combo to the dashboard
 		weaponCombo = new EquipmentCombo(280, 120);
 		weaponCombo.addToDashboard();
@@ -64,9 +65,8 @@ public class MyContent extends GameContent{
 		myCharacter = new MyCharacter(new ScreenPoint(200, 700), "myCharacter");
 		myCharacter.addToCanvas();
 
-		
-		
-
+		// Play sound effect
+		Game.audioPlayer().play("resources/audio/099.wav", 1);
 	}
 	
 	//TODO
@@ -79,6 +79,10 @@ public class MyContent extends GameContent{
 	//TODO
 	//create a changeCharacter method and change inside all the properties you like.
 	public void changeCharacter(){
-	;
+		if(myCharacter() == null) return;
+		myCharacter().changePosition();
+		
+		// Play sound effect
+		Game.audioPlayer().play("resources/audio/060.wav", 1);
 	}
 }

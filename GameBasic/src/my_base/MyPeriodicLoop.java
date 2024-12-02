@@ -64,6 +64,7 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		//For example, if your shape is a Circle you can use:
 		//Circle circle = (Circle) canvas.getShape(id)
 		//and then change the specific Circle properties.
+		
         character.nextFrame(); // Advance the animation frame
 		
         

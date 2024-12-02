@@ -22,9 +22,7 @@ public class ChangeButton extends GameButton{
 		//TODO
 		//Change your character properties by calling the appropriate method of
 		//MyContent
-		if(content.myCharacter() != null){
-			content.myCharacter().changePosition();
-		}
+		content.changeCharacter();
 		
 	}
 
