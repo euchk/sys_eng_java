@@ -95,7 +95,7 @@ public class MyContent extends GameContent{
 		myCharacter.changePosition();
 		
 		// Play sound effect
-		Game.audioPlayer().play("resources/audio/060.wav", 1);
+		Game.audioPlayer().play("resources/audio/069.wav", 1);
 	}
 
 	public void boostCharacter(){
