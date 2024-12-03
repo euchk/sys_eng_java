@@ -35,10 +35,12 @@ public class EquipmentCombo extends GameComboBox{
         switch (getOption()) {
             case "Armor":
                 myContent.myCharacter().setEquipment("Armor");
+                myContent.boostButton().removeFromDashboard(); // Boost available only on weapon mode
                 Game.audioPlayer().play("resources/audio/034.wav", 1);
                 break;
             case "Weapon":
                 myContent.myCharacter().setEquipment("Weapon");
+                myContent.boostButton().addToDashboard(); // Boost available only on weapon mode
                 Game.audioPlayer().play("resources/audio/028.wav", 1);
                 break;
             default:

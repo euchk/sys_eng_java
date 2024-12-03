@@ -59,18 +59,12 @@ public class MyGame extends Game {
 		// Add a the direction list combo
 		dashboard.addUIElement(new DirectionCombo(280, 20));
 
-		
-
 		// Add a the AddButton button
 		dashboard.addUIElement(new AddButton("addButton", "Add", 540, 40));
 		
 		// Add the ChangeButton button to the dashboard
 		dashboard.addUIElement(new ChangeButton("changeButton", "Change", 540, 100));
 		dashboard.addUIElement(new MusicButton("musicButton", "Play", 700, 40));
-
-		// Add the BoostButton button to the dashboard
-		dashboard.addUIElement(new BoostButton("boostButton", "Boost", 700, 100));
-		
 
 	}
 	

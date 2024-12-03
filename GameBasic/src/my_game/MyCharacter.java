@@ -52,6 +52,21 @@ public class MyCharacter implements ShapeListener{
 												"resources/louisEX_idle_mirror1.png"} // Left
 												};
 
+	private final String[][] weaponBoostFrames = {
+												{"resources/louisEX_boost0.png", 
+												"resources/louisEX_boost1.png",
+												"resources/louisEX_boost2.png",
+												"resources/louisEX_boost3.png",
+												"resources/louisEX_boost4.png",
+												"resources/louisEX_boost5.png"}, // Right
+												{"resources/louisEX_boost_mirror0.png", 
+												"resources/louisEX_boost_mirror1.png",
+												"resources/louisEX_boost_mirror2.png",
+												"resources/louisEX_boost_mirror3.png",
+												"resources/louisEX_boost_mirror2.png",
+												"resources/louisEX_boost_mirror1.png"} // Left
+												};												
+
 	private final String[][] armorIdleFrames = {
 												{"resources/louis_idle0.png", 
 												"resources/louis_idle1.png",
@@ -68,6 +83,7 @@ public class MyCharacter implements ShapeListener{
 												};											
 
 	private boolean animation = true;
+	private boolean boost = false; // Enables boost animation once
 	private String[] currentFrames; // Current frames being used for animation
 	private int currentFrameIndex;
 	
@@ -121,7 +137,6 @@ public class MyCharacter implements ShapeListener{
 		image.setShapeListener(this);
 		image.setzOrder(3);
 		canvas.addShape(image);
-
 	}
 
 	//TODO
@@ -153,9 +168,12 @@ public class MyCharacter implements ShapeListener{
 		ScreenPoint newLocation;
 		int x, y;
 
+		// Generate random location on the canvas
 		x = (int) (Math.random() * 701);
 		y = (int) (Math.random() * 701);
 		newLocation = new ScreenPoint(x, y);
+		
+		// Change the character's location
 		setLocation(newLocation);
 
 		// Redraw the character on canvas after changing position
@@ -166,7 +184,7 @@ public class MyCharacter implements ShapeListener{
 		this.location.x += dx;
 		this.location.y += dy;
 
-		// Redraw the character on canvas after changing position
+		// Redraw the character on canvas after changing location
 		Game.UI().canvas().moveShapeToLocation(imageID, location.x, location.y);
 	}
 
@@ -180,12 +198,24 @@ public class MyCharacter implements ShapeListener{
 			setImage(currentFrames[currentFrameIndex]);
 		}
 	}
+
+	public void setBoostAnimation(){
+		boost = true;
+		currentFrames = weaponBoostFrames[direction.getIndex()];
+		setImage(currentFrames[currentFrameIndex]);
+	}
     
 	public void nextFrame() {
         if (animation == false) return;
 
         currentFrameIndex = (currentFrameIndex + 1) % currentFrames.length;
 		setImage(currentFrames[currentFrameIndex]);
+
+		// If animating boost sequence do it once and return to idle
+		if(boost == true && currentFrameIndex == currentFrames.length - 1){
+			boost = false;
+			setIdleAnimation();
+		}
 		
     }
 	

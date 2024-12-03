@@ -1,6 +1,7 @@
 package my_ui_elements;
 
 import base.Game;
+import base.GameDashboard;
 import my_base.MyContent;
 import ui_elements.GameButton;
 
@@ -18,11 +19,20 @@ public class BoostButton extends GameButton{
 		
 		MyContent content = (MyContent) Game.Content();
 		
-		// Changes the image and update button name
-		// content.myCharacter().switchImage();
-		
-		
-		
+		// Plays a one time animation sequence
+		content.boostCharacter();
 	}
+
+	// Add the "hidden" boost button to dashboard
+    public void addToDashboard() {
+        GameDashboard dashboard = Game.UI().dashboard();
+        dashboard.addUIElement(this);
+    }
+
+	// Remove from dashboard
+    public void removeFromDashboard() {
+        GameDashboard dashboard = Game.UI().dashboard();
+        dashboard.deleteUIElement("boostButton");
+    }
 
 }
