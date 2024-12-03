@@ -23,6 +23,9 @@ public class ChangeButton extends GameButton{
 		//Change your character properties by calling the appropriate method of
 		//MyContent
 		content.changeCharacter();
+
+		// Play sound effect
+		Game.audioPlayer().play("resources/audio/069.wav", 1);
 		
 	}
 

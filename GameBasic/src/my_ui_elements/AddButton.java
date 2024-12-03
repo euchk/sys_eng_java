@@ -22,6 +22,9 @@ public class AddButton extends GameButton{
 		//Add your character to your game content
 		content.addCharacter();
 		
+		// Play sound effect
+		Game.audioPlayer().play("resources/audio/099.wav", 1);
+		
 	}
 
 }

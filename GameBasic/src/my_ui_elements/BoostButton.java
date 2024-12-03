@@ -19,8 +19,11 @@ public class BoostButton extends GameButton{
 		
 		MyContent content = (MyContent) Game.Content();
 		
-		// Plays a one time animation sequence
+		// Plays once an animation sequence
 		content.boostCharacter();
+
+		// Play sound effect
+		Game.audioPlayer().play("resources/audio/064.wav", 1);
 	}
 
 	// Add the "hidden" boost button to dashboard

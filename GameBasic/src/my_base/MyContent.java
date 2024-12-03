@@ -72,8 +72,6 @@ public class MyContent extends GameContent{
 		myCharacter = new MyCharacter(new ScreenPoint(200, 700), "myCharacter");
 		myCharacter.addToCanvas();
 
-		// Play sound effect
-		Game.audioPlayer().play("resources/audio/099.wav", 1);
 	}
 	
 	//TODO
@@ -93,18 +91,10 @@ public class MyContent extends GameContent{
 	public void changeCharacter(){
 		if(myCharacter == null) return;
 		myCharacter.changePosition();
-		
-		// Play sound effect
-		Game.audioPlayer().play("resources/audio/069.wav", 1);
 	}
 
 	public void boostCharacter(){
 		if(myCharacter == null) return;
-		
-		// Play boost animation
 		myCharacter.setBoostAnimation();
-		
-		// Play sound effect
-		Game.audioPlayer().play("resources/audio/064.wav", 1);
 	}
 }
