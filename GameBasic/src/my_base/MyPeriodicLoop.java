@@ -22,17 +22,13 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		super.execute();
 		
 		// You can comment this line if you don't want the pokimon to move.
-		// BUG: for some reason while the 2 characters redraw we get artifacts in myCharacter animation
+
+		// TODO: for some reason while the 2 characters redraw we get artifacts in myCharacter animation
 		// might be the accesive repaint() use
-		// TODO: fix the bug
 		// redrawPokimon();
 		
-		//TODO
-		//Redraw your character periodically by calling the correct method
-				
+		//Redraw your character periodically by calling the correct method		
 		redrawCharacter();
-		// TODO: try aggregating all the repaint() uses here
-		// canvas.repaint();
 	}
 	
 	private void redrawPokimon() {
@@ -40,37 +36,8 @@ public class MyPeriodicLoop extends PeriodicLoop {
 	}
 
 	private void redrawCharacter() {
-		
-		
-		
-		//TODO
-		//Remove the comment from the next line so you can easily 
-		//access your character
-
 		MyCharacter character = content.myCharacter();
-		
-		//Since this function is called every interval, it will also be called
-		//before the character is created. Therefore, we check if the character 
-		//exists and if not, we return without doing anything.
-		
-		//TODO: Remove comments from next 2 lines
 		if (character == null) return;
-		
-		//TODO
-		//Call the canvas to change the shape properties according to
-		//its current property values
-		//You can get the shape using canvas.getShape(id) with the id of your character
-		//Then you can cast it so you can refer to its specific properties.
-		//For example, if your shape is a Circle you can use:
-		//Circle circle = (Circle) canvas.getShape(id)
-		//and then change the specific Circle properties.
-		
         character.nextFrame(); // Advance the animation frame
-		
-        
-
-		
 	}
-
-
 }

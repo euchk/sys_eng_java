@@ -10,23 +10,21 @@ import ui_elements.GameComboBox;
 
 public class EquipmentCombo extends GameComboBox{
     private TextLabelUIElement textLabel;
+    private GameDashboard dashboard = Game.UI().dashboard();
     MyContent myContent;
 
     public EquipmentCombo(int posX, int posY) {
         super("equipmentCombo", "Equipment", posX, posY, 160, 30, new String[] {"Armor", "Weapon"});
         
-        // Create label for the combo box
+        // Create text label for the combo box
+        // label will be used to init TextLabelUIElement
         JLabel label = new JLabel("Equipment:");
         label.setBounds(posX, posY - 25, 200, 30); // Position the label above the combo box
         label.setForeground(Color.WHITE); 
         textLabel = new TextLabelUIElement("equipmentLabel", label, posX, posY - 25);
         
         myContent = (MyContent) Game.Content();
-        this.comboBox.setSelectedItem("No");
-    }
-
-    public void setWeapon(String weapon) {
-        this.comboBox.setSelectedItem(weapon);
+        this.comboBox.setSelectedItem("Armor");
     }
 
     @Override
@@ -50,7 +48,6 @@ public class EquipmentCombo extends GameComboBox{
      
     // Add both the combo box and the label to the dashboard
     public void addToDashboard() {
-        GameDashboard dashboard = Game.UI().dashboard();
         dashboard.addUIElement(textLabel);
         dashboard.addUIElement(this);
     }

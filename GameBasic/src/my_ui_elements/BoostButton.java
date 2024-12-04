@@ -7,35 +7,31 @@ import ui_elements.GameButton;
 
 public class BoostButton extends GameButton{
 	
+	GameDashboard dashboard = Game.UI().dashboard();
+
 	public BoostButton(String id, String name, int posX, int posY) {
 		super(id, name, 100, 40, posX, posY);
 	}
 
 	@Override
 	public void action() {
-		// The basic buttonAction prints the id of the button to the console.
-		// Keep the call to super to preserve this behavior or remove it if you don't want the printing.
 		super.action();
-		
+
 		MyContent content = (MyContent) Game.Content();
-		
 		// Plays once an animation sequence
 		content.boostCharacter();
-
 		// Play sound effect
 		Game.audioPlayer().play("resources/audio/064.wav", 1);
 	}
 
-	// Add the "hidden" boost button to dashboard
+	// Add to the dashboard
     public void addToDashboard() {
-        GameDashboard dashboard = Game.UI().dashboard();
-        dashboard.addUIElement(this);
+		dashboard.addUIElement(this);
     }
 
-	// Remove from dashboard
+	// Remove from the dashboard
     public void removeFromDashboard() {
-        GameDashboard dashboard = Game.UI().dashboard();
-        dashboard.deleteUIElement("boostButton");
+		dashboard.deleteUIElement("boostButton");
     }
 
 }

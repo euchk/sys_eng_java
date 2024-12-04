@@ -17,10 +17,9 @@ public class MyContent extends GameContent{
 	private Pokimon pokimon;
 	private MyPolygon myPolygon;
 	
-	//TODO
 	//Declare your own character
 	private MyCharacter myCharacter;
-	private EquipmentCombo weaponCombo;
+	private EquipmentCombo equipmentCombo;
 	private BoostButton boostButton;
 	
 
@@ -38,8 +37,6 @@ public class MyContent extends GameContent{
 		};
 
 		myPolygon = new MyPolygon(points);
-		
-        
 	}	
 	
 	public Pokimon pokimon() {
@@ -51,30 +48,24 @@ public class MyContent extends GameContent{
 	}
 	
 	public void addCharacter() {
-		//TODO
-		//Create an instance of your character and set its properties with
-		//initial values
-		
-		//TODO
-		//Add your character visual representation to the canvas using its addToCanvas() method.
-
-		// Limit pressing on add button
+		// Limit to 1 press
 		if(myCharacter != null) return;
-
-		// Add a the equipment list combo to the dashboard
-		weaponCombo = new EquipmentCombo(280, 120);
-		weaponCombo.addToDashboard();
-
-		// Creates a boost button but doesn't add it to the dashboard yet
-		boostButton = new BoostButton("boostButton", "Boost", 700, 100);
-			
+	
 		// Add the character to the canvas
 		myCharacter = new MyCharacter(new ScreenPoint(200, 700), "myCharacter");
 		myCharacter.addToCanvas();
 
+		// Create a boost button but don't add it to the dashboard yet
+		// boostButton must be initiated before equipmentCombo because the combo box default setting
+		// calls a method of boost button
+		boostButton = new BoostButton("boostButton", "Boost", 700, 100);
+		
+		// Add a the equipment list combo to the dashboard
+		equipmentCombo = new EquipmentCombo(280, 120);
+		equipmentCombo.addToDashboard();
+
 	}
-	
-	//TODO
+
 	//create a method with the name myCharacter which returns
 	//your character for others to use.
 	public MyCharacter myCharacter() {
@@ -86,7 +77,6 @@ public class MyContent extends GameContent{
 		return boostButton;
 	}
 	
-	//TODO
 	//create a changeCharacter method and change inside all the properties you like.
 	public void changeCharacter(){
 		if(myCharacter == null) return;

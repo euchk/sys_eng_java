@@ -139,9 +139,9 @@ public class MyCharacter implements ShapeListener{
 		canvas.addShape(image);
 	}
 
-	//TODO
 	//Add setters, getters and other methods that you need for your character
 
+	// Set the animation according to the combo box option
 	public void setEquipment(String equipment){
 		if (equipment == "Armor" || equipment == "Weapon"){
 			this.equipment = equipment;
@@ -164,16 +164,17 @@ public class MyCharacter implements ShapeListener{
 		animation = true;
 	}
 
+	// Change the character's position to a random location
 	public void changePosition(){
 		ScreenPoint newLocation;
 		int x, y;
 
 		// Generate random location on the canvas
-		x = (int) (Math.random() * 701);
-		y = (int) (Math.random() * 701);
+		x = (int) (Math.random() * 700); // Size to fit in the screen
+		y = (int) (Math.random() * 700);
+				
+		// Set new location
 		newLocation = new ScreenPoint(x, y);
-		
-		// Change the character's location
 		setLocation(newLocation);
 
 		// Redraw the character on canvas after changing position
@@ -188,6 +189,7 @@ public class MyCharacter implements ShapeListener{
 		Game.UI().canvas().moveShapeToLocation(imageID, location.x, location.y);
 	}
 
+	// Set the character's idle animation according to the equipement
 	public void setIdleAnimation() {
 		if(this.equipment == "Armor"){
 			currentFrames = armorIdleFrames[direction.getIndex()];
@@ -199,12 +201,14 @@ public class MyCharacter implements ShapeListener{
 		}
 	}
 
+		// Activate boost animation once
 	public void setBoostAnimation(){
 		boost = true;
 		currentFrames = weaponBoostFrames[direction.getIndex()];
 		setImage(currentFrames[currentFrameIndex]);
 	}
     
+	// Change image to the next frame
 	public void nextFrame() {
         if (animation == false) return;
 

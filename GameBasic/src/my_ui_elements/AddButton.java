@@ -13,15 +13,11 @@ public class AddButton extends GameButton{
 
 	@Override
 	public void action() {
-		// The basic buttonAction prints the id of the button to the console.
-		// Keep the call to super to preserve this behavior or remove it if you don't want the printing.
 		super.action();
-		
+
 		MyContent content = (MyContent) Game.Content();
-		//TODO
 		//Add your character to your game content
 		content.addCharacter();
-		
 		// Play sound effect
 		Game.audioPlayer().play("resources/audio/099.wav", 1);
 		
