@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import base.Game;
 import base.GameDashboard;
 import my_base.MyContent;
+import my_game.MyCharacter.Equipment;
 import ui_elements.GameComboBox;
 
 public class EquipmentCombo extends GameComboBox{
@@ -32,12 +33,12 @@ public class EquipmentCombo extends GameComboBox{
         super.action();
         switch (getOption()) {
             case "Armor":
-                myContent.myCharacter().setEquipment("Armor");
+                myContent.myCharacter().setEquipment(Equipment.ARMOR);
                 myContent.boostButton().removeFromDashboard(); // Boost available only on weapon mode
                 Game.audioPlayer().play("resources/audio/034.wav", 1);
                 break;
             case "Weapon":
-                myContent.myCharacter().setEquipment("Weapon");
+                myContent.myCharacter().setEquipment(Equipment.WEAPON);
                 myContent.boostButton().addToDashboard(); // Boost available only on weapon mode
                 Game.audioPlayer().play("resources/audio/028.wav", 1);
                 break;

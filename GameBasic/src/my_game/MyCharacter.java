@@ -11,6 +11,12 @@ import ui_elements.ScreenPoint;
 //If so, add it to the class definition and implement the methods you want.
 public class MyCharacter implements ShapeListener{
 
+	public enum Equipment{
+		ARMOR, WEAPON;
+	}
+	
+	// Used to choose between image (right) and mirrored image (left)
+	// Translates to 0, 1 for indexing
 	public enum Direction {
 		RIGHT(0),
 		LEFT(1);
@@ -29,9 +35,12 @@ public class MyCharacter implements ShapeListener{
 	private Direction direction;
 	private ScreenPoint location;
 	private String imageID;
-	private String equipment;
+	private Equipment equipment;
+	private boolean animation = true;
+	private boolean boost = false; // Enables boost animation once
+	private String[] currentFrames; // Current frames being used for animation
+	private int currentFrameIndex;
 	
-	//TODO
 	//Add your character properties
 
 	private final int imageWidth = 80;
@@ -80,21 +89,15 @@ public class MyCharacter implements ShapeListener{
 												"resources/louis_idle_mirror3.png",
 												"resources/louis_idle_mirror2.png",
 												"resources/louis_idle_mirror1.png"} // Left
-												};											
-
-	private boolean animation = true;
-	private boolean boost = false; // Enables boost animation once
-	private String[] currentFrames; // Current frames being used for animation
-	private int currentFrameIndex;
+												};
 	
 
 	public MyCharacter(ScreenPoint startLocation, String id) {
         this.location = startLocation;
         this.imageID = id;
 		currentFrameIndex = 0;
-		equipment = "Armor";
-		setDirection(Direction.RIGHT);
-		setIdleAnimation();
+		setDirection(Direction.RIGHT); // Must be set before equipment
+		setEquipment(Equipment.ARMOR);
     }
 
 	public ScreenPoint getLocation() {
@@ -131,7 +134,6 @@ public class MyCharacter implements ShapeListener{
 
 	public void addToCanvas() {
 		GameCanvas canvas = Game.UI().canvas();
-		//TODO
 		//Create the character's graphical elements and add them to the canvas
 		Image image = new Image(getImageID(), getImageName(), getImageWidth(),getImageHeight(), location.x, location.y);
 		image.setShapeListener(this);
@@ -142,18 +144,14 @@ public class MyCharacter implements ShapeListener{
 	//Add setters, getters and other methods that you need for your character
 
 	// Set the animation according to the combo box option
-	public void setEquipment(String equipment){
-		if (equipment == "Armor" || equipment == "Weapon"){
-			this.equipment = equipment;
-			setIdleAnimation();
-		} else {
-			throw new IllegalArgumentException("Only Armor or Weapon can be set for equipment");
-		}
+	public void setEquipment(Equipment equipment){
+		this.equipment = equipment;
+		setIdleAnimation(); // Update image
 	}
-
+	
 	public void setDirection(Direction direction){
 		this.direction = direction;
-		setIdleAnimation();
+		setIdleAnimation(); // Update image
 	}
 
 	public void stopAnimation(){
@@ -191,11 +189,11 @@ public class MyCharacter implements ShapeListener{
 
 	// Set the character's idle animation according to the equipement
 	public void setIdleAnimation() {
-		if(this.equipment == "Armor"){
+		if(equipment == Equipment.ARMOR){
 			currentFrames = armorIdleFrames[direction.getIndex()];
 			setImage(currentFrames[currentFrameIndex]);
 		}
-		else if(this.equipment == "Weapon"){
+		else if(equipment == Equipment.WEAPON){
 			currentFrames = weaponIdleFrames[direction.getIndex()];
 			setImage(currentFrames[currentFrameIndex]);
 		}
