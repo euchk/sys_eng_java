@@ -39,17 +39,17 @@ public class Pokimon implements ShapeListener, Intersectable {
 	private Direction directionPolicy = Direction.RIGHT;
 	private Direction direction = Direction.RIGHT;
 	
-	private final String[] images = {"resources/Poki.png", "resources/Poki2.jpg"};
+	private final String[] images = {"resources/S_Attack.png", "resources/Poki2.jpg"};
 
 	/**
 	 * The following two arrays hold the widths and heights of the different images.
 	 */
-	private final int[] imageWidth = {220,260};
-	private final int[] imageHeight = {200,195};
+	private final int[] imageWidth = {96,260};
+	private final int[] imageHeight = {96,195};
 
 	private int imageIndex = 0;
 	private final String imageID = "pokimon";
-	private boolean isMoving = true;
+	private boolean isMoving = false;
 	private int rotation = 0;	// In degrees
 	
 	
@@ -57,7 +57,7 @@ public class Pokimon implements ShapeListener, Intersectable {
 		
 		pokimonTable = Game.excelDB().createTableFromExcel("pokimonMoves");
 		pokimonTable.deleteAllRows();
-		setLocation(new ScreenPoint(300, 300));
+		setLocation(new ScreenPoint(950, 180));
 	}	
 
 	public void addToCanvas() {
@@ -154,7 +154,8 @@ public class Pokimon implements ShapeListener, Intersectable {
 				break;
 		}
 	}
-	public void move() {
+	
+		public void move() {
 		MyPolygon polygon = ((MyContent) Game.Content()).polygon();
 		if (IntersectionAlgorithm.areIntersecting(this, polygon)) {
 			turn180();
@@ -197,13 +198,13 @@ public class Pokimon implements ShapeListener, Intersectable {
 
 	@Override
 	public void shapeClicked(String shapeID, int x, int y) {
-		stopMoving();
+		resumeMoving();
 
 	}
 
 	@Override
 	public void shapeRightClicked(String shapeID, int x, int y) {
-		resumeMoving();
+		stopMoving();
 	}
 
 	@Override

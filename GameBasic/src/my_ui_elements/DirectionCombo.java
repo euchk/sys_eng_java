@@ -11,7 +11,7 @@ public class DirectionCombo extends GameComboBox{
     public DirectionCombo(int posX, int posY) {
         super("directionCombo", "Direction Policy", posX, posY, 160, 30, new String[] {"Left", "Right"});
         myContent = (MyContent) Game.Content();
-        this.comboBox.setSelectedItem("Right");
+        this.comboBox.setSelectedItem("Left");
     }
 
     public void setDirection(String direction) {

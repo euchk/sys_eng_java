@@ -4,6 +4,7 @@ package my_base;
 
 
 import my_game.Pokimon;
+import my_game.MyCharacter;
 import ui_elements.ScreenPoint;
 import base.Game;
 import base.GameCanvas;
@@ -12,15 +13,15 @@ import my_game.MyPolygon;
 
 public class MyContent extends GameContent{
 	private Pokimon pokimon;
+	private MyCharacter tower1, tower2;
 	private MyPolygon myPolygon;
-	
-	//TODO
-	//Declare your own character
 	
 
 	@Override
 	public void initContent() {
 		pokimon = new Pokimon();
+		tower1 = new MyCharacter(new ScreenPoint(320, 220), "tower1");
+		tower2 = new MyCharacter(new ScreenPoint(450, 380), "tower2");
 		ScreenPoint[] points = {
 			new ScreenPoint(100, 100),
 			new ScreenPoint(130, 50),
@@ -38,26 +39,17 @@ public class MyContent extends GameContent{
 		return pokimon;
 	}
 
+	public MyCharacter tower1() {
+		return tower1;
+	}
+
+	public MyCharacter tower2() {
+		return tower2;
+	}
+
 	public MyPolygon polygon() {
 		return myPolygon;
 	}
 	
-	public void addCharacter() {
-		//TODO
-		//Create an instance of your character and set its properties with
-		//initial values
-		
-		
-		//TODO
-		//Add your character visual representation to the canvas using its addToCanvas() method.
 
-	}
-	
-	//TODO
-	//create a method with the name myCharacter which returns
-	//your character for others to use.
-
-	
-	//TODO
-	//create a changeCharacter method and change inside all the properties you like.
 }
