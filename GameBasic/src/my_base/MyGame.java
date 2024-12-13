@@ -30,10 +30,10 @@ public class MyGame extends Game {
 
 		Pokimon pokimon = content.pokimon();
 		pokimon.addToCanvas();
-		canvas.addShape(content.polygon().getVisualPolygon());
+		// canvas.addShape(content.polygon().getVisualPolygon());
 		Circle c = new Circle("circle", 300, 300, 50);
 		c.setDraggable(false);
-		canvas.addShape(c);
+		// canvas.addShape(c);
 	}
 	
 	@Override

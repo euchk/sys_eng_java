@@ -39,7 +39,7 @@ public class Pokimon implements ShapeListener, Intersectable {
 	private Direction directionPolicy = Direction.RIGHT;
 	private Direction direction = Direction.RIGHT;
 	
-	private final String[] images = {"resources/Poki.jpg", "resources/Poki2.jpg"};
+	private final String[] images = {"resources/Poki.png", "resources/Poki2.jpg"};
 
 	/**
 	 * The following two arrays hold the widths and heights of the different images.
@@ -208,13 +208,13 @@ public class Pokimon implements ShapeListener, Intersectable {
 
 	@Override
 	public void mouseEnterShape(String shapeID, int x, int y) {
-		switchImage();
+		// switchImage();
 
 	}
 
 	@Override
 	public void mouseExitShape(String shapeID, int x, int y) {
-		switchImage();
+		// switchImage();
 
 	}
 	
