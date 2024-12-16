@@ -15,10 +15,10 @@ import ui_elements.ScreenPoint;
 public class Pokimon implements ShapeListener, Intersectable {
 	
 	public enum Direction{
-		RIGHT (10,0),
-		LEFT(-10,0),
-		UP (0,-10),
-		DOWN(0,10);
+		RIGHT (30,0),
+		LEFT(-30,0),
+		UP (0,-30),
+		DOWN(0,30);
 		
 		private final int xVec, yVec;
 		private Direction(int xVec, int yVec) {
@@ -38,14 +38,15 @@ public class Pokimon implements ShapeListener, Intersectable {
 	private ScreenPoint location;
 	private Direction directionPolicy = Direction.RIGHT;
 	private Direction direction = Direction.RIGHT;
+	private int speed = 3;
 	
 	private final String[] images = {"resources/S_Attack.png", "resources/Poki2.jpg"};
 
 	/**
 	 * The following two arrays hold the widths and heights of the different images.
 	 */
-	private final int[] imageWidth = {96,260};
-	private final int[] imageHeight = {96,195};
+	private final int[] imageWidth = {192,260};
+	private final int[] imageHeight = {192,195};
 
 	private int imageIndex = 0;
 	private final String imageID = "pokimon";
@@ -57,7 +58,7 @@ public class Pokimon implements ShapeListener, Intersectable {
 		
 		pokimonTable = Game.excelDB().createTableFromExcel("pokimonMoves");
 		pokimonTable.deleteAllRows();
-		setLocation(new ScreenPoint(950, 180));
+		setLocation(new ScreenPoint(1800, 600));
 	}	
 
 	public void addToCanvas() {

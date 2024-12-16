@@ -69,43 +69,43 @@ public void addToCanvas() {
 	@Override
 	public void shapeMoved(String shapeID, int dx, int dy) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'shapeMoved'");
+		// throw new UnsupportedOperationException("Unimplemented method 'shapeMoved'");
 	}
 
 	@Override
 	public void shapeStartDrag(String shapeID) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'shapeStartDrag'");
+		// throw new UnsupportedOperationException("Unimplemented method 'shapeStartDrag'");
 	}
 
 	@Override
 	public void shapeEndDrag(String shapeID) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'shapeEndDrag'");
+		// throw new UnsupportedOperationException("Unimplemented method 'shapeEndDrag'");
 	}
 
 	@Override
 	public void shapeClicked(String shapeID, int x, int y) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'shapeClicked'");
+		// throw new UnsupportedOperationException("Unimplemented method 'shapeClicked'");
 	}
 
 	@Override
 	public void shapeRightClicked(String shapeID, int x, int y) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'shapeRightClicked'");
+		// throw new UnsupportedOperationException("Unimplemented method 'shapeRightClicked'");
 	}
 
 	@Override
 	public void mouseEnterShape(String shapeID, int x, int y) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'mouseEnterShape'");
+		// throw new UnsupportedOperationException("Unimplemented method 'mouseEnterShape'");
 	}
 
 	@Override
 	public void mouseExitShape(String shapeID, int x, int y) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'mouseExitShape'");
+		// throw new UnsupportedOperationException("Unimplemented method 'mouseExitShape'");
 	}
 
 	
