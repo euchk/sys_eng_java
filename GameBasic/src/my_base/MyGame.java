@@ -7,6 +7,7 @@ import base.GameCanvas;
 import base.GameContent;
 import base.GameDashboard;
 import my_game.MyCharacter;
+import my_game.Enemy;
 import my_game.Pokimon;
 import my_ui_elements.AddButton;
 import my_ui_elements.ChangeButton;
@@ -30,11 +31,13 @@ public class MyGame extends Game {
 		canvas.setBackgroundImage("resources/map3.png");
 
 		Pokimon pokimon = content.pokimon();
-		pokimon.addToCanvas();
+		// pokimon.addToCanvas();
 		MyCharacter tower1 = content.tower1();
 		tower1.addToCanvas();
 		MyCharacter tower2 = content.tower2();
 		tower2.addToCanvas();
+		Enemy enemy1 = content.enemy1();
+		enemy1.addToCanvas();
 
 		// canvas.addShape(content.polygon().getVisualPolygon());
 		Circle c = new Circle("circle", 300, 300, 50);

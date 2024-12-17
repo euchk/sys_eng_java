@@ -23,8 +23,9 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		// You can comment this line if you don't want the pokimon to move.
 		redrawPokimon();
 		
-		//TODO
-		//Redraw your character periodically by calling the correct method
+		redrawTower1();
+		redrawTower2();
+		redrawEnemy1();
 		
 	}
 	
@@ -32,33 +33,23 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		content.pokimon().move();
 	}
 
-	private void redrawCharacter() {
-		
-		GameCanvas canvas = Game.UI().canvas();
-		
-		//TODO
-		//Remove the comment from the next line so you can easily 
-		//access your character
+	private void redrawTower1() {
+		if (content.tower1() == null)
+			return;
+		content.tower1().animatedImage().nextFrame();
+	}
 
-		//MyCharacter character = content.myCharacter();
-		
-		//Since this function is called every interval, it will also be called
-		//before the character is created. Therefore, we check if the character 
-		//exists and if not, we return without doing anything.
-		
-		//TODO: Remove comments from next 2 lines
-//		if (character == null)
-//			return;
-		
-		//TODO
-		//Call the canvas to change the shape properties according to
-		//its current property values
-		//You can get the shape using canvas.getShape(id) with the id of your character
-		//Then you can cast it so you can refer to its specific properties.
-		//For example, if your shape is a Circle you can use:
-		//Circle circle = (Circle) canvas.getShape(id)
-		//and then change the specific Circle properties.
-		
+	private void redrawTower2() {
+		if (content.tower2() == null)
+			return;
+		content.tower2().animatedImage().nextFrame();
+	}
+
+	private void redrawEnemy1() {
+		if (content.enemy1() == null)
+			return;
+		content.enemy1().move();
+		content.enemy1().animatedImage().nextFrame();
 	}
 
 
