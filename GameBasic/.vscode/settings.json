@@ -4,5 +4,10 @@
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    }
+    },
+        
+    "java.project.referencedLibraries": [
+        "libs/gson-2.11.0.jar"
+    ]
+    
 }
