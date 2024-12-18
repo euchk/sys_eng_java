@@ -25,7 +25,10 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		
 		redrawTower1();
 		redrawTower2();
+		redrawArcher1();
+		redrawArcher2();
 		redrawEnemy1();
+
 		
 	}
 	
@@ -43,6 +46,18 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		if (content.tower2() == null)
 			return;
 		content.tower2().animatedImage().nextFrame();
+	}
+
+	private void redrawArcher1() {
+		if (content.archer1() == null)
+			return;
+		content.archer1().animatedImage().nextFrame();
+	}
+
+	private void redrawArcher2() {
+		if (content.archer2() == null)
+			return;
+		content.archer2().animatedImage().nextFrame();
 	}
 
 	private void redrawEnemy1() {

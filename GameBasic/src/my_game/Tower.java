@@ -5,13 +5,10 @@ import base.GameCanvas;
 import base.Intersectable;
 import base.ShapeListener;
 import shapes.BufferedAnimatedImage;
-import shapes.Image;
 import ui_elements.ScreenPoint;
 
-//TODO
-//Decide if you want to implemet the ShapeListener interface to handle drag and maouse events.
-//If so, add it to the class definition and implement the methods you want.
-public class MyCharacter implements ShapeListener, Intersectable {
+
+public class Tower implements ShapeListener, Intersectable {
 	
 	private ScreenPoint location;
 	private final String[] images = {"resources/4.png"};
@@ -25,7 +22,7 @@ public class MyCharacter implements ShapeListener, Intersectable {
 
 	
 
-	public MyCharacter(ScreenPoint startLocation, String id) {
+	public Tower(ScreenPoint startLocation, String id) {
 		setLocation(startLocation);
 		this.imageID = id;
 		// Create an instance of BufferedAnimatedImage
@@ -39,15 +36,6 @@ public class MyCharacter implements ShapeListener, Intersectable {
 		);
 	}
 
-	// public void addToCanvas() {
-	// 		GameCanvas canvas = Game.UI().canvas();
-	// 		Image image = new Image(getImageID(), getImageName(), getImageWidth(),getImageHeight(), location.x, location.y);
-	// 		image.setShapeListener(this);
-	// 		image.setzOrder(3);
-	// 		canvas.addShape(image);
-	// 	}
-
-
 
 	public void addToCanvas() {
 		GameCanvas canvas = Game.UI().canvas();
@@ -58,6 +46,8 @@ public class MyCharacter implements ShapeListener, Intersectable {
 
 		// Add animated image to canvas
 		canvas.add(animatedImage);
+		int zOrder = 0;
+		canvas.setComponentZOrder(animatedImage, zOrder);
 		canvas.revalidate();  // Refresh the layout
 		canvas.repaint();
 	}

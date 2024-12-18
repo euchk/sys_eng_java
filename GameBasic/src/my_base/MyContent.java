@@ -4,7 +4,8 @@ package my_base;
 
 
 import my_game.Pokimon;
-import my_game.MyCharacter;
+import my_game.Tower;
+import my_game.Defender;
 import my_game.Enemy;
 import ui_elements.ScreenPoint;
 import base.Game;
@@ -14,7 +15,8 @@ import my_game.MyPolygon;
 
 public class MyContent extends GameContent{
 	private Pokimon pokimon;
-	private MyCharacter tower1, tower2;
+	private Tower tower1, tower2;
+	private Defender archer1, archer2;
 	private Enemy enemy1;
 	private MyPolygon myPolygon;
 	
@@ -22,9 +24,11 @@ public class MyContent extends GameContent{
 	@Override
 	public void initContent() {
 		pokimon = new Pokimon();
-		tower1 = new MyCharacter(new ScreenPoint(320, 220), "tower1");
-		tower2 = new MyCharacter(new ScreenPoint(580, 480), "tower2");
-		enemy1 = new Enemy(new ScreenPoint(820, 650), "enemy1");
+		tower1 = new Tower(new ScreenPoint(520, 440), "tower1");
+		archer1 = new Defender(new ScreenPoint(530, 540), "archer1");
+		tower2 = new Tower(new ScreenPoint(685, 600), "tower2");
+		archer2 = new Defender(new ScreenPoint(695, 700), "archer2");
+		enemy1 = new Enemy(new ScreenPoint(930, 640), "enemy1");
 		ScreenPoint[] points = {
 			new ScreenPoint(100, 100),
 			new ScreenPoint(130, 50),
@@ -42,12 +46,20 @@ public class MyContent extends GameContent{
 		return pokimon;
 	}
 
-	public MyCharacter tower1() {
+	public Tower tower1() {
 		return tower1;
 	}
 
-	public MyCharacter tower2() {
+	public Tower tower2() {
 		return tower2;
+	}
+
+	public Defender archer1() {
+		return archer1;
+	}
+
+	public Defender archer2() {
+		return archer2;
 	}
 
 	public Enemy enemy1() {

@@ -3,6 +3,7 @@ package my_base;
 import my_game.Pokimon;
 import my_game.Enemy;
 import my_ui_elements.DirectionCombo;
+import shapes.BufferedAnimatedImage;
 
 import java.awt.event.KeyEvent;
 
