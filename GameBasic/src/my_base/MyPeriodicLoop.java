@@ -1,11 +1,9 @@
 package my_base;
 
-
-
-
 import base.Game;
 import base.GameCanvas;
 import base.PeriodicLoop;
+import my_game.Character;
 
 public class MyPeriodicLoop extends PeriodicLoop {
 
@@ -22,9 +20,12 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		
 		// You can comment this line if you don't want the pokimon to move.
 		redrawPokimon();
-		redrawArcher();
+
+		for (Character character : content.getAllCharacters()) {
+			character.periodicUpdate();
+		}
 		
-		// Repaint canvas after all characters were redrawn 
+		// Repaint canvas after all periodicUpdate 
 		GameCanvas canvas = Game.UI().canvas();
 		canvas.revalidate();
 		canvas.repaint();
@@ -33,12 +34,6 @@ public class MyPeriodicLoop extends PeriodicLoop {
 	
 	private void redrawPokimon() {
 		content.pokimon().move();
-	}
-
-	private void redrawArcher() {
-		if (content.archer() == null)
-			return;
-		content.archer().periodicAction();
 	}
 
 }

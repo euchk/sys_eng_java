@@ -32,9 +32,10 @@ public class MyGame extends Game {
 		Pokimon pokimon = content.pokimon();
 		// pokimon.addToCanvas();
 		
-		Character archer = content.archer();
-		archer.addToCanvas();
-		
+		// Add all init characters to canvas
+		for (Character character : content.getAllCharacters()) {
+			character.addToCanvas();
+		}	
 
 		// canvas.addShape(content.polygon().getVisualPolygon());
 		Circle c = new Circle("circle", 300, 300, 50);
@@ -90,6 +91,7 @@ public class MyGame extends Game {
 		game.setMouseHandler(new MyMouseHandler());
 		game.setKeyboardListener(new MyKeyboardListener());
 		game.initGame();
+		
 	}
 
 

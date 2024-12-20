@@ -6,6 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +17,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
+
+
+import my_base.MyContent;
 import ui_elements.ScreenPoint;
 import ui_elements.UIElement;
 import shapes.Circle;
@@ -23,6 +30,7 @@ import shapes.Rectangle;
 import shapes.Shape;
 import shapes.Shape.STATUS;
 import shapes.TextLabel;
+import my_game.Character;
 
 /**
  * A 2D screen that displays graphical shapes and enables to set their location at runtime, causing an animation effect.
@@ -86,8 +94,15 @@ public class GameCanvas extends JPanel  {
 	public void setMouseHandler(MouseHandler mouseHandler) {
 		this.mouseHandler = mouseHandler;
 	}
-
-
+	
+	// Getters for dynamically positioning objects after window resizing
+	public int getCanvasWidth() {
+		return this.getWidth();
+	}
+	
+	public int getCanvasHeight() {
+		return this.getHeight();
+	}
 	
 	public void setBackgroundImage(String imageFile) {
 		backgroundImage = new ImageIcon(imageFile);
@@ -369,6 +384,19 @@ public class GameCanvas extends JPanel  {
 					mouseHandler.mouseDraggedOverScreen(event.getX(), event.getY());
 				}
 
+			}
+		});
+
+		// Add Component Listener for window resizing
+		this.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				System.out.println(getCanvasWidth() + ", " + getCanvasHeight());
+				MyContent content = (MyContent) Game.Content();
+				for (Character character : content.getAllCharacters()) {
+					character.updatePositionProportionately(1000, 1000); // Original width/height
+				}
+				// Game.UI().canvas().repaint(); // Redraw canvas
 			}
 		});
 

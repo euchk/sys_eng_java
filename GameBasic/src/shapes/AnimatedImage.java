@@ -46,7 +46,7 @@ public class AnimatedImage extends Shape {
         this.posY = 0;
     }
 
-    public void setPosition(int x, int y) {
+    public void setLocation(int x, int y) {
         this.posX = x;
         this.posY = y;
     }

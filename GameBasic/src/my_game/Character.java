@@ -8,7 +8,9 @@ import shapes.AnimatedImage;
 public class Character {
     private String id;
     private ScreenPoint location;
+    private ScreenPoint originalLocation;
     private AnimatedImage animatedImage;
+    private boolean isMoving;
 
     // Enum for directions or actions
     public enum Direction {
@@ -21,11 +23,12 @@ public class Character {
                     int frameWidth, int frameHeight, int totalFrames) {
         this.id = id;
         this.location = startLocation;
+        this.originalLocation = startLocation;
         this.currentDirection = Direction.DOWN; // Default facing direction
 
         // Initialize AnimatedImage instance
         this.animatedImage = new AnimatedImage(id, spriteSheetPath, frameWidth, frameHeight, totalFrames);
-        this.animatedImage.setPosition(location.x, location.y);
+        this.animatedImage.setLocation(location.x, location.y);
         this.animatedImage.setzOrder(3); // Default z-order
         this.animatedImage.setDraggable(false);
     }
@@ -41,7 +44,7 @@ public class Character {
     public void setLocation(int x, int y) {
         this.location.x = x;
         this.location.y = y;
-        animatedImage.setPosition(x, y);
+        animatedImage.setLocation(x, y);
     }
 
     public void setDirection(Direction direction) {
@@ -49,10 +52,11 @@ public class Character {
     }
 
     public void move(int dx, int dy) {
+        if (!isMoving) return;
+
         location.x += dx;
         location.y += dy;
         animatedImage.move(dx, dy);
-        animatedImage.nextFrame(); // Update animation frame when moving
 
         // Update direction based on movement
         if (dx > 0) setDirection(Direction.RIGHT);
@@ -62,7 +66,7 @@ public class Character {
     }
 
     // Method for periodic calls
-    public void periodicAction() {
+    public void periodicUpdate() {
         animatedImage.nextFrame();
     }
 
@@ -78,4 +82,28 @@ public class Character {
         canvas.revalidate();
         canvas.repaint();
     }
+
+    public void removeFromCanvas() {
+        GameCanvas canvas = Game.UI().canvas();
+        canvas.deleteShape(animatedImage.getId());
+        canvas.revalidate();
+        canvas.repaint();
+    }
+
+    public void updatePositionProportionately(int originalWidth, int originalHeight) {
+        // GameCanvas canvas = Game.UI().canvas();
+    
+        // // Calculate scale factors
+        // double scaleX = (double) canvas.getCanvasWidth() / originalWidth;
+        // double scaleY = (double) canvas.getCanvasHeight() / originalHeight;
+    
+        // // Update character's position proportionately
+        // location.x = (int) (originalLocation.x * scaleX);
+        // location.y = (int) (originalLocation.y * scaleY);
+    
+        // // Move shape to new location
+        // animatedImage.setLocation(location.x, location.y);
+        ;
+    }
+    
 }

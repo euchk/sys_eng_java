@@ -39,7 +39,8 @@ public class MyKeyboardListener extends KeyboardListener{
 			  break;
 		  case DOWN:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.DOWN);
-			//   myContent.enemy1().setDirectionPolicy(Enemy.Direction.DOWN);
+			  myContent.getCharacterById("knight").removeFromCanvas(); 
+			  myContent.removeCharacter(myContent.getCharacterById("knight"));
 			//   myContent.pokimon().setRotation(myContent.pokimon().getRotation() - 20);
 			  break;
 		}
