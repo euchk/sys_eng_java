@@ -1,9 +1,8 @@
 package my_base;
 
 import my_game.Pokimon;
-import my_game.Enemy;
+import my_game.Character;
 import my_ui_elements.DirectionCombo;
-import shapes.BufferedAnimatedImage;
 
 import java.awt.event.KeyEvent;
 
@@ -24,24 +23,29 @@ public class MyKeyboardListener extends KeyboardListener{
 		switch (direction) {
 		  case RIGHT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.RIGHT);
-			//   myContent.enemy1().setDirectionPolicy(Enemy.Direction.RIGHT);
+			  for (Character character : myContent.getAllCharacters()) {
+				character.setDirection(Character.Direction.RIGHT);
+			  }
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Right");
 			  break;
 		  case LEFT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.LEFT);
-			//   myContent.enemy1().setDirectionPolicy(Enemy.Direction.LEFT);
+			  for (Character character : myContent.getAllCharacters()) {
+				character.setDirection(Character.Direction.LEFT);
+			  }
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Left");
 			  break;
 		  case UP:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.UP);
-			//   myContent.enemy1().setDirectionPolicy(Enemy.Direction.UP);
-			//   myContent.pokimon().setRotation(myContent.pokimon().getRotation() + 20);
+			  for (Character character : myContent.getAllCharacters()) {
+				character.setDirection(Character.Direction.UP);
+			  }
 			  break;
 		  case DOWN:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.DOWN);
-			  myContent.getCharacterById("knight").removeFromCanvas(); 
-			  myContent.removeCharacter(myContent.getCharacterById("knight"));
-			//   myContent.pokimon().setRotation(myContent.pokimon().getRotation() - 20);
+			  for (Character character : myContent.getAllCharacters()) {
+				character.setDirection(Character.Direction.DOWN);
+			  }
 			  break;
 		}
 	}

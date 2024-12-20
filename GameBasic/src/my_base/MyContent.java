@@ -1,18 +1,14 @@
 package my_base;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 import my_game.Pokimon;
 import my_game.Character;
+import my_game.Character.Direction;
 import ui_elements.ScreenPoint;
-import base.Game;
-import base.GameCanvas;
 import base.GameContent;
 import my_game.MyPolygon;
-import my_game.Character;
 
 public class MyContent extends GameContent{
 	private Pokimon pokimon;
@@ -42,6 +38,7 @@ public class MyContent extends GameContent{
         return characters.get(id);
     }
 
+	// Allow iteration on all characters
 	public Collection<Character> getAllCharacters() {
         return characters.values();
     }
@@ -50,20 +47,46 @@ public class MyContent extends GameContent{
 	public void initContent() {
 		pokimon = new Pokimon();
 
-		archer = new Character(new ScreenPoint(600, 500), "archer", 
-							"resources/objects/archer/D_Idle.png", 
-							48, 48, 4);
+		String[] knightSpriteSheets = {
+            "resources/objects/knight/U_Run.png",
+            "resources/objects/knight/D_Run.png",
+			"resources/objects/knight/S_Run.png",
+			"resources/objects/knight/S_Run.png",
+			"resources/objects/knight/U_Attack.png",
+            "resources/objects/knight/D_Attack.png",
+			"resources/objects/knight/S_Attack.png",
+			"resources/objects/knight/S_Attack.png"
+        };
+
+		String[] archerSpriteSheets = {
+            "resources/objects/archer/U_Idle.png",
+            "resources/objects/archer/D_Idle.png",
+			"resources/objects/archer/S_Idle.png",
+			"resources/objects/archer/S_Idle.png",
+			"resources/objects/archer/U_Attack.png",
+            "resources/objects/archer/D_Attack.png",
+			"resources/objects/archer/S_Attack.png",
+			"resources/objects/archer/S_Attack.png"
+        };
+
+		String[] towerSpriteSheets = {
+            "resources/objects/archer_tower/4.png"
+        };
+
+		archer = new Character(new ScreenPoint(600, 500), "archer",
+							archerSpriteSheets, 48, 48, 
+							4, Direction.DOWN);
 		addCharacter(archer);
 		
 		knight = new Character(new ScreenPoint(400, 500), "knight", 
-							"resources/objects/knight/S_Attack.png", 
-							96, 96, 6);
+							knightSpriteSheets, 96, 96, 
+							6, Direction.RIGHT);
 		addCharacter(knight);
 
-		tower = new Character(new ScreenPoint(200, 500), "tower", 
-							"resources/objects/archer_tower/4.png", 
-							70, 130, 6);
-		addCharacter(tower);
+		// tower = new Character(new ScreenPoint(200, 500), "tower", 
+		// 					towerSpriteSheets, 70, 130, 
+		// 					6, Direction.UP);
+		// addCharacter(tower);
 		
 
 		ScreenPoint[] points = {

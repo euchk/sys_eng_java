@@ -4,12 +4,15 @@ import ui_elements.ScreenPoint;
 import base.Game;
 import base.GameCanvas;
 import shapes.AnimatedImage;
+import shapes.AnimatedImage.AnimationRow;
 
 public class Character {
     private String id;
     private ScreenPoint location;
     private ScreenPoint originalLocation;
     private AnimatedImage animatedImage;
+    private Direction direction;
+    private boolean isIdle = true;
     private boolean isMoving;
 
     // Enum for directions or actions
@@ -17,20 +20,21 @@ public class Character {
         UP, DOWN, LEFT, RIGHT
     }
 
-    private Direction currentDirection;
     
-    public Character(ScreenPoint startLocation, String id, String spriteSheetPath, 
-                    int frameWidth, int frameHeight, int totalFrames) {
+    public Character(ScreenPoint startLocation, String id, String[] spriteSheetPaths, 
+                    int frameWidth, int frameHeight, int totalFrames, 
+                    Direction direction) {
         this.id = id;
         this.location = startLocation;
         this.originalLocation = startLocation;
-        this.currentDirection = Direction.DOWN; // Default facing direction
+        this.direction = direction;
 
         // Initialize AnimatedImage instance
-        this.animatedImage = new AnimatedImage(id, spriteSheetPath, frameWidth, frameHeight, totalFrames);
+        this.animatedImage = new AnimatedImage(id, spriteSheetPaths, frameWidth, 
+                                            frameHeight, totalFrames, mapDirection(direction, isIdle));
         this.animatedImage.setLocation(location.x, location.y);
         this.animatedImage.setzOrder(3); // Default z-order
-        this.animatedImage.setDraggable(false);
+        this.animatedImage.setDraggable(true);
     }
 
     public String getId() {
@@ -48,9 +52,25 @@ public class Character {
     }
 
     public void setDirection(Direction direction) {
-        this.currentDirection = direction;
+        this.direction = direction;
     }
 
+    // Mapping direction from Character to AnimatedImage
+    private AnimationRow mapDirection(Direction direction, boolean isIdle) {
+        switch (direction) {
+            case UP:
+                return isIdle ? AnimationRow.U_IDLE : AnimationRow.U_ATTACK;
+            case DOWN:
+                return isIdle ? AnimationRow.D_IDLE : AnimationRow.D_ATTACK;
+            case LEFT:
+                return isIdle ? AnimationRow.L_IDLE : AnimationRow.L_ATTACK;
+            case RIGHT:
+                return isIdle ? AnimationRow.R_IDLE : AnimationRow.R_ATTACK;
+            default:
+                throw new IllegalArgumentException("Unknown direction: " + direction);
+        }
+    }
+    
     public void move(int dx, int dy) {
         if (!isMoving) return;
 
@@ -67,10 +87,16 @@ public class Character {
 
     // Method for periodic calls
     public void periodicUpdate() {
+        animatedImage.setAnimationRow(mapDirection(direction, isIdle));
         animatedImage.nextFrame();
     }
 
     public void addToCanvas() {
+        if (animatedImage == null) {
+            System.err.println("AnimatedImage not initialized!");
+            return;
+        }
+        
         GameCanvas canvas = Game.UI().canvas();        
 
         // Set z-order for animatedImage

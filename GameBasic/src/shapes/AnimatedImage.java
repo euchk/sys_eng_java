@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class AnimatedImage extends Shape {
+    // Enum for directions and actions
+
+    
     public enum AnimationRow {
         U_IDLE(0), D_IDLE(1), L_IDLE(2), R_IDLE(3), 
         U_ATTACK(4), D_ATTACK(5), L_ATTACK(6), R_ATTACK(7);
@@ -22,29 +25,46 @@ public class AnimatedImage extends Shape {
         }
     }
 
-    private BufferedImage spriteSheet; 
+    private BufferedImage spriteSheet;
+    private String[] spriteSheetPaths;
     private int frameWidth, frameHeight;
     private int totalFrames;
     private int currentFrame = 0;
-    private AnimationRow currentRow = AnimationRow.U_IDLE;
-
+    private AnimationRow animationRow;
     private int posX, posY;
 
-    public AnimatedImage(String id, String spriteSheetPath, int frameWidth, 
-                        int frameHeight, int totalFrames) {
+    // public AnimatedImage(String id, String spriteSheetPath, int frameWidth, 
+    public AnimatedImage(String id, String[] spriteSheetPaths, int frameWidth, 
+                        int frameHeight, int totalFrames, AnimationRow animationRow) {
         super(id);
-        try {
-            this.spriteSheet = ImageIO.read(new File(spriteSheetPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to load sprite sheet: " + spriteSheetPath);
-        }
+        
+        this.spriteSheetPaths = spriteSheetPaths;
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
         this.totalFrames = totalFrames;
         this.posX = 0;
         this.posY = 0;
+        this.animationRow = animationRow;
+        loadSpriteSheet();    
+        
     }
+
+    private void loadSpriteSheet() {
+        try {
+            // Load the first sprite sheet as default
+            spriteSheet = ImageIO.read(new File(spriteSheetPaths[animationRow.getRowIndex()]));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to load sprite sheet: " + spriteSheetPaths[0]);
+        }
+    }
+
+    public void setAnimationRow(AnimationRow animationRow) {
+        if (this.animationRow == animationRow) return;
+            this.animationRow = animationRow;
+            this.currentFrame = 0; // Reset frame on sprite sheet change
+            loadSpriteSheet();
+        }
 
     public void setLocation(int x, int y) {
         this.posX = x;
@@ -59,11 +79,6 @@ public class AnimatedImage extends Shape {
         return posY;
     }
 
-    public void setRow(AnimationRow row) {
-        this.currentRow = row;
-        this.currentFrame = 0; // Reset animation to first frame
-    }
-
     public void nextFrame() {
         currentFrame++;
         if (currentFrame >= totalFrames) {
@@ -74,7 +89,7 @@ public class AnimatedImage extends Shape {
     @Override
     public void draw(Graphics2D g) {
         int srcX = currentFrame * frameWidth;
-        int srcY = currentRow.getRowIndex() * frameHeight;
+        int srcY = 0; // Using 1-d sprites
 
         g.drawImage(spriteSheet, posX, posY, posX + frameWidth, posY + frameHeight,
                     srcX, srcY, srcX + frameWidth, srcY + frameHeight, null);
