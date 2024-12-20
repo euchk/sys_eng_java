@@ -11,7 +11,7 @@ import ui_elements.ScreenPoint;
 public class Tower implements ShapeListener, Intersectable {
 	
 	private ScreenPoint location;
-	private final String[] images = {"resources/4.png"};
+	private final String[] images = {"resources/objects/archer_tower/4.png"};
 
 	private final int[] imageWidth = {70};
 	private final int[] imageHeight = {130};

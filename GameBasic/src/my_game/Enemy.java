@@ -36,7 +36,7 @@ public class Enemy implements ShapeListener, Intersectable {
 	}
 	
 	private ScreenPoint location;
-	private final String[] images = {"resources/S_Run.png"};
+	private final String[] images = {"resources/objects/knight/S_Run.png"};
 
 	private final int[] imageWidth = {96};
 	private final int[] imageHeight = {96};

@@ -11,7 +11,7 @@ import ui_elements.ScreenPoint;
 public class Defender implements ShapeListener, Intersectable {
 	
 	private ScreenPoint location;
-	private final String[] images = {"resources/S_Attack.png"};
+	private final String[] images = {"resources/objects/archer/S_Attack.png"};
 
 	private final int[] imageWidth = {48};
 	private final int[] imageHeight = {48};

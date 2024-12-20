@@ -6,10 +6,8 @@ import base.Game;
 import base.GameCanvas;
 import base.GameContent;
 import base.GameDashboard;
-import my_game.Tower;
-import my_game.Defender;
-import my_game.Enemy;
 import my_game.Pokimon;
+import my_game.Character;
 import my_ui_elements.AddButton;
 import my_ui_elements.ChangeButton;
 import my_ui_elements.DirectionCombo;
@@ -29,20 +27,13 @@ public class MyGame extends Game {
 		GameCanvas canvas = gameUI.canvas();
 		canvas.setMouseHandler(Game.MouseHandler());
 		canvas.setBackground(Color.WHITE);
-		canvas.setBackgroundImage("resources/map_960_480.png");
+		canvas.setBackgroundImage("resources/tiles/map_960_480.png");
 
 		Pokimon pokimon = content.pokimon();
 		// pokimon.addToCanvas();
-		Enemy enemy1 = content.enemy1();
-		enemy1.addToCanvas();
-		Tower tower1 = content.tower1();
-		tower1.addToCanvas();
-		Tower tower2 = content.tower2();
-		tower2.addToCanvas();
-		Defender archer1 = content.archer1();
-		archer1.addToCanvas();
-		Defender archer2 = content.archer2();
-		archer2.addToCanvas();
+		
+		Character archer = content.archer();
+		archer.addToCanvas();
 		
 
 		// canvas.addShape(content.polygon().getVisualPolygon());
