@@ -5,11 +5,11 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 public class AnimatedImage extends Shape {
-    // Enum for directions and actions
-
     
+    // Enum for directions and actions
     public enum AnimationRow {
         U_IDLE(0), D_IDLE(1), L_IDLE(2), R_IDLE(3), 
         U_ATTACK(4), D_ATTACK(5), L_ATTACK(6), R_ATTACK(7);
@@ -28,20 +28,21 @@ public class AnimatedImage extends Shape {
     private BufferedImage spriteSheet;
     private String[] spriteSheetPaths;
     private int frameWidth, frameHeight;
-    private int totalFrames;
+    // private int totalFrames;
+    private Map<AnimationRow, Integer> frameCountMap;
     private int currentFrame = 0;
     private AnimationRow animationRow;
     private int posX, posY;
 
-    // public AnimatedImage(String id, String spriteSheetPath, int frameWidth, 
-    public AnimatedImage(String id, String[] spriteSheetPaths, int frameWidth, 
-                        int frameHeight, int totalFrames, AnimationRow animationRow) {
+    public AnimatedImage(String id, String[] spriteSheetPaths, int frameWidth, int frameHeight, 
+                        Map<AnimationRow, Integer> frameCountMap, AnimationRow animationRow) {
         super(id);
         
         this.spriteSheetPaths = spriteSheetPaths;
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
-        this.totalFrames = totalFrames;
+        // this.totalFrames = totalFrames;
+        this.frameCountMap = frameCountMap;
         this.posX = 0;
         this.posY = 0;
         this.animationRow = animationRow;
@@ -80,10 +81,12 @@ public class AnimatedImage extends Shape {
     }
 
     public void nextFrame() {
-        currentFrame++;
-        if (currentFrame >= totalFrames) {
-            currentFrame = 0; // Loop animation
-        }
+        // currentFrame++;
+        // if (currentFrame >= totalFrames) {
+        //     currentFrame = 0; // Loop animation
+
+        int totalFrames = frameCountMap.getOrDefault(animationRow, 1);
+        currentFrame = (currentFrame + 1) % totalFrames; // Loop animation
     }
 
     @Override

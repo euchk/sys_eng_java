@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import my_game.Pokimon;
 import my_game.Character;
+import my_game.Knight;
+import my_game.Archer;
 import my_game.Character.Direction;
 import ui_elements.ScreenPoint;
 import base.GameContent;
@@ -46,41 +48,14 @@ public class MyContent extends GameContent{
 	@Override
 	public void initContent() {
 		pokimon = new Pokimon();
-
-		String[] knightSpriteSheets = {
-            "resources/objects/knight/U_Run.png",
-            "resources/objects/knight/D_Run.png",
-			"resources/objects/knight/S_Run.png",
-			"resources/objects/knight/S_Run.png",
-			"resources/objects/knight/U_Attack.png",
-            "resources/objects/knight/D_Attack.png",
-			"resources/objects/knight/S_Attack.png",
-			"resources/objects/knight/S_Attack.png"
-        };
-
-		String[] archerSpriteSheets = {
-            "resources/objects/archer/U_Idle.png",
-            "resources/objects/archer/D_Idle.png",
-			"resources/objects/archer/S_Idle.png",
-			"resources/objects/archer/S_Idle.png",
-			"resources/objects/archer/U_Attack.png",
-            "resources/objects/archer/D_Attack.png",
-			"resources/objects/archer/S_Attack.png",
-			"resources/objects/archer/S_Attack.png"
-        };
-
 		String[] towerSpriteSheets = {
             "resources/objects/archer_tower/4.png"
         };
 
-		archer = new Character(new ScreenPoint(600, 500), "archer",
-							archerSpriteSheets, 48, 48, 
-							4, Direction.DOWN);
+		archer = new Archer(new ScreenPoint(600, 500), "archer1", Direction.DOWN);
 		addCharacter(archer);
-		
-		knight = new Character(new ScreenPoint(400, 500), "knight", 
-							knightSpriteSheets, 96, 96, 
-							6, Direction.RIGHT);
+	
+		knight = new Knight(new ScreenPoint(700, 500), "knight1", Direction.RIGHT);
 		addCharacter(knight);
 
 		// tower = new Character(new ScreenPoint(200, 500), "tower", 

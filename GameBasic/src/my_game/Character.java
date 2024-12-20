@@ -1,6 +1,9 @@
 package my_game;
 
 import ui_elements.ScreenPoint;
+
+import java.util.Map;
+
 import base.Game;
 import base.GameCanvas;
 import shapes.AnimatedImage;
@@ -10,10 +13,10 @@ public class Character {
     private String id;
     private ScreenPoint location;
     private ScreenPoint originalLocation;
-    private AnimatedImage animatedImage;
-    private Direction direction;
-    private boolean isIdle = true;
-    private boolean isMoving;
+    protected boolean isIdle = true;
+    protected boolean isMoving;
+    protected Direction direction;
+    protected AnimatedImage animatedImage;
 
     // Enum for directions or actions
     public enum Direction {
@@ -21,9 +24,8 @@ public class Character {
     }
 
     
-    public Character(ScreenPoint startLocation, String id, String[] spriteSheetPaths, 
-                    int frameWidth, int frameHeight, int totalFrames, 
-                    Direction direction) {
+    public Character(ScreenPoint startLocation, String id, String[] spriteSheetPaths, int frameWidth, 
+                    int frameHeight,  Map<AnimationRow, Integer> frameCountMap, Direction direction) {
         this.id = id;
         this.location = startLocation;
         this.originalLocation = startLocation;
@@ -31,7 +33,7 @@ public class Character {
 
         // Initialize AnimatedImage instance
         this.animatedImage = new AnimatedImage(id, spriteSheetPaths, frameWidth, 
-                                            frameHeight, totalFrames, mapDirection(direction, isIdle));
+                                            frameHeight, frameCountMap, mapDirection(direction, isIdle));
         this.animatedImage.setLocation(location.x, location.y);
         this.animatedImage.setzOrder(3); // Default z-order
         this.animatedImage.setDraggable(true);
@@ -56,7 +58,7 @@ public class Character {
     }
 
     // Mapping direction from Character to AnimatedImage
-    private AnimationRow mapDirection(Direction direction, boolean isIdle) {
+    protected AnimationRow mapDirection(Direction direction, boolean isIdle) {
         switch (direction) {
             case UP:
                 return isIdle ? AnimationRow.U_IDLE : AnimationRow.U_ATTACK;
