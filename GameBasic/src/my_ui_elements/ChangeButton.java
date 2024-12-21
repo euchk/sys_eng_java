@@ -22,8 +22,8 @@ public class ChangeButton extends GameButton{
 		content.polygon().getVisualPolygon().rotate(45);
 		for (Character character : content.getAllCharacters()) {
 			character.reduceHealth(10);
-			System.out.println(character.getId() + " " + character.getHealth());
 		}
+		System.out.println(content.getAllCharacters());
 		
 	}
 
