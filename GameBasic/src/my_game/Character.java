@@ -1,42 +1,37 @@
 package my_game;
 
 import ui_elements.ScreenPoint;
-
-import java.util.Map;
-
 import base.Game;
 import base.GameCanvas;
 import shapes.AnimatedImage;
-import shapes.AnimatedImage.AnimationRow;
 
-public class Character {
-    private String id;
-    private ScreenPoint location;
-    private ScreenPoint originalLocation;
-    protected boolean isIdle = true;
-    protected boolean isMoving;
-    protected Direction direction;
-    protected AnimatedImage animatedImage;
+public abstract class Character {
 
     // Enum for directions or actions
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
 
+    public enum Action {
+        IDLE, ATTACK
+    }
+
+    private String id;
+    private ScreenPoint location;
+    private AnimatedImage animatedImage;
     
-    public Character(ScreenPoint startLocation, String id, String[] spriteSheetPaths, int frameWidth, 
-                    int frameHeight,  Map<AnimationRow, Integer> frameCountMap, Direction direction) {
+    protected Direction direction;
+    protected Action action;
+    
+    public Character(String id, ScreenPoint startLocation, 
+                    int frameWidth, int frameHeight, 
+                    Direction direction, Action action) {
         this.id = id;
         this.location = startLocation;
-        this.originalLocation = startLocation;
+        this.action = action;
         this.direction = direction;
-
-        // Initialize AnimatedImage instance
-        this.animatedImage = new AnimatedImage(id, spriteSheetPaths, frameWidth, 
-                                            frameHeight, frameCountMap, mapDirection(direction, isIdle));
-        this.animatedImage.setLocation(location.x, location.y);
-        this.animatedImage.setzOrder(3); // Default z-order
-        this.animatedImage.setDraggable(true);
+        this.animatedImage = new AnimatedImage(id, frameWidth, frameHeight);
+        this.animatedImage.moveToLocation(startLocation.x, startLocation.y);
     }
 
     public String getId() {
@@ -50,62 +45,30 @@ public class Character {
     public void setLocation(int x, int y) {
         this.location.x = x;
         this.location.y = y;
-        animatedImage.setLocation(x, y);
+        animatedImage.moveToLocation(x, y);
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(Direction direction){
         this.direction = direction;
+        updateAnimation();
     }
 
-    // Mapping direction from Character to AnimatedImage
-    protected AnimationRow mapDirection(Direction direction, boolean isIdle) {
-        switch (direction) {
-            case UP:
-                return isIdle ? AnimationRow.U_IDLE : AnimationRow.U_ATTACK;
-            case DOWN:
-                return isIdle ? AnimationRow.D_IDLE : AnimationRow.D_ATTACK;
-            case LEFT:
-                return isIdle ? AnimationRow.L_IDLE : AnimationRow.L_ATTACK;
-            case RIGHT:
-                return isIdle ? AnimationRow.R_IDLE : AnimationRow.R_ATTACK;
-            default:
-                throw new IllegalArgumentException("Unknown direction: " + direction);
-        }
-    }
-    
-    public void move(int dx, int dy) {
-        if (!isMoving) return;
-
-        location.x += dx;
-        location.y += dy;
-        animatedImage.move(dx, dy);
-
-        // Update direction based on movement
-        if (dx > 0) setDirection(Direction.RIGHT);
-        else if (dx < 0) setDirection(Direction.LEFT);
-        else if (dy > 0) setDirection(Direction.DOWN);
-        else if (dy < 0) setDirection(Direction.UP);
+    public void setAction(Action action){
+        this.action = action;
+        updateAnimation();
     }
 
-    // Method for periodic calls
+    public void setAnimation(String spritePath, int totalFrames) {
+        animatedImage.setSpriteSheet(spritePath, totalFrames);
+    }
+
     public void periodicUpdate() {
-        animatedImage.setAnimationRow(mapDirection(direction, isIdle));
         animatedImage.nextFrame();
     }
-
+    
     public void addToCanvas() {
-        if (animatedImage == null) {
-            System.err.println("AnimatedImage not initialized!");
-            return;
-        }
-        
-        GameCanvas canvas = Game.UI().canvas();        
-
-        // Set z-order for animatedImage
-        // TODO: dynamicaly update zOrder
+        GameCanvas canvas = Game.UI().canvas();
         animatedImage.setzOrder(3);
-
-        // Add animated image to the canvas
         canvas.addShape(animatedImage);
         canvas.revalidate();
         canvas.repaint();
@@ -118,20 +81,20 @@ public class Character {
         canvas.repaint();
     }
 
-    public void updatePositionProportionately(int originalWidth, int originalHeight) {
-        // GameCanvas canvas = Game.UI().canvas();
+    // Subclasses must implement mappings
+    public abstract void updateAnimation();
     
-        // // Calculate scale factors
-        // double scaleX = (double) canvas.getCanvasWidth() / originalWidth;
-        // double scaleY = (double) canvas.getCanvasHeight() / originalHeight;
     
-        // // Update character's position proportionately
-        // location.x = (int) (originalLocation.x * scaleX);
-        // location.y = (int) (originalLocation.y * scaleY);
-    
-        // // Move shape to new location
-        // animatedImage.setLocation(location.x, location.y);
-        ;
-    }
+    // public void move(int dx, int dy) {
+    //     location.x += dx;
+    //     location.y += dy;
+    //     animatedImage.move(dx, dy);
+
+    //     // Update direction based on movement
+    //     if (dx > 0) setDirection(Direction.RIGHT);
+    //     else if (dx < 0) setDirection(Direction.LEFT);
+    //     else if (dy > 0) setDirection(Direction.DOWN);
+    //     else if (dy < 0) setDirection(Direction.UP);
+    // }
     
 }

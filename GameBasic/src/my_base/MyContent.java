@@ -5,9 +5,10 @@ import java.util.HashMap;
 
 import my_game.Pokimon;
 import my_game.Character;
+import my_game.Character.Direction;
+import my_game.Character.Action;
 import my_game.Knight;
 import my_game.Archer;
-import my_game.Character.Direction;
 import ui_elements.ScreenPoint;
 import base.GameContent;
 import my_game.MyPolygon;
@@ -15,9 +16,8 @@ import my_game.MyPolygon;
 public class MyContent extends GameContent{
 	private Pokimon pokimon;
 	private MyPolygon myPolygon;
-	private Character archer;
+	private Archer archer;
 	private Character knight;
-	private Character tower;
 	
 	private HashMap<String, Character> characters; // Store all characters with id as key
 
@@ -48,21 +48,13 @@ public class MyContent extends GameContent{
 	@Override
 	public void initContent() {
 		pokimon = new Pokimon();
-		String[] towerSpriteSheets = {
-            "resources/objects/archer_tower/4.png"
-        };
 
-		archer = new Archer(new ScreenPoint(600, 500), "archer1", Direction.DOWN);
+		archer = new Archer(new ScreenPoint(600, 500), "archer1", Direction.LEFT, Action.IDLE);
 		addCharacter(archer);
 	
-		knight = new Knight(new ScreenPoint(700, 500), "knight1", Direction.RIGHT);
+		knight = new Knight(new ScreenPoint(700, 500), "knight1", Direction.RIGHT, Action.IDLE);
 		addCharacter(knight);
-
-		// tower = new Character(new ScreenPoint(200, 500), "tower", 
-		// 					towerSpriteSheets, 70, 130, 
-		// 					6, Direction.UP);
-		// addCharacter(tower);
-		
+	
 
 		ScreenPoint[] points = {
 			new ScreenPoint(100, 100),

@@ -27,7 +27,7 @@ public class MyGame extends Game {
 		GameCanvas canvas = gameUI.canvas();
 		canvas.setMouseHandler(Game.MouseHandler());
 		canvas.setBackground(Color.WHITE);
-		canvas.setBackgroundImage("resources/tiles/map_960_480.png");
+		// canvas.setBackgroundImage("resources/tiles/map_960_480.png");
 
 		Pokimon pokimon = content.pokimon();
 		// pokimon.addToCanvas();

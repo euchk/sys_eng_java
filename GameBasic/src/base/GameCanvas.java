@@ -387,19 +387,6 @@ public class GameCanvas extends JPanel  {
 			}
 		});
 
-		// Add Component Listener for window resizing
-		this.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				System.out.println(getCanvasWidth() + ", " + getCanvasHeight());
-				MyContent content = (MyContent) Game.Content();
-				for (Character character : content.getAllCharacters()) {
-					character.updatePositionProportionately(1000, 1000); // Original width/height
-				}
-				// Game.UI().canvas().repaint(); // Redraw canvas
-			}
-		});
-
 	}
 
 	private Shape[] getImagesSortedByZOrder() {
