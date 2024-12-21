@@ -6,10 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -119,6 +117,10 @@ public class GameCanvas extends JPanel  {
 		resort = true;
 		this.repaint();
 	}
+
+	public Collection<Shape> getAllShapes() {
+        return shapes.values();
+    }
 
 	public Shape getShape(String id) {
 		return shapes.get(id);

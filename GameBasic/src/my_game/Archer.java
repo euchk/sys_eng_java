@@ -14,7 +14,7 @@ public class Archer extends Character {
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
     
     public Archer(ScreenPoint startLocation, String id, Direction direction, Action action) {
-        super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action);
+        super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action, 80);
         initializeMappings();
         updateAnimation();
     }

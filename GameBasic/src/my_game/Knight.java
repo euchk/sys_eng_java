@@ -14,7 +14,7 @@ public class Knight extends Character {
     private static final int FRAME_HEIGHT = 96;  // Height of each frame
     
     public Knight(ScreenPoint startLocation, String id, Direction direction, Action action) {
-        super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action);
+        super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action, 100);
         initializeMappings();
         updateAnimation();
     }

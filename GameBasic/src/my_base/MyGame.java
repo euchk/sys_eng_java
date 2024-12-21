@@ -16,6 +16,7 @@ import my_ui_elements.EditPolygonButton;
 import my_ui_elements.MusicButton;
 import my_ui_elements.RotatePolygonButton;
 import shapes.Circle;
+import shapes.Shape;
 
 public class MyGame extends Game {
 	
@@ -35,8 +36,8 @@ public class MyGame extends Game {
 		// Add all init characters to canvas
 		for (Character character : content.getAllCharacters()) {
 			character.addToCanvas();
-		}	
-
+		}
+		
 		// canvas.addShape(content.polygon().getVisualPolygon());
 		Circle c = new Circle("circle", 300, 300, 50);
 		// c.setDraggable(false);

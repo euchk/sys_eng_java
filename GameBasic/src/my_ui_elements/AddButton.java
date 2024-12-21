@@ -3,6 +3,7 @@ package my_ui_elements;
 import base.Game;
 import my_base.MyContent;
 import ui_elements.GameButton;
+import my_game.Character;
 
 public class AddButton extends GameButton{
 	
@@ -17,8 +18,10 @@ public class AddButton extends GameButton{
 		super.action();
 		
 		MyContent content = (MyContent) Game.Content();
-		//TODO
-		//Add your character to your game content
+		for (Character character : content.getAllCharacters()) {
+			character.setHealth(character.getMaxHealth());;
+			System.out.println(character.getId() + " " + character.getHealth());
+		}
 
 	}
 

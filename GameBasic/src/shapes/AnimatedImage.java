@@ -20,6 +20,7 @@ public class AnimatedImage extends Shape {
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
         this.isMirrored = isMirrored;
+        this.setDraggable(false);
         // Default settings
         this.posX = 0;
         this.posY = 0;        

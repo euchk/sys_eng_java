@@ -55,7 +55,7 @@ public class MyContent extends GameContent{
 		knight1 = new Knight(new ScreenPoint(700, 200), "knight1", Direction.RIGHT, Action.IDLE);
 		addCharacter(knight1);
 
-		knight2 = new Knight(new ScreenPoint(700, 500), "knight2", Direction.LEFT, Action.IDLE);
+		knight2 = new Knight(new ScreenPoint(500, 200), "knight2", Direction.LEFT, Action.IDLE);
 		addCharacter(knight2);
 	
 

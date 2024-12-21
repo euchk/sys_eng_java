@@ -25,7 +25,7 @@ public class MyKeyboardListener extends KeyboardListener{
 		switch (direction) {
 		  case RIGHT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.RIGHT);
-			  dx = 3;
+			  dx = 10;
 			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
 				character.setDirection(Character.Direction.RIGHT);
@@ -34,7 +34,7 @@ public class MyKeyboardListener extends KeyboardListener{
 			  break;
 		  case LEFT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.LEFT);
-			  dx = -3;
+			  dx = -10;
 			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
 				character.setDirection(Character.Direction.LEFT);
@@ -44,7 +44,7 @@ public class MyKeyboardListener extends KeyboardListener{
 		  case UP:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.UP);
 			  dx = 0;
-			  dy = -3;
+			  dy = -10;
 			  for (Character character : myContent.getAllCharacters()) {
 				character.setDirection(Character.Direction.UP);
 			  }
@@ -52,14 +52,13 @@ public class MyKeyboardListener extends KeyboardListener{
 		  case DOWN:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.DOWN);
 			  dx = 0;
-			  dy = 3;
+			  dy = 10;
 			  for (Character character : myContent.getAllCharacters()) {
 				character.setDirection(Character.Direction.DOWN);
 			  }
 			  break;
 		}
 		for (Character character : myContent.getAllCharacters()) {
-			character.setAction(Action.ATTACK);
 			character.move(dx, dy);
 		  }
 	}

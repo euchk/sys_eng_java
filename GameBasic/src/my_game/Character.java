@@ -4,6 +4,8 @@ import ui_elements.ScreenPoint;
 import base.Game;
 import base.GameCanvas;
 import shapes.AnimatedImage;
+import shapes.HealthBar;
+
 
 public abstract class Character {
 
@@ -23,17 +25,22 @@ public abstract class Character {
     protected Direction direction;
     protected Action action;
     private boolean isMirrored;
+    private HealthBar healthBar;
     
     public Character(String id, ScreenPoint startLocation, 
                     int frameWidth, int frameHeight, 
-                    Direction direction, Action action) {
+                    Direction direction, Action action,
+                    int maxHealth) {
         this.id = id;
         this.location = startLocation;
         this.action = action;
         this.direction = direction;
         setIsMirrored();
+        // Initialize AnimatedImage
         this.animatedImage = new AnimatedImage(id, frameWidth, frameHeight, isMirrored);
         this.animatedImage.moveToLocation(startLocation.x, startLocation.y);
+        // Initialize health bar
+        this.healthBar = new HealthBar(id + "_health", startLocation.x, startLocation.y - 10, frameWidth, 5, maxHealth);
     }
 
     public String getId() {
@@ -47,7 +54,24 @@ public abstract class Character {
     public void setLocation(int x, int y) {
         this.location.x = x;
         this.location.y = y;
-        animatedImage.moveToLocation(x, y);
+        animatedImage.moveToLocation(x, y); // Move the image along with the character
+        healthBar.moveToLocation(x, y - 10); // Move the health bar along with the character
+    }
+
+    public int getHealth() {
+        return healthBar.getCurrentHealth();
+    }
+
+    public int getMaxHealth(){
+        return healthBar.getMaxHealth();
+    }
+
+    public void reduceHealth(int damage) {
+        healthBar.reduceHealth(damage);
+    }
+
+    public void setHealth(int health){
+        healthBar.setHealth(health);
     }
 
     public void setDirection(Direction direction){
@@ -76,8 +100,9 @@ public abstract class Character {
 
     public void move(int dx, int dy) {
         location.x += dx;
-        location.y += dy;
+        location.y += dy;        
         animatedImage.move(dx, dy);
+        healthBar.move(dx, dy);
 
         // Update direction based on movement
         if (dx > 0) setDirection(Direction.RIGHT);
@@ -90,6 +115,8 @@ public abstract class Character {
         GameCanvas canvas = Game.UI().canvas();
         animatedImage.setzOrder(3);
         canvas.addShape(animatedImage);
+        healthBar.setzOrder(1);
+        canvas.addShape(healthBar);
         canvas.revalidate();
         canvas.repaint();
     }
@@ -97,6 +124,7 @@ public abstract class Character {
     public void removeFromCanvas() {
         GameCanvas canvas = Game.UI().canvas();
         canvas.deleteShape(animatedImage.getId());
+        canvas.deleteShape(healthBar.getId());
         canvas.revalidate();
         canvas.repaint();
     }

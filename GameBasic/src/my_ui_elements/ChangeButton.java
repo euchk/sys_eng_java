@@ -3,6 +3,7 @@ package my_ui_elements;
 import base.Game;
 import my_base.MyContent;
 import ui_elements.GameButton;
+import my_game.Character;
 
 public class ChangeButton extends GameButton{
 	
@@ -19,9 +20,10 @@ public class ChangeButton extends GameButton{
 		MyContent content = (MyContent) Game.Content();
 		content.polygon().exitEditMode();
 		content.polygon().getVisualPolygon().rotate(45);
-		//TODO
-		//Change your character properties by calling the appropriate method of
-		//MyContent
+		for (Character character : content.getAllCharacters()) {
+			character.reduceHealth(10);
+			System.out.println(character.getId() + " " + character.getHealth());
+		}
 		
 	}
 
