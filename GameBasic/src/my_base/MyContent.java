@@ -17,7 +17,7 @@ public class MyContent extends GameContent{
 	private Pokimon pokimon;
 	private MyPolygon myPolygon;
 	private Archer archer;
-	private Character knight;
+	private Knight knight1, knight2;
 	
 	private HashMap<String, Character> characters; // Store all characters with id as key
 
@@ -52,8 +52,11 @@ public class MyContent extends GameContent{
 		archer = new Archer(new ScreenPoint(600, 500), "archer1", Direction.LEFT, Action.IDLE);
 		addCharacter(archer);
 	
-		knight = new Knight(new ScreenPoint(700, 500), "knight1", Direction.RIGHT, Action.IDLE);
-		addCharacter(knight);
+		knight1 = new Knight(new ScreenPoint(700, 200), "knight1", Direction.RIGHT, Action.IDLE);
+		addCharacter(knight1);
+
+		knight2 = new Knight(new ScreenPoint(700, 500), "knight2", Direction.LEFT, Action.IDLE);
+		addCharacter(knight2);
 	
 
 		ScreenPoint[] points = {
@@ -71,10 +74,6 @@ public class MyContent extends GameContent{
 	
 	public Pokimon pokimon() {
 		return pokimon;
-	}
-
-	public Character knight() {
-		return knight;
 	}
 
 	public MyPolygon polygon() {

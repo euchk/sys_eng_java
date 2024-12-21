@@ -24,8 +24,8 @@ public class Knight extends Character {
         Map<Direction, String> idlePaths = new HashMap<>();
         idlePaths.put(Direction.UP, "resources/objects/knight/U_Special.png");
         idlePaths.put(Direction.DOWN, "resources/objects/knight/D_Special.png");
-        idlePaths.put(Direction.LEFT, "resources/objects/knight/L_Special.png");
-        idlePaths.put(Direction.RIGHT, "resources/objects/knight/R_Special.png");
+        idlePaths.put(Direction.LEFT, "resources/objects/knight/S_Special.png");
+        idlePaths.put(Direction.RIGHT, "resources/objects/knight/S_Special.png");
         spritePaths.put(Action.IDLE, idlePaths);
 
         Map<Direction, Integer> idleFrames = new HashMap<>();
@@ -39,8 +39,8 @@ public class Knight extends Character {
         Map<Direction, String> attackPaths = new HashMap<>();
         attackPaths.put(Direction.UP, "resources/objects/knight/U_Attack.png");
         attackPaths.put(Direction.DOWN, "resources/objects/knight/D_Attack.png");
-        attackPaths.put(Direction.LEFT, "resources/objects/knight/L_Attack.png");
-        attackPaths.put(Direction.RIGHT, "resources/objects/knight/R_Attack.png");
+        attackPaths.put(Direction.LEFT, "resources/objects/knight/S_Attack.png");
+        attackPaths.put(Direction.RIGHT, "resources/objects/knight/S_Attack.png");
         spritePaths.put(Action.ATTACK, attackPaths);
 
         Map<Direction, Integer> attackFrames = new HashMap<>();
@@ -51,6 +51,11 @@ public class Knight extends Character {
         frameCounts.put(Action.ATTACK, attackFrames);
     }
 
+    @Override
+    public void periodicUpdate() {
+        nextFrame();
+    }
+    
     @Override
     public void updateAnimation() {
         String spritePath = spritePaths.get(action).get(direction);

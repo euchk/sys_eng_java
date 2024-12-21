@@ -1,6 +1,7 @@
 package my_base;
 
 import my_game.Pokimon;
+import my_game.Character.Action;
 import my_game.Character;
 import my_ui_elements.DirectionCombo;
 
@@ -12,6 +13,7 @@ import base.KeyboardListener;
 public class MyKeyboardListener extends KeyboardListener{
 
 	private MyContent myContent;
+	private int dx, dy;
 	
 	public MyKeyboardListener() {
 		super();
@@ -23,6 +25,8 @@ public class MyKeyboardListener extends KeyboardListener{
 		switch (direction) {
 		  case RIGHT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.RIGHT);
+			  dx = 3;
+			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
 				character.setDirection(Character.Direction.RIGHT);
 			  }
@@ -30,6 +34,8 @@ public class MyKeyboardListener extends KeyboardListener{
 			  break;
 		  case LEFT:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.LEFT);
+			  dx = -3;
+			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
 				character.setDirection(Character.Direction.LEFT);
 			  }
@@ -37,17 +43,25 @@ public class MyKeyboardListener extends KeyboardListener{
 			  break;
 		  case UP:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.UP);
+			  dx = 0;
+			  dy = -3;
 			  for (Character character : myContent.getAllCharacters()) {
 				character.setDirection(Character.Direction.UP);
 			  }
 			  break;
 		  case DOWN:
 			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.DOWN);
+			  dx = 0;
+			  dy = 3;
 			  for (Character character : myContent.getAllCharacters()) {
 				character.setDirection(Character.Direction.DOWN);
 			  }
 			  break;
 		}
+		for (Character character : myContent.getAllCharacters()) {
+			character.setAction(Action.ATTACK);
+			character.move(dx, dy);
+		  }
 	}
 	
 	@Override

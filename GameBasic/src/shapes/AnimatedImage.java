@@ -12,12 +12,14 @@ public class AnimatedImage extends Shape {
     private int frameWidth, frameHeight;
     private int totalFrames;
     private int currentFrame = 0;
+    private boolean isMirrored; // For image mirroring
     private int posX, posY;
 
-    public AnimatedImage(String id, int frameWidth, int frameHeight) {
+    public AnimatedImage(String id, int frameWidth, int frameHeight, boolean isMirrored) {
         super(id);
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
+        this.isMirrored = isMirrored;
         // Default settings
         this.posX = 0;
         this.posY = 0;        
@@ -38,6 +40,10 @@ public class AnimatedImage extends Shape {
         }
     }
 
+    public void setIsMirrored(boolean isMirrored){
+        this.isMirrored = isMirrored;
+    }
+    
     public int getPosX() {
         return posX;
     }
@@ -57,8 +63,17 @@ public class AnimatedImage extends Shape {
         int srcX = currentFrame * frameWidth;
         int srcY = 0; // Using 1-d spritesheets
 
-        g.drawImage(spriteSheet, posX, posY, posX + frameWidth, posY + frameHeight,
-                srcX, srcY, srcX + frameWidth, srcY + frameHeight, null);
+        // g.drawImage(spriteSheet, posX, posY, posX + frameWidth, posY + frameHeight,
+        //         srcX, srcY, srcX + frameWidth, srcY + frameHeight, null);
+
+        if (isMirrored) {
+            // Flip horizontally
+            g.drawImage(spriteSheet, posX + frameWidth, posY, posX, posY + frameHeight, 
+                        srcX, srcY, srcX + frameWidth, srcY + frameHeight, null);
+        } else {
+            g.drawImage(spriteSheet, posX, posY, posX + frameWidth, posY + frameHeight, 
+                        srcX, srcY, srcX + frameWidth, srcY + frameHeight, null);
+        }
     }
 
     @Override

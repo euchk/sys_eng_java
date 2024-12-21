@@ -24,8 +24,8 @@ public class Archer extends Character {
         Map<Direction, String> idlePaths = new HashMap<>();
         idlePaths.put(Direction.UP, "resources/objects/archer/U_Idle.png");
         idlePaths.put(Direction.DOWN, "resources/objects/archer/D_Idle.png");
-        idlePaths.put(Direction.LEFT, "resources/objects/archer/L_Idle.png");
-        idlePaths.put(Direction.RIGHT, "resources/objects/archer/R_Idle.png");
+        idlePaths.put(Direction.LEFT, "resources/objects/archer/S_Idle.png");
+        idlePaths.put(Direction.RIGHT, "resources/objects/archer/S_Idle.png");
         spritePaths.put(Action.IDLE, idlePaths);
 
         Map<Direction, Integer> idleFrames = new HashMap<>();
@@ -39,8 +39,8 @@ public class Archer extends Character {
         Map<Direction, String> attackPaths = new HashMap<>();
         attackPaths.put(Direction.UP, "resources/objects/archer/U_Attack.png");
         attackPaths.put(Direction.DOWN, "resources/objects/archer/D_Attack.png");
-        attackPaths.put(Direction.LEFT, "resources/objects/archer/L_Attack.png");
-        attackPaths.put(Direction.RIGHT, "resources/objects/archer/R_Attack.png");
+        attackPaths.put(Direction.LEFT, "resources/objects/archer/S_Attack.png");
+        attackPaths.put(Direction.RIGHT, "resources/objects/archer/S_Attack.png");
         spritePaths.put(Action.ATTACK, attackPaths);
 
         Map<Direction, Integer> attackFrames = new HashMap<>();
@@ -49,6 +49,11 @@ public class Archer extends Character {
         attackFrames.put(Direction.LEFT, 6);
         attackFrames.put(Direction.RIGHT, 6);
         frameCounts.put(Action.ATTACK, attackFrames);
+    }
+
+    @Override
+    public void periodicUpdate() { // Archer is a static character
+        nextFrame();
     }
 
     @Override

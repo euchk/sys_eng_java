@@ -22,6 +22,7 @@ public abstract class Character {
     
     protected Direction direction;
     protected Action action;
+    private boolean isMirrored;
     
     public Character(String id, ScreenPoint startLocation, 
                     int frameWidth, int frameHeight, 
@@ -30,7 +31,8 @@ public abstract class Character {
         this.location = startLocation;
         this.action = action;
         this.direction = direction;
-        this.animatedImage = new AnimatedImage(id, frameWidth, frameHeight);
+        setIsMirrored();
+        this.animatedImage = new AnimatedImage(id, frameWidth, frameHeight, isMirrored);
         this.animatedImage.moveToLocation(startLocation.x, startLocation.y);
     }
 
@@ -50,6 +52,8 @@ public abstract class Character {
 
     public void setDirection(Direction direction){
         this.direction = direction;
+        setIsMirrored(); // Updating isMirrored for character
+        animatedImage.setIsMirrored(isMirrored); // Updating isMirrored for animatedImage
         updateAnimation();
     }
 
@@ -58,12 +62,28 @@ public abstract class Character {
         updateAnimation();
     }
 
+    public void setIsMirrored(){
+        this.isMirrored = (direction == Direction.RIGHT); // All side sprites are left
+    }
+
     public void setAnimation(String spritePath, int totalFrames) {
         animatedImage.setSpriteSheet(spritePath, totalFrames);
     }
 
-    public void periodicUpdate() {
+    public void nextFrame(){
         animatedImage.nextFrame();
+    }
+
+    public void move(int dx, int dy) {
+        location.x += dx;
+        location.y += dy;
+        animatedImage.move(dx, dy);
+
+        // Update direction based on movement
+        if (dx > 0) setDirection(Direction.RIGHT);
+        else if (dx < 0) setDirection(Direction.LEFT);
+        else if (dy > 0) setDirection(Direction.DOWN);
+        else if (dy < 0) setDirection(Direction.UP);
     }
     
     public void addToCanvas() {
@@ -82,19 +102,7 @@ public abstract class Character {
     }
 
     // Subclasses must implement mappings
+    public abstract void periodicUpdate();
     public abstract void updateAnimation();
-    
-    
-    // public void move(int dx, int dy) {
-    //     location.x += dx;
-    //     location.y += dy;
-    //     animatedImage.move(dx, dy);
-
-    //     // Update direction based on movement
-    //     if (dx > 0) setDirection(Direction.RIGHT);
-    //     else if (dx < 0) setDirection(Direction.LEFT);
-    //     else if (dy > 0) setDirection(Direction.DOWN);
-    //     else if (dy < 0) setDirection(Direction.UP);
-    // }
     
 }
