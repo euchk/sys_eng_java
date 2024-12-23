@@ -59,6 +59,10 @@ public class AnimatedImage extends Shape {
         }
     }
 
+    public int getCurrentFrame(){
+        return currentFrame;
+    }
+
     @Override
     public void draw(Graphics2D g) {
         int srcX = currentFrame * frameWidth;

@@ -49,7 +49,7 @@ public class MyContent extends GameContent{
 	public void initContent() {
 		pokimon = new Pokimon();
 
-		archer = new Archer(new ScreenPoint(600, 500), "archer1", Direction.LEFT, Action.IDLE);
+		archer = new Archer(new ScreenPoint(500, 500), "archer1", Direction.LEFT, Action.ATTACK);
 		addCharacter(archer);
 	
 		knight1 = new Knight(new ScreenPoint(700, 200), "knight1", Direction.RIGHT, Action.IDLE);

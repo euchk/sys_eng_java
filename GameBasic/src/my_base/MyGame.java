@@ -82,7 +82,7 @@ public class MyGame extends Game {
 	public MyContent getContent() {
 		return this.content;
 	}
-	
+
 	public static void main(String[] args) {
 		MyGame game = new MyGame();
 		game.setGameContent(new MyContent());

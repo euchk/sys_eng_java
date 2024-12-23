@@ -20,8 +20,7 @@ public abstract class Character {
 
     private String id;
     private ScreenPoint location;
-    private AnimatedImage animatedImage;
-    
+    protected AnimatedImage animatedImage;
     protected Direction direction;
     protected Action action;
     private boolean isMirrored;

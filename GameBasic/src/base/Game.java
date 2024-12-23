@@ -11,7 +11,7 @@ public abstract class Game {
 	private static PeriodicScheduler scheduler;
 	private static AudioPlayer audioPlayer;
 	private static ExcelDB excelDB;
-	
+
 	public Game() {
 		scheduler = new PeriodicScheduler();
 		excelDB = ExcelDB.getInstance();
@@ -30,7 +30,12 @@ public abstract class Game {
 	public void setPeriodicLoop(PeriodicLoop periodicLoop) {
 		scheduler.setPeriodicLoop(periodicLoop);
 	}
-	
+
+	// Allow adding tasks to PeriodicLoop 
+	public static PeriodicLoop getPeriodicLoop() {
+		return scheduler.getPeriodicLoop();
+	}
+
 	public void setMouseHandler(MouseHandler myMouseHandler) {
 		mouseHandler = myMouseHandler;
 	}

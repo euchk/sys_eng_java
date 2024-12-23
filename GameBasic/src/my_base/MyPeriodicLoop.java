@@ -1,6 +1,7 @@
 package my_base;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import base.Game;
@@ -11,9 +12,13 @@ import my_game.Character;
 public class MyPeriodicLoop extends PeriodicLoop {
 
 	private MyContent content;
+	private final List<Runnable> tasks = new ArrayList<>();
 	List<Character> charactersToRemove = new ArrayList<>();
 
-
+	public void addTask(Runnable task) {
+        tasks.add(task);
+    }
+	
 	public void setContent(MyContent content) {
 		this.content = content;
 	}
@@ -46,6 +51,17 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		GameCanvas canvas = Game.UI().canvas();
 		canvas.revalidate();
 		canvas.repaint();
+
+		Iterator<Runnable> iterator = tasks.iterator();
+        while (iterator.hasNext()) {
+            Runnable task = iterator.next();
+            try {
+                task.run();
+            } catch (Exception e) {
+                e.printStackTrace();
+                iterator.remove(); // Remove the task if it encounters an exception
+            }
+        }
 		
 	}
 	

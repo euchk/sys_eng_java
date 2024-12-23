@@ -7,7 +7,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
 public class PeriodicScheduler {
-	public static int periodicInterval = 100;
+	public static int periodicInterval = 300;
 	private PeriodicLoop periodicLoop;
 	private final ScheduledExecutorService scheduler =
 			Executors.newScheduledThreadPool(1);
@@ -20,6 +20,12 @@ public class PeriodicScheduler {
 	public void setPeriodicLoop(PeriodicLoop myPeriodicLoop) {
 		this.periodicLoop = myPeriodicLoop;
 	}
+	
+	// Allow adding tasks to PeriodicLoop
+	public PeriodicLoop getPeriodicLoop() {
+		return periodicLoop;
+	}
+
 	public void start() {
 		  
 	    final Runnable beeper = new Runnable() {
