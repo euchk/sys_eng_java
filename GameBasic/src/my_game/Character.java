@@ -61,6 +61,10 @@ public abstract class Character {
         return frameHeight;
     }
 
+    public ScreenPoint getCenterLocation(){
+        return new ScreenPoint(location.x + getWidth() / 2, location.y + getHeight() / 2);
+    }
+
     public void setLocation(int x, int y) {
         this.location.x = x;
         this.location.y = y;

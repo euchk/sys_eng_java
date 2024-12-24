@@ -17,6 +17,7 @@ public class Archer extends Character {
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
 
     private int attackRange = 200;
+    private int damage = 10;
     
     public ScreenPoint getBowOffset() {
         switch (direction) {
@@ -72,13 +73,6 @@ public class Archer extends Character {
         frameCounts.put(Action.ATTACK, attackFrames);
     }
 
-    // @Override
-    // public void periodicUpdate() { // Archer is a static character
-    //     nextFrame();
-    // }
-
-
-
     // public void shootArrow(ScreenPoint targetLocation) {
     private void shootArrow(Character target) {
         
@@ -94,9 +88,7 @@ public class Archer extends Character {
         ScreenPoint bowOffset = getBowOffset();
         ScreenPoint startLocation = new ScreenPoint(getLocation().x + bowOffset.x, 
                                                     getLocation().y + bowOffset.y);
-        ScreenPoint targetOffset = new ScreenPoint(target.getWidth() / 2, target.getHeight() / 2);
-        ScreenPoint targetLocation = new ScreenPoint(target.getLocation().x + targetOffset.x, 
-                                                     target.getLocation().y + targetOffset.y);
+        ScreenPoint targetLocation = target.getCenterLocation();
         
         // Update the archer's direction based on the target location
         updateDirection(targetLocation);
@@ -114,10 +106,10 @@ public class Archer extends Character {
             arrow.move();
             if (!arrow.isActive()) {
                 Game.UI().canvas().deleteShape(arrow.getId());
-                // Inflict damage
-                if (!arrow.getHitTarget()){
+                // Inflict damage if target is still in range
+                if (!arrow.getHitTarget() && isInRange(target)){
                     arrow.setHitTarget();
-                    target.reduceHealth(10);
+                    target.reduceHealth(damage);
                 }
             }
         });
@@ -161,7 +153,8 @@ public class Archer extends Character {
             if (character instanceof Knight && isInRange(character)) {
                 double distance = Math.sqrt(Math.pow(character.getLocation().x - getLocation().x, 2) +
                                             Math.pow(character.getLocation().y - getLocation().y, 2));
-                if (distance < minDistance) {
+                // Stay with current target if it's health is lower
+                if (distance < minDistance || (distance == minDistance && character.getHealth() < nearestTarget.getHealth())) {
                     minDistance = distance;
                     nearestTarget = character;
                 }
