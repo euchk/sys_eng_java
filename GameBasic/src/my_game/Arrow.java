@@ -18,10 +18,11 @@ public class Arrow extends Shape {
     private ScreenPoint target;   // Target position
     private int speed = 30; // Pixels per frame
     private boolean active;
+    private boolean hitTarget = false;
 
     private final String imagePath = "resources/objects/archer/arrow.png";
 
-    public Arrow(String id, ScreenPoint archerPosition, ScreenPoint bowOffset, ScreenPoint target) {
+    public Arrow(String id, ScreenPoint archerPosition, ScreenPoint target) {
         super(id);
         this.target = target;
         this.active = true;
@@ -34,7 +35,7 @@ public class Arrow extends Shape {
         }
 
         // Set initial position based on the archer's position and bow offset
-        this.position = new ScreenPoint(archerPosition.x + bowOffset.x, archerPosition.y + bowOffset.y);
+        this.position = new ScreenPoint(archerPosition.x, archerPosition.y);
 
         // Calculate angle to target
         this.angle = Math.toDegrees(Math.atan2(target.y - position.y, target.x - position.x));
@@ -80,6 +81,14 @@ public class Arrow extends Shape {
 
     public boolean isActive() {
         return active;
+    }
+
+    public void setHitTarget() {
+        hitTarget = true;
+    }
+
+    public boolean getHitTarget() {
+        return hitTarget;
     }
 
     @Override

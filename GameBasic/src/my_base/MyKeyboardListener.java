@@ -2,6 +2,7 @@ package my_base;
 
 import my_game.Pokimon;
 import my_game.Character.Action;
+import my_game.Knight;
 import my_game.Character;
 import my_ui_elements.DirectionCombo;
 
@@ -28,7 +29,9 @@ public class MyKeyboardListener extends KeyboardListener{
 			  dx = 10;
 			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
-				character.setDirection(Character.Direction.RIGHT);
+				if (character instanceof Knight){
+					character.setDirection(Character.Direction.RIGHT);
+				}
 			  }
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Right");
 			  break;
@@ -37,7 +40,9 @@ public class MyKeyboardListener extends KeyboardListener{
 			  dx = -10;
 			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
-				character.setDirection(Character.Direction.LEFT);
+				if (character instanceof Knight){
+					character.setDirection(Character.Direction.LEFT);
+				}
 			  }
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Left");
 			  break;
@@ -46,7 +51,9 @@ public class MyKeyboardListener extends KeyboardListener{
 			  dx = 0;
 			  dy = -10;
 			  for (Character character : myContent.getAllCharacters()) {
-				character.setDirection(Character.Direction.UP);
+				if (character instanceof Knight){
+					character.setDirection(Character.Direction.UP);
+				}
 			  }
 			  break;
 		  case DOWN:
@@ -54,12 +61,17 @@ public class MyKeyboardListener extends KeyboardListener{
 			  dx = 0;
 			  dy = 10;
 			  for (Character character : myContent.getAllCharacters()) {
-				character.setDirection(Character.Direction.DOWN);
+				if (character instanceof Knight){
+					character.setDirection(Character.Direction.DOWN);
+				}
 			  }
 			  break;
 		}
 		for (Character character : myContent.getAllCharacters()) {
-			character.move(dx, dy);
+			if (character instanceof Knight){
+				character.move(dx, dy);
+			}
+			
 		  }
 	}
 	

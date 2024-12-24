@@ -20,6 +20,7 @@ public abstract class Character {
 
     private String id;
     private ScreenPoint location;
+    private int frameWidth, frameHeight;
     protected AnimatedImage animatedImage;
     protected Direction direction;
     protected Action action;
@@ -32,6 +33,8 @@ public abstract class Character {
                     int maxHealth) {
         this.id = id;
         this.location = startLocation;
+        this.frameWidth = frameWidth;
+        this.frameHeight = frameHeight;
         this.action = action;
         this.direction = direction;
         setIsMirrored();
@@ -48,6 +51,14 @@ public abstract class Character {
 
     public ScreenPoint getLocation() {
         return location;
+    }
+
+    public int getWidth() {
+        return frameWidth;
+    }
+
+    public int getHeight() {
+        return frameHeight;
     }
 
     public void setLocation(int x, int y) {
