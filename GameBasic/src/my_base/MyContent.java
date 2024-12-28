@@ -16,7 +16,7 @@ import my_game.MyPolygon;
 public class MyContent extends GameContent{
 	private Pokimon pokimon;
 	private MyPolygon myPolygon;
-	private Archer archer;
+	private Archer archer1, archer2;
 	private Knight knight1, knight2;
 	
 	private HashMap<String, Character> characters; // Store all characters with id as key
@@ -49,8 +49,11 @@ public class MyContent extends GameContent{
 	public void initContent() {
 		pokimon = new Pokimon();
 
-		archer = new Archer(new ScreenPoint(500, 500), "archer1", Direction.LEFT, Action.IDLE);
-		addCharacter(archer);
+		archer1 = new Archer(new ScreenPoint(500, 500), "archer1", Direction.DOWN, Action.IDLE);
+		addCharacter(archer1);
+
+		archer2 = new Archer(new ScreenPoint(700, 500), "archer2", Direction.DOWN, Action.IDLE);
+		addCharacter(archer2);
 	
 		knight1 = new Knight(new ScreenPoint(700, 200), "knight1", Direction.RIGHT, Action.ATTACK);
 		addCharacter(knight1);

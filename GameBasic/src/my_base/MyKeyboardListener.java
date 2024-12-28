@@ -70,6 +70,7 @@ public class MyKeyboardListener extends KeyboardListener{
 		for (Character character : myContent.getAllCharacters()) {
 			if (character instanceof Knight){
 				character.move(dx, dy);
+				break;
 			}
 			
 		  }

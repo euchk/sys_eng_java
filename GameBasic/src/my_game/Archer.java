@@ -17,7 +17,7 @@ public class Archer extends Character {
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
 
     private int attackRange = 200;
-    private int damage = 10;
+    private int damage = 6;
     
     public ScreenPoint getBowOffset() {
         switch (direction) {
@@ -102,9 +102,10 @@ public class Archer extends Character {
 
         // Track the arrow in the periodic loop for movement
         MyPeriodicLoop myPeriodicLoop = (MyPeriodicLoop) Game.getPeriodicLoop();
-        myPeriodicLoop.addTask(() -> {
+        myPeriodicLoop.addTask(arrowId, () -> {
             arrow.move();
             if (!arrow.isActive()) {
+                myPeriodicLoop.removeTask(arrowId);
                 Game.UI().canvas().deleteShape(arrow.getId());
                 // Inflict damage if target is still in range
                 if (!arrow.getHitTarget() && isInRange(target)){
