@@ -7,7 +7,8 @@ import base.GameCanvas;
 import base.GameContent;
 import base.GameDashboard;
 import my_game.Character;
-import my_ui_elements.AddTowerButton;
+import my_ui_elements.AddArcherButton;
+import my_ui_elements.StartWaveButton;
 
 public class MyGame extends Game {
 	
@@ -20,6 +21,12 @@ public class MyGame extends Game {
 		canvas.setMouseHandler(Game.MouseHandler());
 		canvas.setBackground(Color.WHITE);
 		canvas.setBackgroundImage("resources/tiles/background.png");
+		
+		// Add coins text to the canvas
+		content.coins().addToCanvas();
+		
+		// Add Score text to the canvas
+		content.score().addToCanvas();
 		
 		// Add all init characters to canvas
 		for (Character character : content.getAllCharacters()) {
@@ -34,8 +41,11 @@ public class MyGame extends Game {
 		
 		dashboard.setBackground(Color.BLACK);
 
-		// Add a the AddButton button
-		dashboard.addUIElement(new AddTowerButton("addButton", "Add", 540, 40));
+		// Add a the AddArcherButton button
+		dashboard.addUIElement(new AddArcherButton("addArcher", "Add Archer", 500, 40));
+		// Add a the StartWaveButton button
+		dashboard.addUIElement(new StartWaveButton("startWave", "Start Wave", 1500, 40));
+		
 
 	}
 	
@@ -43,8 +53,7 @@ public class MyGame extends Game {
 	public void setGameContent(GameContent content) {
 		// Call the Game superclass to set its content 
 		super.setGameContent(content);
-		// point to the content with a variable of type MyContent so we have access to all
-		// our game specific data
+		// point to the content
 		this.content = (MyContent) content;
 	}
 	

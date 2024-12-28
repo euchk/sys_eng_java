@@ -33,6 +33,7 @@ public class Archer extends Character {
     
     public Archer(ScreenPoint startLocation, String id, Direction direction, Action action) {
         super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action, 80);
+        setShowHealthBar(false); // defender
         initializeMappings();
         updateAnimation();
     }

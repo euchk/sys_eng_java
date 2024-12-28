@@ -28,6 +28,7 @@ public abstract class Character {
     private boolean active;
     private boolean isMirrored;
     private HealthBar healthBar;
+    private boolean showHealthBar = true;
 
     protected MyContent content = (MyContent) Game.Content();
 
@@ -78,6 +79,10 @@ public abstract class Character {
         healthBar.moveToLocation(x, y - 10); // Move the health bar along with the character
     }
 
+    public void setShowHealthBar(boolean showHealthBar) {
+        this.showHealthBar = showHealthBar;
+    }
+    
     public int getHealth() {
         return healthBar.getCurrentHealth();
     }
@@ -145,7 +150,7 @@ public abstract class Character {
         animatedImage.setzOrder(3);
         canvas.addShape(animatedImage);
         healthBar.setzOrder(1);
-        canvas.addShape(healthBar);
+        if (showHealthBar) canvas.addShape(healthBar);
         canvas.revalidate();
         canvas.repaint();
     }
@@ -153,7 +158,7 @@ public abstract class Character {
     public void removeFromCanvas() {
         GameCanvas canvas = Game.UI().canvas();
         canvas.deleteShape(animatedImage.getId());
-        canvas.deleteShape(healthBar.getId());
+        if (showHealthBar) canvas.deleteShape(healthBar.getId());
         canvas.revalidate();
         canvas.repaint();
     }

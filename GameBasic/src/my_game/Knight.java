@@ -12,6 +12,10 @@ public class Knight extends Character {
 
     private static final int FRAME_WIDTH = 96;   // Width of each frame
     private static final int FRAME_HEIGHT = 96;  // Height of each frame
+
+    private boolean isPassed = false; // Passed the gate
+    private boolean isKilled = false; // Killed by defender
+    private int speed = 5;
     
     public Knight(ScreenPoint startLocation, String id, Direction direction, Action action) {
         super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action, 100);
@@ -51,11 +55,34 @@ public class Knight extends Character {
         frameCounts.put(Action.ATTACK, attackFrames);
     }
 
+    private void setisPassed() {
+        this.isPassed = true;
+    }
+    
+    public boolean getisPassed() {
+        return isPassed;
+    }
+
+    private void setIsKilled() {
+        this.isKilled = true;
+    }
+    
+    public boolean getIsKilled() {
+        return isKilled;
+    }
+
     @Override
     public void gameStep() {
+        move(-speed, 0);
         nextFrame();
 
         if (getHealth() <= 0) {
+            setIsKilled();
+            deactivate();
+        }
+
+        if (getLocation().x <= 0) {
+            setisPassed();
             deactivate();
         }
     }

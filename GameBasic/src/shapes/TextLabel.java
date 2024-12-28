@@ -55,6 +55,10 @@ public class TextLabel extends Shape {
 		txtLbl = lbl;
 	} 
 
+	public void setText(String text) {
+		txtLbl.setText(text);
+	}
+
 	public int getWidth() {
 		return text.length() * fontSize;
 	}

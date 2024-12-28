@@ -2,18 +2,25 @@ package my_game;
 
 import java.util.Iterator;
 
+import org.apache.poi.ss.formula.functions.T;
+
 import base.Game;
 import base.GameCanvas;
 import my_base.MyContent;
+import shapes.Text;
 
 public class GameControl {
     private MyContent content;
+    private boolean gameOver = false;
 
     public GameControl(MyContent content) {
         this.content = content;
     }
 
     public void gameStep(){
+        if (gameOver) return;
+
+        GameCanvas canvas = Game.UI().canvas();
 
         // Iterate over all characters and activate periodic method
 		for (Character character : content.getAllCharacters()) {
@@ -29,8 +36,16 @@ public class GameControl {
         removeInactiveCharacters();
 		removeInactiveArrows();
 
+        // Check game over
+        checkGameOver();
+        if (gameOver) {
+            Text text = new Text("game over", "GAME OVER", 700, 350);
+            text.setFontSize(50);
+            canvas.addShape(text);
+            return;
+        }
+
         // Repaint canvas after all gameSteps 
-		GameCanvas canvas = Game.UI().canvas();
 		canvas.revalidate();
 		canvas.repaint();
     }
@@ -41,6 +56,15 @@ public class GameControl {
         while (iterator.hasNext()) {
             Character character = iterator.next();
             if (!character.isActive()) {
+                if (character instanceof Knight) {
+                    Knight knight = (Knight) character;
+                    if (knight.getIsKilled()) {
+                        content.coins().addCoins(5);
+                    }
+                    else if (knight.getisPassed()) {
+                        content.score().increment();
+                    }
+                }
                 iterator.remove();
             }
         }
@@ -56,5 +80,12 @@ public class GameControl {
 			}
 		}
 	}
+
+    // Check for game over conditions
+    public void checkGameOver() {
+        if (content.score().getCurrentScore() > content.score().getMaxEnemiesPassed()) {
+            gameOver = true;
+        }
+    }
     
 }

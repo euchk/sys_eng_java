@@ -4,19 +4,17 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import my_game.Character;
-import my_game.Character.Direction;
 import my_game.GameControl;
-import my_game.Character.Action;
-import my_game.Knight;
-import my_game.Archer;
 import my_game.Arrow;
-import ui_elements.ScreenPoint;
+import my_game.Coins;
+import my_game.Score;
 import base.GameContent;
 
+
 public class MyContent extends GameContent{
-	private Archer archer1, archer2;
-	private Knight knight1, knight2;
 	private GameControl gameControl;
+	private Coins coins;
+	private Score score;
 	
 	private HashMap<String, Character> characters; // Store all characters with id as key
 	private HashMap<String, Arrow> arrows; 		   // Store all arrows with id as key
@@ -29,18 +27,8 @@ public class MyContent extends GameContent{
 	@Override
 	public void initContent() {
 
-		archer1 = new Archer(new ScreenPoint(500, 500), "archer1", Direction.DOWN, Action.IDLE);
-		addCharacter(archer1);
-
-		archer2 = new Archer(new ScreenPoint(700, 500), "archer2", Direction.DOWN, Action.IDLE);
-		addCharacter(archer2);
-	
-		knight1 = new Knight(new ScreenPoint(700, 200), "knight1", Direction.RIGHT, Action.ATTACK);
-		addCharacter(knight1);
-
-		knight2 = new Knight(new ScreenPoint(500, 100), "knight2", Direction.LEFT, Action.IDLE);
-		addCharacter(knight2);
-
+		score = new Score(5, 70, 20);
+		coins = new Coins(300, 70, 100);
 		gameControl = new GameControl(this);
 	}
 
@@ -59,13 +47,21 @@ public class MyContent extends GameContent{
 		arrows.put(arrow.getId(), arrow);
     }
 
-	// Allow iteration on all shapes
+	// Allow iteration on all arrows
 	public Collection<Arrow> getAllArrows() {
         return arrows.values();
     }
 
+	public Coins coins() {
+		return coins;
+	}
+
+	public Score score() {
+		return score;
+	}
+
 	public GameControl gameControl() {
-		return this.gameControl;
+		return gameControl;
 	}
 
 }
