@@ -74,7 +74,7 @@ public class Arrow extends Shape {
         canvas.repaint();
     }
 
-    public void periodicUpdate(){
+    public void gameStep(){
         if (!active) return;
 
         // Calculate movement in x and y directions

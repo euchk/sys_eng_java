@@ -150,7 +150,7 @@ public class Archer extends Character {
     }
 
     @Override
-    public void periodicUpdate() {
+    public void gameStep() {
         Character nearestTarget = getNearestTarget();
         
         // Shoot arrow if there is a target in range

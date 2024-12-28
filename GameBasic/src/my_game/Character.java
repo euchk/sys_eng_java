@@ -159,7 +159,7 @@ public abstract class Character {
     }
 
     // Subclasses must implement mappings
-    public abstract void periodicUpdate();
+    public abstract void gameStep();
     public abstract void updateAnimation();
     
 }

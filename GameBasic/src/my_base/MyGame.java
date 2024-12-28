@@ -6,7 +6,6 @@ import base.Game;
 import base.GameCanvas;
 import base.GameContent;
 import base.GameDashboard;
-import my_game.Pokimon;
 import my_game.Character;
 import my_ui_elements.AddButton;
 import my_ui_elements.ChangeButton;
@@ -28,9 +27,6 @@ public class MyGame extends Game {
 		canvas.setMouseHandler(Game.MouseHandler());
 		canvas.setBackground(Color.WHITE);
 		canvas.setBackgroundImage("resources/tiles/background.png");
-
-		Pokimon pokimon = content.pokimon();
-		// pokimon.addToCanvas();
 		
 		// Add all init characters to canvas
 		for (Character character : content.getAllCharacters()) {

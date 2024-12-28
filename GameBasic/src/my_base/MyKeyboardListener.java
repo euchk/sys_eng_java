@@ -1,7 +1,5 @@
 package my_base;
 
-import my_game.Pokimon;
-import my_game.Character.Action;
 import my_game.Knight;
 import my_game.Character;
 import my_ui_elements.DirectionCombo;
@@ -25,7 +23,6 @@ public class MyKeyboardListener extends KeyboardListener{
 	public void directionalKeyPressed(Direction direction) {
 		switch (direction) {
 		  case RIGHT:
-			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.RIGHT);
 			  dx = 10;
 			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
@@ -36,7 +33,6 @@ public class MyKeyboardListener extends KeyboardListener{
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Right");
 			  break;
 		  case LEFT:
-			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.LEFT);
 			  dx = -10;
 			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
@@ -47,7 +43,6 @@ public class MyKeyboardListener extends KeyboardListener{
 			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Left");
 			  break;
 		  case UP:
-			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.UP);
 			  dx = 0;
 			  dy = -10;
 			  for (Character character : myContent.getAllCharacters()) {
@@ -57,7 +52,6 @@ public class MyKeyboardListener extends KeyboardListener{
 			  }
 			  break;
 		  case DOWN:
-			  myContent.pokimon().setDirectionPolicy(Pokimon.Direction.DOWN);
 			  dx = 0;
 			  dy = 10;
 			  for (Character character : myContent.getAllCharacters()) {

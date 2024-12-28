@@ -17,12 +17,6 @@ public class EditPolygonButton extends GameButton{
 		// Keep the call to super to preserve this behavior or remove it if you don't want the printing.
 		super.action();
 		
-		MyContent content = (MyContent) Game.Content();
-		if (content.polygon().isEditMode()) {
-			content.polygon().exitEditMode();
-		} else {
-			content.polygon().enterEditMode();
-		}
 	}
 
 }

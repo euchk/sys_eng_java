@@ -18,8 +18,6 @@ public class ChangeButton extends GameButton{
 		super.action();
 		
 		MyContent content = (MyContent) Game.Content();
-		content.polygon().exitEditMode();
-		content.polygon().getVisualPolygon().rotate(45);
 		for (Character character : content.getAllCharacters()) {
 			character.reduceHealth(10);
 		}		

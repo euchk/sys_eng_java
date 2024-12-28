@@ -2,7 +2,6 @@ package my_ui_elements;
 
 import base.Game;
 import my_base.MyContent;
-import my_game.Pokimon;
 import ui_elements.GameComboBox;
 
 public class DirectionCombo extends GameComboBox{
@@ -23,10 +22,8 @@ public class DirectionCombo extends GameComboBox{
         super.action();
         switch (getOption()) {
             case "Right":
-                myContent.pokimon().setDirectionPolicy(Pokimon.Direction.RIGHT);
                 break;
             case "Left":
-                myContent.pokimon().setDirectionPolicy(Pokimon.Direction.LEFT);
                 break;
             default:
           }

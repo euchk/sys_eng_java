@@ -52,7 +52,7 @@ public class Knight extends Character {
     }
 
     @Override
-    public void periodicUpdate() {
+    public void gameStep() {
         nextFrame();
 
         if (getHealth() <= 0) {
