@@ -54,6 +54,10 @@ public class Knight extends Character {
     @Override
     public void periodicUpdate() {
         nextFrame();
+
+        if (getHealth() <= 0) {
+            deactivate();
+        }
     }
     
     @Override

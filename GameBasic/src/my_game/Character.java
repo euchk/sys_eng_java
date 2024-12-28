@@ -3,6 +3,7 @@ package my_game;
 import ui_elements.ScreenPoint;
 import base.Game;
 import base.GameCanvas;
+import my_base.MyContent;
 import shapes.AnimatedImage;
 import shapes.HealthBar;
 
@@ -24,8 +25,12 @@ public abstract class Character {
     protected AnimatedImage animatedImage;
     protected Direction direction;
     protected Action action;
+    private boolean active;
     private boolean isMirrored;
     private HealthBar healthBar;
+
+    protected MyContent content = (MyContent) Game.Content();
+
     
     public Character(String id, ScreenPoint startLocation, 
                     int frameWidth, int frameHeight, 
@@ -37,6 +42,7 @@ public abstract class Character {
         this.frameHeight = frameHeight;
         this.action = action;
         this.direction = direction;
+        this.active = true;
         setIsMirrored();
         // Initialize AnimatedImage
         this.animatedImage = new AnimatedImage(id, frameWidth, frameHeight, isMirrored);
@@ -110,6 +116,15 @@ public abstract class Character {
 
     public void nextFrame(){
         animatedImage.nextFrame();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    protected void deactivate() {
+        active = false;
+        removeFromCanvas();
     }
 
     public void move(int dx, int dy) {

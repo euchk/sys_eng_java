@@ -16,7 +16,6 @@ import my_ui_elements.EditPolygonButton;
 import my_ui_elements.MusicButton;
 import my_ui_elements.RotatePolygonButton;
 import shapes.Circle;
-import shapes.Shape;
 
 public class MyGame extends Game {
 	

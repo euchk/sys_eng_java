@@ -3,9 +3,6 @@ package my_game;
 import java.util.HashMap;
 import java.util.Map;
 
-import base.Game;
-import my_base.MyContent;
-import my_base.MyPeriodicLoop;
 import ui_elements.ScreenPoint;
 
 public class Archer extends Character {
@@ -17,12 +14,12 @@ public class Archer extends Character {
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
 
     private int attackRange = 200;
-    private int damage = 6;
     
+    // Offset for arrow positioning depending on direction
     public ScreenPoint getBowOffset() {
         switch (direction) {
             case UP:
-                return new ScreenPoint(20, 20); // Adjust as needed for the bow's position in the sprite
+                return new ScreenPoint(20, 20); 
             case DOWN:
                 return new ScreenPoint(20, 20);
             case LEFT:
@@ -34,13 +31,13 @@ public class Archer extends Character {
         }
     }
     
-
     public Archer(ScreenPoint startLocation, String id, Direction direction, Action action) {
         super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action, 80);
         initializeMappings();
         updateAnimation();
     }
 
+    // Map the currect sprite for action and direction
     private void initializeMappings() {
         // IDLE mappings
         Map<Direction, String> idlePaths = new HashMap<>();
@@ -73,48 +70,30 @@ public class Archer extends Character {
         frameCounts.put(Action.ATTACK, attackFrames);
     }
 
-    // public void shootArrow(ScreenPoint targetLocation) {
     private void shootArrow(Character target) {
-        
         // set ATTACK only if starting from IDLE to avoid reseting animation
         if(action != Action.ATTACK){
             setAction(Action.ATTACK);
         }
         
-        // Shoot only at 4th frame of animation
+        // Shoot only at 4th frame of ATTACK animation
         if (animatedImage.getCurrentFrame() != 4) return;
                
         // Calibrate arrow position
         ScreenPoint bowOffset = getBowOffset();
         ScreenPoint startLocation = new ScreenPoint(getLocation().x + bowOffset.x, 
                                                     getLocation().y + bowOffset.y);
-        ScreenPoint targetLocation = target.getCenterLocation();
         
         // Update the archer's direction based on the target location
-        updateDirection(targetLocation);
+        updateDirection(target.getCenterLocation());
         
         // Create an arrow instance
         String arrowId = "arrow_" + System.currentTimeMillis(); // Unique ID for each arrow
-        Arrow arrow = new Arrow(arrowId, startLocation, targetLocation);
+        Arrow arrow = new Arrow(arrowId, startLocation, target);
 
-         // Add arrow to the canvas
-        Game.UI().canvas().addShape(arrow);
-
-        // Track the arrow in the periodic loop for movement
-        MyPeriodicLoop myPeriodicLoop = (MyPeriodicLoop) Game.getPeriodicLoop();
-        myPeriodicLoop.addTask(arrowId, () -> {
-            arrow.move();
-            if (!arrow.isActive()) {
-                myPeriodicLoop.removeTask(arrowId);
-                Game.UI().canvas().deleteShape(arrow.getId());
-                // Inflict damage if target is still in range
-                if (!arrow.getHitTarget() && isInRange(target)){
-                    arrow.setHitTarget();
-                    target.reduceHealth(damage);
-                }
-            }
-        });
-
+        // Add arrow to the game
+        content.addArrow(arrow);
+        arrow.addToCanvas();
     }
 
     private void updateDirection(ScreenPoint targetLocation) {
@@ -148,7 +127,6 @@ public class Archer extends Character {
         // Find the nearest target in range
         Character nearestTarget = null;
         double minDistance = Double.MAX_VALUE;
-        MyContent content = (MyContent) Game.Content();
 
         for (Character character : content.getAllCharacters()) {
             if (character instanceof Knight && isInRange(character)) {
@@ -173,7 +151,6 @@ public class Archer extends Character {
 
     @Override
     public void periodicUpdate() {
-        
         Character nearestTarget = getNearestTarget();
         
         // Shoot arrow if there is a target in range
