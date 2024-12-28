@@ -12,13 +12,10 @@ public class BufferedAnimatedImage extends JComponent {
     private int currentFrame;           // Current frame index
     private int frameWidth;             // Width of each frame
     private int frameHeight;            // Height of each frame
-    private int posX, posY;             // Position on screen
 
     public BufferedAnimatedImage(String src, int frameWidth, int frameHeight, int posX, int posY, int frameCount) {
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
-        this.posX = posX;
-        this.posY = posY;
         this.frameCount = frameCount;
         this.currentFrame = 0;
 
@@ -66,8 +63,6 @@ public class BufferedAnimatedImage extends JComponent {
      * Move the animated image to a new position.
      */
     public void moveTo(int x, int y) {
-        this.posX = x;
-        this.posY = y;
         setLocation(x, y);
     }
 }

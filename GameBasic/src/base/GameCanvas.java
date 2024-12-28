@@ -15,11 +15,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-
-
-import my_base.MyContent;
-import ui_elements.ScreenPoint;
 import ui_elements.UIElement;
 import shapes.Circle;
 import shapes.Image;
@@ -28,7 +23,6 @@ import shapes.Rectangle;
 import shapes.Shape;
 import shapes.Shape.STATUS;
 import shapes.TextLabel;
-import my_game.Character;
 
 /**
  * A 2D screen that displays graphical shapes and enables to set their location at runtime, causing an animation effect.
@@ -76,8 +70,8 @@ public class GameCanvas extends JPanel  {
 	int positionY;
 
 	private ImageIcon backgroundImage = null;
-	private ScreenPoint backgroundImagePoint = null;
-	private int[] backgroundImageSize = null;
+	// private ScreenPoint backgroundImagePoint = null;
+	// private int[] backgroundImageSize = null;
 	private MouseHandler mouseHandler;
 	public GameCanvas() {
 		super();

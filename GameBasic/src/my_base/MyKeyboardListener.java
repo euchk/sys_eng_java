@@ -2,11 +2,9 @@ package my_base;
 
 import my_game.Knight;
 import my_game.Character;
-import my_ui_elements.DirectionCombo;
 
 import java.awt.event.KeyEvent;
 
-import base.Game;
 import base.KeyboardListener;
 
 public class MyKeyboardListener extends KeyboardListener{
@@ -30,7 +28,6 @@ public class MyKeyboardListener extends KeyboardListener{
 					character.setDirection(Character.Direction.RIGHT);
 				}
 			  }
-			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Right");
 			  break;
 		  case LEFT:
 			  dx = -10;
@@ -40,7 +37,6 @@ public class MyKeyboardListener extends KeyboardListener{
 					character.setDirection(Character.Direction.LEFT);
 				}
 			  }
-			  ((DirectionCombo) (Game.UI().dashboard().getUIElement("directionCombo"))).setDirection("Left");
 			  break;
 		  case UP:
 			  dx = 0;

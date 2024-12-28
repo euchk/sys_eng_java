@@ -5,9 +5,9 @@ import my_base.MyContent;
 import ui_elements.GameButton;
 import my_game.Character;
 
-public class AddButton extends GameButton{
+public class AddTowerButton extends GameButton{
 	
-	public AddButton(String id, String name, int posX, int posY) {
+	public AddTowerButton(String id, String name, int posX, int posY) {
 		super(id, name, 100, 40, posX, posY);
 	}
 
