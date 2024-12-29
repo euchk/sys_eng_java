@@ -5,22 +5,22 @@ import java.util.Map;
 
 import ui_elements.ScreenPoint;
 
-public class Archer extends Defender {
+public class Sharpshooter extends Defender {
 
-    public Archer(ScreenPoint startLocation, String id, Direction direction, Action action) {
+    public Sharpshooter(ScreenPoint startLocation, String id, Direction direction, Action action) {
         super(startLocation, id, direction, action);
-        setAttackRange(150);
-        setDamage(5);
+        setAttackRange(300);
+        setDamage(7);
     }
 
     @Override
     protected void initializeMappings() {
         // IDLE mappings
         Map<Direction, String> idlePaths = new HashMap<>();
-        idlePaths.put(Direction.UP, "resources/objects/archer/U_Idle.png");
-        idlePaths.put(Direction.DOWN, "resources/objects/archer/D_Idle.png");
-        idlePaths.put(Direction.LEFT, "resources/objects/archer/S_Idle.png");
-        idlePaths.put(Direction.RIGHT, "resources/objects/archer/S_Idle.png");
+        idlePaths.put(Direction.UP, "resources/objects/sharpshooter/U_Idle.png");
+        idlePaths.put(Direction.DOWN, "resources/objects/sharpshooter/D_Idle.png");
+        idlePaths.put(Direction.LEFT, "resources/objects/sharpshooter/S_Idle.png");
+        idlePaths.put(Direction.RIGHT, "resources/objects/sharpshooter/S_Idle.png");
         spritePaths.put(Action.IDLE, idlePaths);
 
         Map<Direction, Integer> idleFrames = new HashMap<>();
@@ -32,10 +32,10 @@ public class Archer extends Defender {
 
         // ATTACK mappings
         Map<Direction, String> attackPaths = new HashMap<>();
-        attackPaths.put(Direction.UP, "resources/objects/archer/U_Attack.png");
-        attackPaths.put(Direction.DOWN, "resources/objects/archer/D_Attack.png");
-        attackPaths.put(Direction.LEFT, "resources/objects/archer/S_Attack.png");
-        attackPaths.put(Direction.RIGHT, "resources/objects/archer/S_Attack.png");
+        attackPaths.put(Direction.UP, "resources/objects/sharpshooter/U_Attack.png");
+        attackPaths.put(Direction.DOWN, "resources/objects/sharpshooter/D_Attack.png");
+        attackPaths.put(Direction.LEFT, "resources/objects/sharpshooter/S_Attack.png");
+        attackPaths.put(Direction.RIGHT, "resources/objects/sharpshooter/S_Attack.png");
         spritePaths.put(Action.ATTACK, attackPaths);
 
         Map<Direction, Integer> attackFrames = new HashMap<>();

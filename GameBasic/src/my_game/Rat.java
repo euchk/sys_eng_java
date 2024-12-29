@@ -5,11 +5,11 @@ import java.util.Map;
 
 import ui_elements.ScreenPoint;
 
-public class Knight extends Invader {
+public class Rat extends Invader {
     
-    public Knight(ScreenPoint startLocation, String id, Direction direction, Action action) {
-        super(startLocation, id, direction, action, 200);
-        setSpeed(5);
+    public Rat(ScreenPoint startLocation, String id, Direction direction, Action action) {
+        super(startLocation, id, direction, action, 70);
+        setSpeed(7);
         initializeMappings();
         updateAnimation();
     }
@@ -17,10 +17,10 @@ public class Knight extends Invader {
     protected void initializeMappings() {
         // IDLE mappings
         Map<Direction, String> idlePaths = new HashMap<>();
-        idlePaths.put(Direction.UP, "resources/objects/knight/U_Special.png");
-        idlePaths.put(Direction.DOWN, "resources/objects/knight/D_Special.png");
-        idlePaths.put(Direction.LEFT, "resources/objects/knight/S_Special.png");
-        idlePaths.put(Direction.RIGHT, "resources/objects/knight/S_Special.png");
+        idlePaths.put(Direction.UP, "resources/objects/rat/U_Special.png");
+        idlePaths.put(Direction.DOWN, "resources/objects/rat/D_Special.png");
+        idlePaths.put(Direction.LEFT, "resources/objects/rat/S_Special.png");
+        idlePaths.put(Direction.RIGHT, "resources/objects/rat/S_Special.png");
         spritePaths.put(Action.IDLE, idlePaths);
 
         Map<Direction, Integer> idleFrames = new HashMap<>();
@@ -32,10 +32,10 @@ public class Knight extends Invader {
 
         // ATTACK mappings
         Map<Direction, String> attackPaths = new HashMap<>();
-        attackPaths.put(Direction.UP, "resources/objects/knight/U_Attack.png");
-        attackPaths.put(Direction.DOWN, "resources/objects/knight/D_Attack.png");
-        attackPaths.put(Direction.LEFT, "resources/objects/knight/S_Attack.png");
-        attackPaths.put(Direction.RIGHT, "resources/objects/knight/S_Attack.png");
+        attackPaths.put(Direction.UP, "resources/objects/rat/U_Run.png");
+        attackPaths.put(Direction.DOWN, "resources/objects/rat/D_Run.png");
+        attackPaths.put(Direction.LEFT, "resources/objects/rat/S_Run.png");
+        attackPaths.put(Direction.RIGHT, "resources/objects/rat/S_Run.png");
         spritePaths.put(Action.ATTACK, attackPaths);
 
         Map<Direction, Integer> attackFrames = new HashMap<>();

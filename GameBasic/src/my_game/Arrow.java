@@ -21,7 +21,7 @@ public class Arrow extends Shape {
     private ScreenPoint targetLocation;
     private Character target;
     private int speed = 30; // Pixels per frame
-    private int damage = 6;
+    private int damage;
     private boolean active;
     private boolean hitTarget = false;
 
@@ -32,12 +32,13 @@ public class Arrow extends Shape {
     private long creationTime = System.currentTimeMillis();
     private static final long MAX_LIFETIME = 3000;
 
-    public Arrow(String id, ScreenPoint startLocation, Character target) {
+    public Arrow(String id, ScreenPoint startLocation, Character target, int damage) {
         super(id);
         this.id = id;
         this.currentLocation = startLocation;
         this.targetLocation = target.getCenterLocation();
         this.target = target;
+        this.damage = damage;
         this.active = true;
         
         setDraggable(false);

@@ -1,6 +1,6 @@
 package my_base;
 
-import my_game.Knight;
+import my_game.Invader;
 import my_game.Character;
 
 import java.awt.event.KeyEvent;
@@ -24,7 +24,7 @@ public class MyKeyboardListener extends KeyboardListener{
 			  dx = 10;
 			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
-				if (character instanceof Knight){
+				if (character instanceof Invader){
 					character.setDirection(Character.Direction.RIGHT);
 				}
 			  }
@@ -33,7 +33,7 @@ public class MyKeyboardListener extends KeyboardListener{
 			  dx = -10;
 			  dy = 0;
 			  for (Character character : myContent.getAllCharacters()) {
-				if (character instanceof Knight){
+				if (character instanceof Invader){
 					character.setDirection(Character.Direction.LEFT);
 				}
 			  }
@@ -42,7 +42,7 @@ public class MyKeyboardListener extends KeyboardListener{
 			  dx = 0;
 			  dy = -10;
 			  for (Character character : myContent.getAllCharacters()) {
-				if (character instanceof Knight){
+				if (character instanceof Invader){
 					character.setDirection(Character.Direction.UP);
 				}
 			  }
@@ -51,14 +51,14 @@ public class MyKeyboardListener extends KeyboardListener{
 			  dx = 0;
 			  dy = 10;
 			  for (Character character : myContent.getAllCharacters()) {
-				if (character instanceof Knight){
+				if (character instanceof Invader){
 					character.setDirection(Character.Direction.DOWN);
 				}
 			  }
 			  break;
 		}
 		for (Character character : myContent.getAllCharacters()) {
-			if (character instanceof Knight){
+			if (character instanceof Invader){
 				character.move(dx, dy);
 				break;
 			}

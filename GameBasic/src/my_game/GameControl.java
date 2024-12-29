@@ -56,8 +56,8 @@ public class GameControl {
         while (iterator.hasNext()) {
             Character character = iterator.next();
             if (!character.isActive()) {
-                if (character instanceof Knight) {
-                    Knight knight = (Knight) character;
+                if (character instanceof Invader) {
+                    Invader knight = (Invader) character;
                     if (knight.getIsKilled()) {
                         content.coins().addCoins(5);
                     }
@@ -83,7 +83,7 @@ public class GameControl {
 
     // Check for game over conditions
     public void checkGameOver() {
-        if (content.score().getCurrentScore() > content.score().getMaxEnemiesPassed()) {
+        if (content.score().getCurrentScore() >= content.score().getMaxInvadersPassed()) {
             gameOver = true;
         }
     }
