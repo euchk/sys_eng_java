@@ -33,7 +33,7 @@ public abstract class Defender extends Character {
     }
     
     public Defender(ScreenPoint startLocation, String id, Direction direction, Action action) {
-        super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action, 80);
+        super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action);
         setShowHealthBar(false); // defender
         initializeMappings();
         updateAnimation();

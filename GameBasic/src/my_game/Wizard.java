@@ -6,10 +6,16 @@ import java.util.Map;
 import ui_elements.ScreenPoint;
 
 public class Wizard extends Invader {
+
+    private static final int FRAME_WIDTH = 96;   // Width of each frame
+    private static final int FRAME_HEIGHT = 96;  // Height of each frame
+    private static final int speed = 4;
+    private static final int maxHealth = 100;
     
     public Wizard(ScreenPoint startLocation, String id, Direction direction, Action action) {
-        super(startLocation, id, direction, action, 150);
-        setSpeed(4);
+        super(startLocation, id, direction, action, FRAME_HEIGHT, FRAME_WIDTH);
+        setSpeed(speed);
+        setMaxHealth(maxHealth);
         initializeMappings();
         updateAnimation();
     }

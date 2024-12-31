@@ -2,8 +2,6 @@ package my_game;
 
 import java.util.Iterator;
 
-import org.apache.poi.ss.formula.functions.T;
-
 import base.Game;
 import base.GameCanvas;
 import my_base.MyContent;

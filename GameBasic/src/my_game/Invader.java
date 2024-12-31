@@ -10,21 +10,13 @@ public abstract class Invader extends Character {
     protected final Map<Action, Map<Direction, String>> spritePaths = new HashMap<>();
     protected final Map<Action, Map<Direction, Integer>> frameCounts = new HashMap<>();
 
-    private static final int FRAME_WIDTH = 96;   // Width of each frame
-    private static final int FRAME_HEIGHT = 96;  // Height of each frame
-
     private boolean isPassed = false; // Passed the gate
-    private boolean isKilled = false; // Killed by defender
-    private int speed;
     
-    public Invader(ScreenPoint startLocation, String id, Direction direction, Action action, int maxHealth) {
-        super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action, maxHealth);
+    public Invader(ScreenPoint startLocation, String id, Direction direction, Action action, int FRAME_HEIGHT, int FRAME_WIDTH) {
+        super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action);
+        setShowHealthBar(true);
         initializeMappings();
         updateAnimation();
-    }
-
-    protected void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     protected abstract void initializeMappings();
@@ -35,14 +27,6 @@ public abstract class Invader extends Character {
     
     public boolean getisPassed() {
         return isPassed;
-    }
-
-    private void setIsKilled() {
-        this.isKilled = true;
-    }
-    
-    public boolean getIsKilled() {
-        return isKilled;
     }
 
     @Override

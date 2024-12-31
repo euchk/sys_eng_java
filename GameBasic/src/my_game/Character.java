@@ -28,15 +28,16 @@ public abstract class Character {
     private boolean active;
     private boolean isMirrored;
     private HealthBar healthBar;
-    private boolean showHealthBar = true;
+    private boolean isKilled = false;
+
+    protected int speed;
 
     protected MyContent content = (MyContent) Game.Content();
 
     
     public Character(String id, ScreenPoint startLocation, 
                     int frameWidth, int frameHeight, 
-                    Direction direction, Action action,
-                    int maxHealth) {
+                    Direction direction, Action action) {
         this.id = id;
         this.location = startLocation;
         this.frameWidth = frameWidth;
@@ -49,7 +50,7 @@ public abstract class Character {
         this.animatedImage = new AnimatedImage(id, frameWidth, frameHeight, isMirrored);
         this.animatedImage.moveToLocation(startLocation.x, startLocation.y);
         // Initialize health bar
-        this.healthBar = new HealthBar(id + "_health", startLocation.x, startLocation.y - 10, frameWidth, 5, maxHealth);
+        this.healthBar = new HealthBar(id + "_health", startLocation.x, startLocation.y - 10, frameWidth, 5);
     }
 
     public String getId() {
@@ -68,6 +69,14 @@ public abstract class Character {
         return frameHeight;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+    
+    protected void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
     public ScreenPoint getCenterLocation(){
         return new ScreenPoint(location.x + getWidth() / 2, location.y + getHeight() / 2);
     }
@@ -80,7 +89,7 @@ public abstract class Character {
     }
 
     public void setShowHealthBar(boolean showHealthBar) {
-        this.showHealthBar = showHealthBar;
+        this.healthBar.setIsVisible(showHealthBar);
     }
     
     public int getHealth() {
@@ -95,8 +104,16 @@ public abstract class Character {
         healthBar.reduceHealth(damage);
     }
 
-    public void setHealth(int health){
-        healthBar.setHealth(health);
+    public void setMaxHealth(int maxHealth){
+        healthBar.setMaxHealth(maxHealth);
+    }
+
+    protected void setIsKilled() {
+        this.isKilled = true;
+    }
+    
+    public boolean getIsKilled() {
+        return isKilled;
     }
 
     public void setDirection(Direction direction){
@@ -149,8 +166,7 @@ public abstract class Character {
         GameCanvas canvas = Game.UI().canvas();
         animatedImage.setzOrder(3);
         canvas.addShape(animatedImage);
-        healthBar.setzOrder(1);
-        if (showHealthBar) canvas.addShape(healthBar);
+        healthBar.addToCanvas();
         canvas.revalidate();
         canvas.repaint();
     }
@@ -158,7 +174,7 @@ public abstract class Character {
     public void removeFromCanvas() {
         GameCanvas canvas = Game.UI().canvas();
         canvas.deleteShape(animatedImage.getId());
-        if (showHealthBar) canvas.deleteShape(healthBar.getId());
+        healthBar.removeFromCanvas();
         canvas.revalidate();
         canvas.repaint();
     }

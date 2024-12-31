@@ -68,9 +68,6 @@ public class AnimatedImage extends Shape {
         int srcX = currentFrame * frameWidth;
         int srcY = 0; // Using 1-d spritesheets
 
-        // g.drawImage(spriteSheet, posX, posY, posX + frameWidth, posY + frameHeight,
-        //         srcX, srcY, srcX + frameWidth, srcY + frameHeight, null);
-
         if (isMirrored) {
             // Flip horizontally
             g.drawImage(spriteSheet, posX + frameWidth, posY, posX, posY + frameHeight, 

@@ -5,14 +5,14 @@ import java.util.Map;
 
 import ui_elements.ScreenPoint;
 
-public class Rat extends Invader {
+public class Slime extends Invader {
 
-    private static final int FRAME_WIDTH = 96;   // Width of each frame
-    private static final int FRAME_HEIGHT = 96;  // Height of each frame
-    private static final int speed = 7;
-    private static final int maxHealth = 70;
-
-    public Rat(ScreenPoint startLocation, String id, Direction direction, Action action) {
+    private static final int FRAME_WIDTH = 48;   // Width of each frame
+    private static final int FRAME_HEIGHT = 48;  // Height of each frame
+    private static final int speed = 10;
+    private static final int maxHealth = 30;
+    
+    public Slime(ScreenPoint startLocation, String id, Direction direction, Action action) {
         super(startLocation, id, direction, action, FRAME_HEIGHT, FRAME_WIDTH);
         setSpeed(speed);
         setMaxHealth(maxHealth);
@@ -23,10 +23,10 @@ public class Rat extends Invader {
     protected void initializeMappings() {
         // IDLE mappings
         Map<Direction, String> idlePaths = new HashMap<>();
-        idlePaths.put(Direction.UP, "resources/objects/rat/U_Special.png");
-        idlePaths.put(Direction.DOWN, "resources/objects/rat/D_Special.png");
-        idlePaths.put(Direction.LEFT, "resources/objects/rat/S_Special.png");
-        idlePaths.put(Direction.RIGHT, "resources/objects/rat/S_Special.png");
+        idlePaths.put(Direction.UP, "resources/objects/slime/U_Special.png");
+        idlePaths.put(Direction.DOWN, "resources/objects/slime/D_Special.png");
+        idlePaths.put(Direction.LEFT, "resources/objects/slime/S_Special.png");
+        idlePaths.put(Direction.RIGHT, "resources/objects/slime/S_Special.png");
         spritePaths.put(Action.IDLE, idlePaths);
 
         Map<Direction, Integer> idleFrames = new HashMap<>();
@@ -38,10 +38,10 @@ public class Rat extends Invader {
 
         // ATTACK mappings
         Map<Direction, String> attackPaths = new HashMap<>();
-        attackPaths.put(Direction.UP, "resources/objects/rat/U_Run.png");
-        attackPaths.put(Direction.DOWN, "resources/objects/rat/D_Run.png");
-        attackPaths.put(Direction.LEFT, "resources/objects/rat/S_Run.png");
-        attackPaths.put(Direction.RIGHT, "resources/objects/rat/S_Run.png");
+        attackPaths.put(Direction.UP, "resources/objects/slime/U_Walk.png");
+        attackPaths.put(Direction.DOWN, "resources/objects/slime/D_Walk.png");
+        attackPaths.put(Direction.LEFT, "resources/objects/slime/S_Walk.png");
+        attackPaths.put(Direction.RIGHT, "resources/objects/slime/S_Walk.png");
         spritePaths.put(Action.ATTACK, attackPaths);
 
         Map<Direction, Integer> attackFrames = new HashMap<>();

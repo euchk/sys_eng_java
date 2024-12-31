@@ -2,16 +2,19 @@ package shapes;
 
 import java.awt.Color;
 
+import base.Game;
+import base.GameCanvas;
+
 public class HealthBar extends Rectangle {    
     private int maxWidth;
-    private int maxHealth;
+    private int maxHealth = 100; // Default value
     private int currentHealth;
+    private boolean isVisible = true; // Display the bar on the canvas
 
-    public HealthBar(String id, int x, int y, int width, int height, int maxHealth) {
+    public HealthBar(String id, int x, int y, int width, int height) {
         super(id, x, y, width, height);
         this.maxWidth = width;
-        this.maxHealth = maxHealth;
-        this.currentHealth = maxHealth;
+        setMaxHealth(maxHealth);
         setColor(Color.GREEN); // Initial color for full health
     }
 
@@ -23,8 +26,9 @@ public class HealthBar extends Rectangle {
         updateHealthBar();
     }
 
-    public void setHealth(int health) {
-        this.currentHealth = Math.min(maxHealth, Math.max(0, health));
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
         updateHealthBar();
     }
 
@@ -51,4 +55,28 @@ public class HealthBar extends Rectangle {
     public int getMaxHealth() {
         return maxHealth;
     }
+
+    public void setIsVisible(boolean isVisible) { 
+        this.isVisible = isVisible;
+    }
+
+    public void addToCanvas() {
+        if (!isVisible) return;
+
+        GameCanvas canvas = Game.UI().canvas();
+        setzOrder(1);
+        canvas.addShape(this);
+        canvas.revalidate();
+        canvas.repaint();
+    }
+
+    public void removeFromCanvas() {
+        if (!isVisible) return;
+
+        GameCanvas canvas = Game.UI().canvas();
+        canvas.deleteShape(getId());
+        canvas.revalidate();
+        canvas.repaint();
+    }
+
 }
