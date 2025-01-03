@@ -10,7 +10,7 @@ public class Knight extends Invader {
     private static final int FRAME_WIDTH = 96;   // Width of each frame
     private static final int FRAME_HEIGHT = 96;  // Height of each frame
     private static final int speed = 5;
-    private static final int maxHealth = 200;
+    private static final int maxHealth = 800;
     
     public Knight(ScreenPoint startLocation, String id, Direction direction, Action action) {
         super(startLocation, id, direction, action, FRAME_HEIGHT, FRAME_WIDTH);

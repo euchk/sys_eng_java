@@ -29,6 +29,10 @@ public class GameControl {
 		for (Arrow arrow : content.getAllArrows()) {
 			arrow.gameStep();
 		}
+
+        content.tower1().gameStep();
+        content.tower2().gameStep();
+        content.tower3().gameStep();
 		
         // Remove inactive objects
         removeInactiveCharacters();

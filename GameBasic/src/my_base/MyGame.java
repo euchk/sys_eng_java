@@ -27,6 +27,10 @@ public class MyGame extends Game {
 		
 		// Add Score text to the canvas
 		content.score().addToCanvas();
+
+		content.tower1().addToCanvas();
+		content.tower2().addToCanvas();
+		content.tower3().addToCanvas();
 		
 		// Add all init characters to canvas
 		for (Character character : content.getAllCharacters()) {
@@ -42,7 +46,7 @@ public class MyGame extends Game {
 		dashboard.setBackground(Color.BLACK);
 
 		// Add a the AddArcherButton button
-		dashboard.addUIElement(new AddArcherButton("addArcher", "Add Archer", 500, 40));
+		// dashboard.addUIElement(new AddArcherButton("addArcher", "Add Archer", 500, 40));
 		// Add a the StartWaveButton button
 		dashboard.addUIElement(new StartWaveButton("startWave", "Start Wave", 1500, 40));
 		

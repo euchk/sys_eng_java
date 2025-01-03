@@ -77,16 +77,30 @@ public class StartWaveButton extends GameButton {
 
 	@Override
 	public void action() {
-        Random random = new Random();
-        int posX = random.nextInt(300) + 1000;
-        int posY = random.nextInt(650);
-        spawnRat(new ScreenPoint(posX + 20, posY - 50));
-        spawnKnight(new ScreenPoint(posX, posY));
-        spawnSlime(new ScreenPoint(posX - 40, posY - 40));
-        spawnTroll(new ScreenPoint(posX - 40, posY + 40));
-        spawnWizard(new ScreenPoint(posX - 20, posY + 50));
-        spawnWolf(new ScreenPoint(posX - 50, posY + 70));
-        spawnBee(new ScreenPoint(posX - 70, posY + 10));
+        // Random random = new Random();
+        // int posX = random.nextInt(300) + 1000;
+        // int posY = random.nextInt(650);
+
+        spawnSlime(new ScreenPoint(2230, 310));
+        spawnSlime(new ScreenPoint(2205, 390));
+        spawnSlime(new ScreenPoint(2210, 520));
+        spawnTroll(new ScreenPoint(2205, 330));
+        spawnTroll(new ScreenPoint(2200, 340));
+        spawnTroll(new ScreenPoint(2210, 380));
+        spawnBee(new ScreenPoint(2200, 330));
+        spawnBee(new ScreenPoint(2205, 360));
+        spawnBee(new ScreenPoint(2210, 390));
+        spawnWolf(new ScreenPoint(2200, 350));
+        spawnWolf(new ScreenPoint(2200, 310));
+        spawnWolf(new ScreenPoint(2200, 395));
+
+        spawnRat(new ScreenPoint(2600, 320));
+        spawnRat(new ScreenPoint(2650, 390));
+        spawnRat(new ScreenPoint(2700, 460));
+        spawnKnight(new ScreenPoint(2700, 380));
+        spawnKnight(new ScreenPoint(2790, 320));
+        spawnWizard(new ScreenPoint(2850, 305));
+        spawnWizard(new ScreenPoint(2750, 375));
 	}
 
 }

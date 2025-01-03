@@ -10,7 +10,7 @@ public class Wolf extends Invader {
     private static final int FRAME_WIDTH = 48;   // Width of each frame
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
     private static final int speed = 4;
-    private static final int maxHealth = 170;
+    private static final int maxHealth = 250;
     
     public Wolf(ScreenPoint startLocation, String id, Direction direction, Action action) {
         super(startLocation, id, direction, action, FRAME_HEIGHT, FRAME_WIDTH);

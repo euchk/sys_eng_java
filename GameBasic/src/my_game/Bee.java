@@ -10,7 +10,7 @@ public class Bee extends Invader {
     private static final int FRAME_WIDTH = 48;   // Width of each frame
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
     private static final int speed = 6;
-    private static final int maxHealth = 80;
+    private static final int maxHealth = 130;
     
     public Bee(ScreenPoint startLocation, String id, Direction direction, Action action) {
         super(startLocation, id, direction, action, FRAME_HEIGHT, FRAME_WIDTH);
