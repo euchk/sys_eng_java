@@ -102,6 +102,10 @@ public abstract class Character {
 
     public void reduceHealth(int damage) {
         healthBar.reduceHealth(damage);
+        if (getHealth() <= 0) {
+            setIsKilled();
+            deactivate();
+        }
     }
 
     public void setMaxHealth(int maxHealth){

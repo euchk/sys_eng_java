@@ -3,8 +3,6 @@ package my_game;
 import java.util.HashMap;
 import java.util.Map;
 
-import ui_elements.ScreenPoint;
-
 public class Knight extends Invader {
 
     private static final int FRAME_WIDTH = 96;   // Width of each frame
@@ -12,8 +10,8 @@ public class Knight extends Invader {
     private static final int speed = 5;
     private static final int maxHealth = 800;
     
-    public Knight(ScreenPoint startLocation, String id, Direction direction, Action action) {
-        super(startLocation, id, direction, action, FRAME_HEIGHT, FRAME_WIDTH);
+    public Knight(String id, Direction direction, Action action, Path path) {
+        super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);
         setSpeed(speed);
         setMaxHealth(maxHealth);
         initializeMappings();

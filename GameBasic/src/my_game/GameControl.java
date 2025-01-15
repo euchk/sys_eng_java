@@ -25,7 +25,7 @@ public class GameControl {
 			character.gameStep();
 		}
 
-		// Iterate over all shapes and activate periodic method
+		// Iterate over all arrows and activate periodic method
 		for (Arrow arrow : content.getAllArrows()) {
 			arrow.gameStep();
 		}

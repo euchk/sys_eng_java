@@ -3,8 +3,6 @@ package my_game;
 import java.util.HashMap;
 import java.util.Map;
 
-import ui_elements.ScreenPoint;
-
 public class Wolf extends Invader {
 
     private static final int FRAME_WIDTH = 48;   // Width of each frame
@@ -12,8 +10,8 @@ public class Wolf extends Invader {
     private static final int speed = 4;
     private static final int maxHealth = 250;
     
-    public Wolf(ScreenPoint startLocation, String id, Direction direction, Action action) {
-        super(startLocation, id, direction, action, FRAME_HEIGHT, FRAME_WIDTH);
+    public Wolf(String id, Direction direction, Action action, Path path) {
+        super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);
         setSpeed(speed);
         setMaxHealth(maxHealth);
         initializeMappings();

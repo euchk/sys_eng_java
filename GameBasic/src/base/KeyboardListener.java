@@ -47,7 +47,6 @@ public class KeyboardListener {
 				spaceKeyPressed();
 				break;
 			default:
-				// TODO: add more keys
 				break;
 			}
 		}
