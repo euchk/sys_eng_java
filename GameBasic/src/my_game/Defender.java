@@ -50,7 +50,7 @@ public abstract class Defender extends Character {
         this.damage = damage;
     }
 
-    private void shootArrow(Character target) {
+    private void shootArrow(Invader target) {
         // set ATTACK only if starting from IDLE to avoid reseting animation
         if(action != Action.ATTACK){
             setAction(Action.ATTACK);
@@ -72,7 +72,7 @@ public abstract class Defender extends Character {
         Arrow arrow = new Arrow(arrowId, startLocation, target, damage);
 
         // Add arrow to the game
-        content.addArrow(arrow);
+        content.addGameObject(arrow);
         arrow.addToCanvas();
     }
 
@@ -97,25 +97,28 @@ public abstract class Defender extends Character {
         }
     }
 
-    private boolean isInRange(Character target) {
+    private boolean isInRange(Invader target) {
         double distance = Math.sqrt(Math.pow(target.getLocation().x - getLocation().x, 2) +
                                     Math.pow(target.getLocation().y - getLocation().y, 2));
         return distance <= attackRange;
     }
 
-    private Character getNearestTarget(){
+    private Invader getNearestTarget(){
         // Find the nearest target in range
-        Character nearestTarget = null;
+        Invader nearestTarget = null;
         double minDistance = Double.MAX_VALUE;
 
-        for (Character character : content.getAllCharacters()) {
-            if (character instanceof Invader && isInRange(character)) {
-                double distance = Math.sqrt(Math.pow(character.getLocation().x - getLocation().x, 2) +
-                                            Math.pow(character.getLocation().y - getLocation().y, 2));
-                // Stay with current target if it's health is lower
-                if (distance < minDistance || (distance == minDistance && character.getHealth() < nearestTarget.getHealth())) {
-                    minDistance = distance;
-                    nearestTarget = character;
+        for (GameObject gameObject : content.getAllGameObjects()) {
+            if (gameObject instanceof Invader) {
+                Invader invader = (Invader) gameObject;
+                if (isInRange(invader)) {
+                    double distance = Math.sqrt(Math.pow(invader.getLocation().x - getLocation().x, 2) +
+                                                Math.pow(invader.getLocation().y - getLocation().y, 2));
+                    // Stay with current target if it's health is lower
+                    if (distance < minDistance || (distance == minDistance && invader.getHealth() < nearestTarget.getHealth())) {
+                        minDistance = distance;
+                        nearestTarget = invader;
+                    }
                 }
             }
         }
@@ -131,7 +134,7 @@ public abstract class Defender extends Character {
 
     @Override
     public void gameStep() {
-        Character nearestTarget = getNearestTarget();
+        Invader nearestTarget = getNearestTarget();
         
         // Shoot arrow if there is a target in range
         if (nearestTarget != null) {

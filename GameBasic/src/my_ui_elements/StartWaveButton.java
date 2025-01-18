@@ -26,66 +26,66 @@ public class StartWaveButton extends GameButton {
 		super(id, name, 200, 40, posX, posY);
 	}
 
-    public void spawnKnight() {
+    public void spawnKnight(Path path) {
         String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Knight(invaderId, Direction.LEFT, Action.ATTACK, Paths.levelOnePath());
+        Invader invader = new Knight(invaderId, Direction.LEFT, Action.ATTACK, path);
         invader.addToCanvas(); // Add the invader to the game canvas
-        content.addCharacter(invader); // Add the invader to the character list
+        content.addGameObject(invader); // Add the invader to the character list
     }
 
-    public void spawnWizard() {
+    public void spawnWizard(Path path) {
         String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Wizard(invaderId, Direction.LEFT, Action.ATTACK, Paths.levelOnePath());
+        Invader invader = new Wizard(invaderId, Direction.LEFT, Action.ATTACK, path);
         invader.addToCanvas(); // Add the invader to the game canvas
-        content.addCharacter(invader); // Add the invader to the character list
+        content.addGameObject(invader); // Add the invader to the character list
     }
 
-    public void spawnSlime() {
+    public void spawnSlime(Path path) {
         String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Slime(invaderId, Direction.LEFT, Action.IDLE, Paths.levelOnePath());
+        Invader invader = new Slime(invaderId, Direction.LEFT, Action.IDLE, path);
         invader.addToCanvas(); // Add the invader to the game canvas
-        content.addCharacter(invader); // Add the invader to the character list
+        content.addGameObject(invader); // Add the invader to the character list
     }
 
-    public void spawnRat() {
+    public void spawnRat(Path path) {
         String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Rat(invaderId, Direction.LEFT, Action.IDLE, Paths.levelOnePath());
+        Invader invader = new Rat(invaderId, Direction.LEFT, Action.IDLE, path);
         invader.addToCanvas(); // Add the invader to the game canvas
-        content.addCharacter(invader); // Add the invader to the character list
+        content.addGameObject(invader); // Add the invader to the character list
     }
 
-    public void spawnTroll() {
+    public void spawnTroll(Path path) {
         String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Troll(invaderId, Direction.LEFT, Action.IDLE, Paths.levelOnePath());
+        Invader invader = new Troll(invaderId, Direction.LEFT, Action.IDLE, path);
         invader.addToCanvas(); // Add the invader to the game canvas
-        content.addCharacter(invader); // Add the invader to the character list
+        content.addGameObject(invader); // Add the invader to the character list
     }
 
-    public void spawnBee() {
+    public void spawnBee(Path path) {
         String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Bee(invaderId, Direction.LEFT, Action.IDLE, Paths.levelOnePath());
+        Invader invader = new Bee(invaderId, Direction.LEFT, Action.IDLE, path);
         invader.addToCanvas(); // Add the invader to the game canvas
-        content.addCharacter(invader); // Add the invader to the character list
+        content.addGameObject(invader); // Add the invader to the character list
     }
 
-    public void spawnWolf() {
+    public void spawnWolf(Path path) {
         String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Wolf(invaderId, Direction.LEFT, Action.IDLE, Paths.levelOnePath());
+        Invader invader = new Wolf(invaderId, Direction.LEFT, Action.IDLE, path);
         invader.addToCanvas(); // Add the invader to the game canvas
-        content.addCharacter(invader); // Add the invader to the character list
+        content.addGameObject(invader); // Add the invader to the character list
     }
     
 
 	@Override
 	public void action() {
-        
-        spawnSlime();
-        spawnTroll();
-        spawnBee();
-        spawnWolf();
-        spawnRat();
-        spawnKnight();
-        spawnWizard();
+
+        spawnSlime(Paths.testPath());
+        spawnTroll(Paths.levelTwoPath());
+        spawnBee(Paths.levelThreePath());
+        spawnWolf(Paths.levelFourPath());
+        spawnRat(Paths.levelFivePath());
+        spawnKnight(Paths.testPath());
+        spawnWizard(Paths.testPath());
         
 	}
 

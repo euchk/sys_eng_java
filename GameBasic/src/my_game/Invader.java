@@ -35,16 +35,6 @@ public abstract class Invader extends Character {
         return isPassed;
     }
 
-    // @Override
-    // public void gameStep() {
-    //     move(-speed, 0);
-    //     nextFrame();
-
-    //     if (getLocation().x <= 0) {
-    //         setisPassed();
-    //     }
-    // }
-
     @Override
     public void gameStep() {
         if (currentWaypointIndex < path.getPathLength()) {

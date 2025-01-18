@@ -1,8 +1,5 @@
 package my_base;
 
-import my_game.Invader;
-import my_game.Character;
-
 import java.awt.event.KeyEvent;
 
 import base.KeyboardListener;
@@ -10,7 +7,6 @@ import base.KeyboardListener;
 public class MyKeyboardListener extends KeyboardListener{
 
 	private MyContent myContent;
-	private int dx, dy;
 	
 	public MyKeyboardListener() {
 		super();
@@ -21,49 +17,19 @@ public class MyKeyboardListener extends KeyboardListener{
 	public void directionalKeyPressed(Direction direction) {
 		switch (direction) {
 		  case RIGHT:
-			  dx = 10;
-			  dy = 0;
-			  for (Character character : myContent.getAllCharacters()) {
-				if (character instanceof Invader){
-					character.setDirection(Character.Direction.RIGHT);
-				}
-			  }
+			  
 			  break;
 		  case LEFT:
-			  dx = -10;
-			  dy = 0;
-			  for (Character character : myContent.getAllCharacters()) {
-				if (character instanceof Invader){
-					character.setDirection(Character.Direction.LEFT);
-				}
-			  }
+			  
 			  break;
 		  case UP:
-			  dx = 0;
-			  dy = -10;
-			  for (Character character : myContent.getAllCharacters()) {
-				if (character instanceof Invader){
-					character.setDirection(Character.Direction.UP);
-				}
-			  }
+			  
 			  break;
 		  case DOWN:
-			  dx = 0;
-			  dy = 10;
-			  for (Character character : myContent.getAllCharacters()) {
-				if (character instanceof Invader){
-					character.setDirection(Character.Direction.DOWN);
-				}
-			  }
+			  
 			  break;
 		}
-		for (Character character : myContent.getAllCharacters()) {
-			if (character instanceof Invader){
-				character.move(dx, dy);
-				break;
-			}
-			
-		  }
+		
 	}
 	
 	@Override

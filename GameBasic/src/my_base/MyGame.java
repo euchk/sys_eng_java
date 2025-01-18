@@ -6,8 +6,7 @@ import base.Game;
 import base.GameCanvas;
 import base.GameContent;
 import base.GameDashboard;
-import my_game.Character;
-import my_ui_elements.AddArcherButton;
+import my_game.GameObject;
 import my_ui_elements.StartWaveButton;
 
 public class MyGame extends Game {
@@ -28,14 +27,11 @@ public class MyGame extends Game {
 		// Add Score text to the canvas
 		content.score().addToCanvas();
 
-		content.tower1().addToCanvas();
-		content.tower2().addToCanvas();
-		content.tower3().addToCanvas();
-		
 		// Add all init characters to canvas
-		for (Character character : content.getAllCharacters()) {
-			character.addToCanvas();
+		for (GameObject gameObject : content.getAllGameObjects()) {
+			gameObject.addToCanvas();
 		}
+		
 	}
 	
 	@Override

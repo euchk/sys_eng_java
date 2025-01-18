@@ -6,7 +6,7 @@ import shapes.Image;
 
 import ui_elements.ScreenPoint;
 
-public class Arrow {
+public class Arrow extends GameObject {
     private String id;
     private Image arrowImage;
     private double angle; // Angle to target location (degrees)
@@ -43,10 +43,30 @@ public class Arrow {
 
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    private void deactivate() {
+        active = false;
+        removeFromCanvas();
+    }
+
+    @Override
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setHitTarget() {
+        hitTarget = true;
+    }
+
+    public boolean getHitTarget() {
+        return hitTarget;
+    }
+
+    @Override
     public void addToCanvas(){
         GameCanvas canvas = Game.UI().canvas();
         arrowImage.setzOrder(3);
@@ -55,6 +75,7 @@ public class Arrow {
         canvas.repaint();
     }
 
+    @Override
     public void removeFromCanvas() {
         GameCanvas canvas = Game.UI().canvas();
         canvas.deleteShape(id);
@@ -62,6 +83,7 @@ public class Arrow {
         canvas.repaint();
     }
 
+    @Override
     public void gameStep(){
         if (!active) return;
 
@@ -76,8 +98,8 @@ public class Arrow {
         arrowImage.move(dx, dy);
         
         // Check if arrow hits target
-        if (Math.abs(currentLocation.x - targetLocation.x) < speed && 
-            Math.abs(currentLocation.y - targetLocation.y) < speed) {
+        if (Math.abs(currentLocation.x - targetLocation.x) < speed / 2 && 
+            Math.abs(currentLocation.y - targetLocation.y) < speed / 2) {
             setHitTarget();
             target.reduceHealth(damage);
             deactivate();
@@ -89,23 +111,6 @@ public class Arrow {
             deactivate();
             return;
         }
-    }
-
-    private void deactivate() {
-        active = false;
-        removeFromCanvas();
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setHitTarget() {
-        hitTarget = true;
-    }
-
-    public boolean getHitTarget() {
-        return hitTarget;
     }
 
 }

@@ -8,7 +8,7 @@ import shapes.AnimatedImage;
 import shapes.HealthBar;
 
 
-public abstract class Character {
+public abstract class Character extends GameObject {
 
     // Enum for directions or actions
     public enum Direction {
@@ -53,6 +53,7 @@ public abstract class Character {
         this.healthBar = new HealthBar(id + "_health", startLocation.x, startLocation.y - 10, frameWidth, 5);
     }
 
+    @Override
     public String getId() {
         return id;
     }
@@ -144,6 +145,7 @@ public abstract class Character {
         animatedImage.nextFrame();
     }
 
+    @Override
     public boolean isActive() {
         return active;
     }
@@ -166,6 +168,7 @@ public abstract class Character {
         else if (dy < 0) setDirection(Direction.UP);
     }
     
+    @Override
     public void addToCanvas() {
         GameCanvas canvas = Game.UI().canvas();
         animatedImage.setzOrder(3);
@@ -175,6 +178,7 @@ public abstract class Character {
         canvas.repaint();
     }
 
+    @Override
     public void removeFromCanvas() {
         GameCanvas canvas = Game.UI().canvas();
         canvas.deleteShape(animatedImage.getId());

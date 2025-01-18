@@ -5,7 +5,7 @@ import base.GameCanvas;
 import shapes.AnimatedImage;
 import ui_elements.ScreenPoint;
 
-public class Tower {
+public class Tower extends GameObject {
 
     private String id;
     private ScreenPoint location;
@@ -15,6 +15,7 @@ public class Tower {
     private static final int TOTAL_FRAMES = 6;  // Total animation frames
 
     public Tower(String id, ScreenPoint location, String spritePath) {
+        // super(id);
         this.id = id;
         this.location = location;
 
@@ -22,21 +23,6 @@ public class Tower {
         this.animatedImage = new AnimatedImage(id, FRAME_WIDTH, FRAME_HEIGHT, false);
         this.animatedImage.setSpriteSheet(spritePath, TOTAL_FRAMES);
         this.animatedImage.moveToLocation(location.x, location.y);
-    }
-
-    public void addToCanvas() {
-        GameCanvas canvas = Game.UI().canvas();
-        animatedImage.setzOrder(1); 
-        canvas.addShape(animatedImage);
-        canvas.revalidate();
-        canvas.repaint();
-    }
-
-    public void removeFromCanvas() {
-        GameCanvas canvas = Game.UI().canvas();
-        canvas.deleteShape(animatedImage.getId());
-        canvas.revalidate();
-        canvas.repaint();
     }
 
     public void moveToLocation(ScreenPoint newLocation) {
@@ -52,12 +38,36 @@ public class Tower {
         animatedImage.nextFrame();
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void gameStep() {
         nextFrame();
+    }
+
+    @Override
+    public void addToCanvas() {
+        GameCanvas canvas = Game.UI().canvas();
+        animatedImage.setzOrder(1); 
+        canvas.addShape(animatedImage);
+        canvas.revalidate();
+        canvas.repaint();
+    }
+
+    @Override
+    public void removeFromCanvas() {
+        GameCanvas canvas = Game.UI().canvas();
+        canvas.deleteShape(animatedImage.getId());
+        canvas.revalidate();
+        canvas.repaint();
+    }
+
+    @Override
+    public boolean isActive() {
+        return true;
     }
 
 }
