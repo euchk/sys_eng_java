@@ -72,7 +72,7 @@ public abstract class Defender extends Character {
         Arrow arrow = new Arrow(arrowId, startLocation, target, damage);
 
         // Add arrow to the game
-        content.addGameObject(arrow);
+        content.addToContent(arrow);
         arrow.addToCanvas();
     }
 

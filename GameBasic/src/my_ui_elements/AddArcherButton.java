@@ -25,21 +25,21 @@ public class AddArcherButton extends GameButton {
 		String defenderId = "defender_" + System.currentTimeMillis(); // Unique ID for each archer
 		Defender defender = new Sharpshooter(defenderLocation, defenderId, Direction.DOWN, Action.IDLE);
 		defender.addToCanvas();
-		content.addGameObject(defender);
+		content.addToContent(defender);
 	}
 
 	public void AddMarksman(ScreenPoint defenderLocation){
 		String defenderId = "defender_" + System.currentTimeMillis(); // Unique ID for each archer
 		Defender defender = new Marksman(defenderLocation, defenderId, Direction.DOWN, Action.IDLE);
 		defender.addToCanvas();
-		content.addGameObject(defender);
+		content.addToContent(defender);
 	}
 
 	public void AddArcher(ScreenPoint defenderLocation){
 		String defenderId = "defender_" + System.currentTimeMillis(); // Unique ID for each archer
 		Defender defender = new Archer(defenderLocation, defenderId, Direction.DOWN, Action.IDLE);
 		defender.addToCanvas();
-		content.addGameObject(defender);
+		content.addToContent(defender);
 	}
 
 	@Override

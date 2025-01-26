@@ -7,17 +7,14 @@ import ui_elements.ScreenPoint;
 
 public class Tower extends GameObject {
 
-    private String id;
-    private ScreenPoint location;
-    private AnimatedImage animatedImage;
     private static final int FRAME_WIDTH = 70;  // Example frame width
     private static final int FRAME_HEIGHT = 130; // Example frame height
     private static final int TOTAL_FRAMES = 6;  // Total animation frames
+    private AnimatedImage animatedImage;
+
 
     public Tower(String id, ScreenPoint location, String spritePath) {
-        // super(id);
-        this.id = id;
-        this.location = location;
+        super(id, location);
 
         // Initialize the animated image
         this.animatedImage = new AnimatedImage(id, FRAME_WIDTH, FRAME_HEIGHT, false);
@@ -30,17 +27,8 @@ public class Tower extends GameObject {
         animatedImage.moveToLocation(newLocation.x, newLocation.y);
     }
 
-    public ScreenPoint getLocation() {
-        return location;
-    }
-
     public void nextFrame() {
         animatedImage.nextFrame();
-    }
-
-    @Override
-    public String getId() {
-        return id;
     }
 
     @Override
@@ -63,11 +51,6 @@ public class Tower extends GameObject {
         canvas.deleteShape(animatedImage.getId());
         canvas.revalidate();
         canvas.repaint();
-    }
-
-    @Override
-    public boolean isActive() {
-        return true;
     }
 
 }

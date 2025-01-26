@@ -19,13 +19,10 @@ public abstract class Character extends GameObject {
         IDLE, ATTACK
     }
 
-    private String id;
-    private ScreenPoint location;
     private int frameWidth, frameHeight;
     protected AnimatedImage animatedImage;
     protected Direction direction;
     protected Action action;
-    private boolean active;
     private boolean isMirrored;
     private HealthBar healthBar;
     private boolean isKilled = false;
@@ -38,28 +35,18 @@ public abstract class Character extends GameObject {
     public Character(String id, ScreenPoint startLocation, 
                     int frameWidth, int frameHeight, 
                     Direction direction, Action action) {
-        this.id = id;
-        this.location = startLocation;
+        super(id, startLocation);               
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
         this.action = action;
         this.direction = direction;
-        this.active = true;
         setIsMirrored();
+        
         // Initialize AnimatedImage
         this.animatedImage = new AnimatedImage(id, frameWidth, frameHeight, isMirrored);
         this.animatedImage.moveToLocation(startLocation.x, startLocation.y);
         // Initialize health bar
         this.healthBar = new HealthBar(id + "_health", startLocation.x, startLocation.y - 10, frameWidth, 5);
-    }
-
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    public ScreenPoint getLocation() {
-        return location;
     }
 
     public int getWidth() {
@@ -143,16 +130,6 @@ public abstract class Character extends GameObject {
 
     public void nextFrame(){
         animatedImage.nextFrame();
-    }
-
-    @Override
-    public boolean isActive() {
-        return active;
-    }
-
-    protected void deactivate() {
-        active = false;
-        removeFromCanvas();
     }
 
     public void move(int dx, int dy) {
