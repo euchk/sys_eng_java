@@ -8,11 +8,13 @@ public class Wizard extends Invader {
     private static final int FRAME_WIDTH = 96;   // Width of each frame
     private static final int FRAME_HEIGHT = 96;  // Height of each frame
     private static final int speed = 4;
+    private static final int coins = 15;
     private static final int maxHealth = 1000;
     
     public Wizard(String id, Direction direction, Action action, Path path) {
         super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);
         setSpeed(speed);
+        setCoins(coins);
         setMaxHealth(maxHealth);
         initializeMappings();
         updateAnimation();

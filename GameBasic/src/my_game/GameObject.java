@@ -23,7 +23,7 @@ public abstract class GameObject {
         return active;
     }
     
-    protected void deactivate() {
+    public void deactivate() {
         active = false;
         removeFromCanvas();
     }

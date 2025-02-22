@@ -3,7 +3,6 @@ package my_ui_elements;
 import base.Game;
 import my_base.MyContent;
 import ui_elements.GameButton;
-import ui_elements.ScreenPoint;
 import my_game.Invader;
 import my_game.Knight;
 import my_game.Path;
@@ -78,7 +77,6 @@ public class StartWaveButton extends GameButton {
 
 	@Override
 	public void action() {
-
         spawnSlime(Paths.testPath());
         spawnTroll(Paths.levelTwoPath());
         spawnBee(Paths.levelThreePath());

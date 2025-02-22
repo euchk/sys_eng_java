@@ -28,6 +28,7 @@ public abstract class Character extends GameObject {
     private boolean isKilled = false;
 
     protected int speed;
+    protected int coins; // Amount of coins to be received if killed/Sold
 
     protected MyContent content = (MyContent) Game.Content();
 
@@ -43,7 +44,7 @@ public abstract class Character extends GameObject {
         setIsMirrored();
         
         // Initialize AnimatedImage
-        this.animatedImage = new AnimatedImage(id, frameWidth, frameHeight, isMirrored);
+        this.animatedImage = new AnimatedImage(id + "_img", frameWidth, frameHeight, isMirrored);
         this.animatedImage.moveToLocation(startLocation.x, startLocation.y);
         // Initialize health bar
         this.healthBar = new HealthBar(id + "_health", startLocation.x, startLocation.y - 10, frameWidth, 5);
@@ -60,11 +61,19 @@ public abstract class Character extends GameObject {
     public int getSpeed() {
         return speed;
     }
-    
+
     protected void setSpeed(int speed) {
         this.speed = speed;
     }
 
+    public int getCoins() {
+        return coins;
+    }
+
+    protected void setCoins(int coins) {
+        this.coins = coins;
+    }
+    
     public ScreenPoint getCenterLocation(){
         return new ScreenPoint(location.x + getWidth() / 2, location.y + getHeight() / 2);
     }

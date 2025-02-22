@@ -25,9 +25,9 @@ public class GameControl {
             gameObject.gameStep();
         }
 		
-        
         addPendingObjects();
         removeInactiveGameObjects();
+        removePendingObjects();
 
         // Check game over
         checkGameOver();
@@ -48,58 +48,28 @@ public class GameControl {
         content.addPendingObjects();
     }
 
-    // Safely removes inactive objects
+    // Remove all pending gameObjects from the game
+    public void removePendingObjects() {
+        content.removePendingObjects();
+    }
+
+    // Safely marks inactive objects for removal
     public void removeInactiveGameObjects() {
-        Iterator<GameObject> iterator = content.getAllGameObjects().iterator();
-        while (iterator.hasNext()) {
-            GameObject gameObject = iterator.next();
+        for (GameObject gameObject : content.getAllGameObjects()) {
             if (!gameObject.isActive()) {
                 // Handle specific logic for Invader objects
                 if (gameObject instanceof Invader) {
                     Invader invader = (Invader) gameObject;
                     if (invader.getIsKilled()) {
-                        content.coins().addCoins(5);
+                        content.coins().addCoins(invader.getCoins());
                     } else if (invader.getisPassed()) {
                         content.score().increment();
                     }
                 }
-                // Remove from game
-                iterator.remove();
+                content.removeFromContent(gameObject.getId());
             }
         }
     }
-
-
-    // // Safely removes inactive characters
-    // public void removeInactiveCharacters() {
-    //     Iterator<Character> iterator = content.getAllCharacters().iterator();
-    //     while (iterator.hasNext()) {
-    //         Character character = iterator.next();
-    //         if (!character.isActive()) {
-    //             if (character instanceof Invader) {
-    //                 Invader knight = (Invader) character;
-    //                 if (knight.getIsKilled()) {
-    //                     content.coins().addCoins(5);
-    //                 }
-    //                 else if (knight.getisPassed()) {
-    //                     content.score().increment();
-    //                 }
-    //             }
-    //             iterator.remove();
-    //         }
-    //     }
-    // }
-
-    // // Safely removes inactive arrows
-	// public void removeInactiveArrows(){
-	// 	Iterator<Arrow> iterator = content.getAllArrows().iterator();
-	// 	while (iterator.hasNext()) {
-	// 		Arrow arrow = iterator.next();
-	// 		if (!arrow.isActive()) {
-	// 			iterator.remove();
-	// 		}
-	// 	}
-	// }
 
     // Check for game over conditions
     public void checkGameOver() {
