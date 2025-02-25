@@ -13,6 +13,7 @@ public abstract class Invader extends Character {
     private boolean isPassed = false; // Passed the gate
     private Path path;
     private int currentWaypointIndex;
+
     
     public Invader(String id, Direction direction, Action action, int FRAME_HEIGHT, int FRAME_WIDTH, Path path) {
         super(id, path.getWaypoint(0), FRAME_WIDTH, FRAME_HEIGHT, direction, action);
@@ -20,7 +21,8 @@ public abstract class Invader extends Character {
         this.currentWaypointIndex = 0;
         setShowHealthBar(true);
         initializeMappings();
-        updateAnimation();
+        setDirection(determineDirection(path.getWaypoint(0), path.getWaypoint(1))); // Initial direction
+        // updateAnimation(); // setDirection updates animation
     }
 
     protected abstract void initializeMappings();
@@ -43,17 +45,21 @@ public abstract class Invader extends Character {
 
             int deltaX = currentWaypoint.x - currentPosition.x;
             int deltaY = currentWaypoint.y - currentPosition.y;
+            
+            double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            double normX = (distance > 0) ? (deltaX / distance) * speed : 0;
+            double normY = (distance > 0) ? (deltaY / distance) * speed : 0;
 
-            if (deltaX != 0) {
-                move((int)(Math.signum(deltaX) * speed), 0);
-            } else if (deltaY != 0) {
-                move(0, (int)(Math.signum(deltaY) * speed));
-            }
+            move((int) normX, (int) normY);
 
             // Check if the invader has reached the current waypoint
             if (Math.abs(deltaX) <= speed && Math.abs(deltaY) <= speed) {
                 setLocation(currentWaypoint.x, currentWaypoint.y);
                 currentWaypointIndex++;
+                
+                if (currentWaypointIndex < path.getPathLength()) {
+                    setDirection(determineDirection(currentWaypoint, path.getWaypoint(currentWaypointIndex)));
+                }
             }
         } else {
             setisPassed();
@@ -61,6 +67,18 @@ public abstract class Invader extends Character {
 
         nextFrame();
     }
+    
+    private Direction determineDirection(ScreenPoint from, ScreenPoint to) {
+        int deltaX = to.x - from.x;
+        int deltaY = to.y - from.y;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            return (deltaX > 0) ? Direction.RIGHT : Direction.LEFT;
+        } else {
+            return (deltaY > 0) ? Direction.DOWN : Direction.UP;
+        }
+    }
+
     
     @Override
     public void updateAnimation() {

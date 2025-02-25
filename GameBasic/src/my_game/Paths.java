@@ -28,13 +28,13 @@ public class Paths {
     public static Path levelOnePath() {
         List<ScreenPoint> baseWaypoints = List.of(
             new ScreenPoint(2000, 300),
-            new ScreenPoint(1600, 300),
+            new ScreenPoint(1620, 350),
             new ScreenPoint(1600, 400),
+            new ScreenPoint(1030, 450),
             new ScreenPoint(1000, 400),
-            new ScreenPoint(1000, 300),
-            new ScreenPoint(500, 300),
+            new ScreenPoint(570, 350),
             new ScreenPoint(500, 400),
-            new ScreenPoint(0, 400)
+            new ScreenPoint(0, 370)
         );
 
         List<ScreenPoint> randomizedWaypoints = applyRandomOffset(baseWaypoints);
@@ -44,12 +44,12 @@ public class Paths {
     public static Path levelTwoPath() {
         List<ScreenPoint> baseWaypoints = List.of(
             new ScreenPoint(1800, 250),
-            new ScreenPoint(1400, 250),
-            new ScreenPoint(1400, 350),
-            new ScreenPoint(900, 350),
-            new ScreenPoint(900, 250),
-            new ScreenPoint(400, 250),
-            new ScreenPoint(400, 350),
+            new ScreenPoint(1440, 280),
+            new ScreenPoint(1430, 330),
+            new ScreenPoint(920, 350),
+            new ScreenPoint(900, 280),
+            new ScreenPoint(470, 250),
+            new ScreenPoint(400, 310),
             new ScreenPoint(50, 350) 
         );
 
@@ -58,13 +58,13 @@ public class Paths {
 
     public static Path levelThreePath() {
         List<ScreenPoint> baseWaypoints = List.of(
-            new ScreenPoint(1900, 500),
-            new ScreenPoint(1500, 500),
-            new ScreenPoint(1500, 600),
-            new ScreenPoint(1100, 600),
-            new ScreenPoint(1100, 500),
-            new ScreenPoint(600, 500),
-            new ScreenPoint(600, 600),
+            new ScreenPoint(1900, 540),
+            new ScreenPoint(1500, 520),
+            new ScreenPoint(1510, 610),
+            new ScreenPoint(1110, 640),
+            new ScreenPoint(1130, 530),
+            new ScreenPoint(610, 500),
+            new ScreenPoint(600, 620),
             new ScreenPoint(100, 600)
         );
 
@@ -104,6 +104,7 @@ public class Paths {
     public static Path testPath() {
         List<ScreenPoint> baseWaypoints = List.of(
             new ScreenPoint(1500, 350),
+            new ScreenPoint(1450, 0),
             new ScreenPoint(0, 350)
         );
 

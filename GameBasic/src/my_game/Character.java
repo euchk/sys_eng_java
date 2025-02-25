@@ -124,6 +124,10 @@ public abstract class Character extends GameObject {
         updateAnimation();
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
     public void setAction(Action action){
         this.action = action;
         updateAnimation();
@@ -148,10 +152,10 @@ public abstract class Character extends GameObject {
         healthBar.move(dx, dy);
 
         // Update direction based on movement
-        if (dx > 0) setDirection(Direction.RIGHT);
-        else if (dx < 0) setDirection(Direction.LEFT);
-        else if (dy > 0) setDirection(Direction.DOWN);
-        else if (dy < 0) setDirection(Direction.UP);
+        // if (dx > 0) setDirection(Direction.RIGHT);
+        // else if (dx < 0) setDirection(Direction.LEFT);
+        // else if (dy > 0) setDirection(Direction.DOWN);
+        // else if (dy < 0) setDirection(Direction.UP);
     }
     
     @Override
