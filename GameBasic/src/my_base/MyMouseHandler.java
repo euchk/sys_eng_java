@@ -14,6 +14,7 @@ public class MyMouseHandler extends MouseHandler {
 	@Override
 	public void screenClicked(int x, int y) {
 		super.screenClicked(x, y);
+		// Close all towers UI when screen is clicked
 		for (GameObject gameObject : content.getAllGameObjects()) {
             if (gameObject instanceof Tower) {
 				Tower tower = (Tower) gameObject;
@@ -30,8 +31,17 @@ public class MyMouseHandler extends MouseHandler {
 	
 	@Override
 	public void shapeClicked(Shape shape, int x, int y) {
+		// Close all other towers UI when shape is clicked before shape actions
+		for (GameObject gameObject : content.getAllGameObjects()) {
+            if (gameObject instanceof Tower) {
+				Tower tower = (Tower) gameObject;
+				if (!shape.getId().contains(tower.getId())) { // Activate for other towers
+					tower.hideAll();
+				}
+			}
+        }
 		super.shapeClicked(shape, x, y);
-		// Enter your specific code here
+		
 	}
 	
 	@Override

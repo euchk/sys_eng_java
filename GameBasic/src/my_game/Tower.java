@@ -9,7 +9,7 @@ import my_game.Character.Direction;
 import shapes.AnimatedImage;
 import shapes.Circle;
 import shapes.Image;
-import shapes.Shape.STATUS;
+import shapes.Rectangle;
 import shapes.Text;
 import ui_elements.ScreenPoint;
 
@@ -64,6 +64,11 @@ public class Tower extends GameObject implements ShapeListener {
 
     // Circle for background highlight when hovering
     private Circle highlightCircle;
+
+    // Highlight rectangles for buttons when hovering
+    private Rectangle buildButtonHighlight;
+    private Rectangle sellButtonHighlight;
+
 
     // Defenders linked to the tower
     private static final int MAX_DEFENDERS = 2;
@@ -426,13 +431,13 @@ public class Tower extends GameObject implements ShapeListener {
         canvas.repaint();
     }
 
-    // Show Build, Buy, and Sell buttons near the tower.
+    // Show Build/Upgrade and Sell buttons near the tower
     private void showButtons() {
         GameCanvas canvas = Game.UI().canvas();
         // Calculate positions relative to the tower location.
-        int buildX = location.x - BUTTON_WIDTH/2;
+        int buildX = location.x - BUTTON_WIDTH/2 - 20;
         int buildY = location.y - 45;
-        int sellX = location.x + BUTTON_WIDTH/2;
+        int sellX = location.x + BUTTON_WIDTH/2 + 20;
         int sellY = location.y - 45;
 
         // Create Build button
@@ -458,10 +463,12 @@ public class Tower extends GameObject implements ShapeListener {
                 @Override public void shapeRightClicked(String shapeID, int x, int y) {}
                 @Override
                 public void mouseEnterShape(String shapeID, int x, int y) {
+                    showBuildButtonHighlight();
                     showNextAttackRangeCircle();
                 }
                 @Override
                 public void mouseExitShape(String shapeID, int x, int y) {
+                    hideBuildButtonHighlight();
                     hideNextAttackRangeCircle();
                 }
             });
@@ -484,12 +491,11 @@ public class Tower extends GameObject implements ShapeListener {
                 @Override public void shapeRightClicked(String shapeID, int x, int y) {}
                 @Override
                 public void mouseEnterShape(String shapeID, int x, int y) {
-                    // Hold highlight when hovering
-                    // showHighlight();
+                    showSellButtonHighlight();
                 }
                 @Override
                 public void mouseExitShape(String shapeID, int x, int y) {
-                    // hideHighlight();
+                    hideSellButtonHighlight();
                 }
             });
         } 
@@ -559,6 +565,66 @@ public class Tower extends GameObject implements ShapeListener {
         canvas.repaint();
     }
 
+    private void showBuildButtonHighlight() {
+        GameCanvas canvas = Game.UI().canvas();
+        int rectX = location.x - BUTTON_WIDTH/2 - 10;
+        int rectY = location.y - 34;
+        int rectWidth = BUTTON_WIDTH - 22;
+        int rectHeight = BUTTON_HEIGHT - 22;
+        if (buildButtonHighlight == null) {
+            buildButtonHighlight = new Rectangle(this.id + "_buildHighlight", rectX, rectY, rectWidth, rectHeight);
+            buildButtonHighlight.setIsFilled(true);
+            buildButtonHighlight.setFillColor(new java.awt.Color(240, 240, 160, 80));
+            buildButtonHighlight.setColor(new java.awt.Color(240, 240, 160, 80));
+            buildButtonHighlight.setWeight(0);
+            buildButtonHighlight.setzOrder(3);
+            canvas.addShape(buildButtonHighlight);
+            canvas.revalidate();
+            canvas.repaint();
+        }
+    }
+    
+    private void hideBuildButtonHighlight() {
+        GameCanvas canvas = Game.UI().canvas();
+        if (buildButtonHighlight != null) {
+            canvas.deleteShape(buildButtonHighlight.getId());
+            buildButtonHighlight = null;
+            canvas.revalidate();
+            canvas.repaint();
+        }
+    }
+
+    private void showSellButtonHighlight() {
+        GameCanvas canvas = Game.UI().canvas();
+        int rectX = location.x + BUTTON_WIDTH/2 + 31;
+        int rectY = location.y - 34;
+        int rectWidth = BUTTON_WIDTH - 22;
+        int rectHeight = BUTTON_HEIGHT -22;
+        if (sellButtonHighlight == null) {
+            sellButtonHighlight = new Rectangle(this.id + "_sellHighlight", rectX, rectY, rectWidth, rectHeight);
+            sellButtonHighlight.setIsFilled(true);
+            sellButtonHighlight.setFillColor(new java.awt.Color(240, 240, 160, 80));
+            sellButtonHighlight.setColor(new java.awt.Color(240, 240, 160, 80));
+            sellButtonHighlight.setWeight(0);
+            sellButtonHighlight.setzOrder(3);
+            canvas.addShape(sellButtonHighlight);
+            canvas.revalidate();
+            canvas.repaint();
+        }
+    }
+    
+    private void hideSellButtonHighlight() {
+        GameCanvas canvas = Game.UI().canvas();
+        if (sellButtonHighlight != null) {
+            canvas.deleteShape(sellButtonHighlight.getId());
+            sellButtonHighlight = null;
+            canvas.revalidate();
+            canvas.repaint();
+        }
+    }
+    
+    
+
     // public method for MyMouseHandler
     public void hideAll() {
         isClicked = false;
@@ -566,6 +632,8 @@ public class Tower extends GameObject implements ShapeListener {
         hideCurrentAttackRangeCircle();
         hideHighlight();
         hideNextAttackRangeCircle();
+        hideBuildButtonHighlight();
+        hideSellButtonHighlight();
     }     
     
     @Override
