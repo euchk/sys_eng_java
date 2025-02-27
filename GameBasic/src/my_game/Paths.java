@@ -104,7 +104,7 @@ public class Paths {
     public static Path testPath() {
         List<ScreenPoint> baseWaypoints = List.of(
             new ScreenPoint(1500, 350),
-            new ScreenPoint(1450, 0),
+            new ScreenPoint(1000, 200),
             new ScreenPoint(0, 350)
         );
 

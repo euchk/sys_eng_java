@@ -150,18 +150,12 @@ public abstract class Character extends GameObject {
         location.y += dy;        
         animatedImage.move(dx, dy);
         healthBar.move(dx, dy);
-
-        // Update direction based on movement
-        // if (dx > 0) setDirection(Direction.RIGHT);
-        // else if (dx < 0) setDirection(Direction.LEFT);
-        // else if (dy > 0) setDirection(Direction.DOWN);
-        // else if (dy < 0) setDirection(Direction.UP);
     }
     
     @Override
     public void addToCanvas() {
         GameCanvas canvas = Game.UI().canvas();
-        animatedImage.setzOrder(3);
+        animatedImage.setzOrder(6);
         canvas.addShape(animatedImage);
         healthBar.addToCanvas();
         canvas.revalidate();

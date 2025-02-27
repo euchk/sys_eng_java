@@ -9,6 +9,8 @@ import my_game.Character.Direction;
 import shapes.AnimatedImage;
 import shapes.Circle;
 import shapes.Image;
+import shapes.Shape.STATUS;
+import shapes.Text;
 import ui_elements.ScreenPoint;
 
 import java.util.ArrayList;
@@ -19,20 +21,23 @@ import java.util.Map;
 public class Tower extends GameObject implements ShapeListener {
 
     public enum TowerState {
-        NOT_CONSTRUCTED(100, 0),           // Build cost 100; sell value 0
-        CONSTRUCTED_LEVEL1(120, 50),       // Upgrading to Level1 costs 120; sell value 50; adds 1 archer
-        CONSTRUCTED_LEVEL2(130, 60),       // Level2: costs 130; sell value 60; no defender change
-        CONSTRUCTED_LEVEL3(140, 70),       // Level3: costs 140; sell value 70; adds 2nd archer
-        // CONSTRUCTED_LEVEL4(150, 80),       // Level4: costs 150; sell value 80; upgrades both to Marksmen
-        CONSTRUCTED_LEVEL5(160, 90),       // Level5: costs 160; sell value 90; no change
-        CONSTRUCTED_LEVEL6(0, 100);        // Level6: cost 0 (max); sell value 100; upgrades both to Sharpshooters
+        // Build cost; Sell value; numOfDefenders; attackRange;
+        NOT_CONSTRUCTED(100, 0, 0),
+        CONSTRUCTED_LEVEL1(110, 85, 110),
+        CONSTRUCTED_LEVEL2(130, 180, 130),
+        CONSTRUCTED_LEVEL3(165, 290, 150),
+        // CONSTRUCTED_LEVEL4(150, 80, 190),       // Cancelled level 4 because the sprite has a roof
+        CONSTRUCTED_LEVEL5(200, 430, 170),
+        CONSTRUCTED_LEVEL6(0, 600, 190); 
 
         private final int upgradeCost;
         private final int sellValue;
+        private final int attackRange;
 
-        TowerState(int upgradeCost, int sellValue) {
+        TowerState(int upgradeCost, int sellValue, int attackRange) {
             this.upgradeCost = upgradeCost;
             this.sellValue = sellValue;
+            this.attackRange = attackRange;
         }
 
         public int getUpgradeCost() {
@@ -43,34 +48,45 @@ public class Tower extends GameObject implements ShapeListener {
             return sellValue;
         }
 
+        public int getAttackRange() {
+            return attackRange;
+        }
+
     }
 
     private TowerState state = TowerState.NOT_CONSTRUCTED;
 
+    private boolean isClicked = false;
+
+    // Circles to visualize attack range when hovering
+    private Circle currentRangeCircle;
+    private Circle nextRangeCircle;
+
+    // Circle for background highlight when hovering
+    private Circle highlightCircle;
+
+    // Defenders linked to the tower
     private static final int MAX_DEFENDERS = 2;
+    private static int nextDefenderId = 0;
     private final List<String> defenders = new ArrayList<>();
     
-    // Animated image for the tower
+    // Animated image variables
     private AnimatedImage animatedImage;
     private Map<TowerState, String> spritePaths = new HashMap<>();
     private Map<TowerState, Integer> frameCounts = new HashMap<>();
-
-    // Animate image size constants
     private static final int FRAME_WIDTH = 70;
     private static final int FRAME_HEIGHT = 130;
 
     private MyContent content = (MyContent) Game.Content();
 
-    // Button images
+    // Button images for building/upgrading and selling
     private Image buildButton;
     private Image sellButton;
-
-    // Background highlight when hovering
-    private Circle highlightCircle;
-    
-    // Button size constants (adjust as needed)
     private static final int BUTTON_WIDTH = 75;
     private static final int BUTTON_HEIGHT = 75;
+    private Text priceLabel;
+    private Text sellLabel;
+
 
     public Tower(String id, ScreenPoint location) {
         super(id, location);
@@ -80,9 +96,10 @@ public class Tower extends GameObject implements ShapeListener {
 
         // Initialize animated image
         this.animatedImage = new AnimatedImage(id + "_img", FRAME_WIDTH, FRAME_HEIGHT, false);
-        this.animatedImage.setShapeListener(this);
         updateAnimation(); // Apply initial animation
         this.animatedImage.moveToLocation(location.x, location.y);
+        this.animatedImage.setShapeListener(this);
+        // addActivityCircle(); // applies shapeListener
     }
 
     // Maps states to sprite paths and frame counts
@@ -125,6 +142,29 @@ public class Tower extends GameObject implements ShapeListener {
         animatedImage.nextFrame();
     }
 
+    // Returns the current TowerState
+    public TowerState getState() {
+        return state;
+    }
+
+    // Returns the next TowerState
+    private TowerState getNextState() {
+        switch (state) {
+            case NOT_CONSTRUCTED:
+                return TowerState.CONSTRUCTED_LEVEL1;
+            case CONSTRUCTED_LEVEL1:
+                return TowerState.CONSTRUCTED_LEVEL2;
+            case CONSTRUCTED_LEVEL2:
+                return TowerState.CONSTRUCTED_LEVEL3;
+            case CONSTRUCTED_LEVEL3:
+                return TowerState.CONSTRUCTED_LEVEL5;
+            case CONSTRUCTED_LEVEL5:
+                return TowerState.CONSTRUCTED_LEVEL6;
+            default:
+                return null;
+        }
+    }
+
     // Advance tower state and update animation
     public void advanceState() {
         if (state == TowerState.CONSTRUCTED_LEVEL6) {
@@ -154,10 +194,6 @@ public class Tower extends GameObject implements ShapeListener {
                 state = TowerState.CONSTRUCTED_LEVEL5;
                 upgradeDefenders();
                 break;
-            // case CONSTRUCTED_LEVEL4:
-            //     state = TowerState.CONSTRUCTED_LEVEL5;
-            //     upgradeDefenders();
-            //     break;
             case CONSTRUCTED_LEVEL5:
                 state = TowerState.CONSTRUCTED_LEVEL6;
                 upgradeDefenders();
@@ -166,7 +202,6 @@ public class Tower extends GameObject implements ShapeListener {
                 System.out.println("Already at max upgrade.");
                 return;
         }
-        
         updateAnimation();
     }
 
@@ -184,35 +219,38 @@ public class Tower extends GameObject implements ShapeListener {
         if (defenders.size() >= MAX_DEFENDERS) return;
         
         ScreenPoint defenderLocation = getDefenderSpawnLocation();
-        String defenderId = "defender_" + System.currentTimeMillis();
+        nextDefenderId += 1;
+        String defenderId = "defender_" + getId() + "_" + nextDefenderId; // use counter instead of time
         Defender defender = null;
-
+    
         // Cannot add a defender if the tower hasn't been built.
         if (state == TowerState.NOT_CONSTRUCTED) return;
         
         // Using ordinal comparisons to choose defender type:
         if (state.ordinal() > TowerState.NOT_CONSTRUCTED.ordinal() 
                 && state.ordinal() <= TowerState.CONSTRUCTED_LEVEL3.ordinal()) {
-            defender = new Archer(defenderLocation, defenderId, Direction.DOWN, Action.IDLE);
-
+            defender = new Archer(defenderLocation, defenderId, Direction.DOWN, Action.IDLE, state.getAttackRange());
         } else if (state.ordinal() > TowerState.CONSTRUCTED_LEVEL3.ordinal() 
                 && state.ordinal() <= TowerState.CONSTRUCTED_LEVEL5.ordinal()) {
-            defender = new Marksman(defenderLocation, defenderId, Direction.DOWN, Action.IDLE);
-            
+            defender = new Marksman(defenderLocation, defenderId, Direction.DOWN, Action.IDLE, state.getAttackRange());
         } else if (state.ordinal() > TowerState.CONSTRUCTED_LEVEL5.ordinal()) {
-            defender = new Sharpshooter(defenderLocation, defenderId, Direction.DOWN, Action.IDLE);
+            defender = new Sharpshooter(defenderLocation, defenderId, Direction.DOWN, Action.IDLE, state.getAttackRange());
         }
         
         if (defender == null) return;
         
         content.addToContent(defender);
         defender.addToCanvas();
+        defender.animatedImage.setShapeListener(this); // Avoid z-order mouse activity issues
         defenders.add(defenderId);
     }
+    
 
-    // Upgrades defenders to the correct type based on tower state.
-    // It deactivates all current defenders and then re-adds the same number
-    // (which will pick the correct defender type in addDefender()).
+    /* 
+    Upgrades defenders to the correct type based on tower state.
+    It deactivates all current defenders and then re-adds the same number
+    (because of changes in locations and defender type or stats)
+    */
     private void upgradeDefenders() {
         if (defenders.isEmpty()) return;
         
@@ -224,9 +262,13 @@ public class Tower extends GameObject implements ShapeListener {
         }
     }
 
-
     // Deactivates all defenders
     private void deactivateAllDefenders() {
+        nextDefenderId = 0; 
+        /* 
+        Resetting the id counter is not necessary theoretically 
+        However not resetting introduces a bug where sometimes a defender is not properly deactivated
+        */
         for (String defenderId : defenders) {
             Defender defender = (Defender) content.getFromContent(defenderId);
             if (defender != null) {
@@ -256,10 +298,6 @@ public class Tower extends GameObject implements ShapeListener {
                 offsetX = 3 + defenders.size() * 17;
                 offsetY = 50  - defenders.size() * 5;
                 break;
-            // case CONSTRUCTED_LEVEL4:
-            //     offsetX = 3 + defenders.size() * 17;
-            //     offsetY = 60  - defenders.size() * 5;
-            //     break;
             case CONSTRUCTED_LEVEL5:
                 offsetX = 3 + defenders.size() * 17;
                 offsetY = 45  - defenders.size() * 5;
@@ -271,24 +309,81 @@ public class Tower extends GameObject implements ShapeListener {
         return new ScreenPoint(location.x + offsetX, location.y + offsetY);
     }
 
-    /**
-     * Creates and displays a semi-transparent highlight circle around the tower.
-     * Uses FilledShape methods: setIsFilled(true) and setFillColor(...)
-     */
+    // Shows the current attack range circle around the tower
+    private void showCurrentAttackRangeCircle() {
+        GameCanvas canvas = Game.UI().canvas();
+        ScreenPoint center = new ScreenPoint(location.x + FRAME_WIDTH / 2 - 1, location.y + FRAME_HEIGHT - 32);
+        int radius = state.getAttackRange();
+        
+        if (currentRangeCircle == null) {
+            currentRangeCircle = new Circle(this.id + "_currentRange", center, radius);
+            currentRangeCircle.setIsFilled(true);
+            currentRangeCircle.setFillColor(new java.awt.Color(51, 170, 255, 40));
+            currentRangeCircle.setColor(new java.awt.Color(51, 170, 255, 40));
+            currentRangeCircle.setzOrder(0);
+            canvas.addShape(currentRangeCircle);
+        } else {
+            currentRangeCircle.setRadius(radius);
+        }
+        canvas.revalidate();
+        canvas.repaint();
+    }
+
+    // Hides the current attack range circle
+    private void hideCurrentAttackRangeCircle() {
+        GameCanvas canvas = Game.UI().canvas();
+        if (currentRangeCircle != null) {
+            canvas.deleteShape(currentRangeCircle.getId());
+            currentRangeCircle = null;
+        }
+        canvas.revalidate();
+        canvas.repaint();
+    }
+
+    // Shows the next upgrade attack range circle based on the next state
+    private void showNextAttackRangeCircle() {
+        TowerState next = getNextState();
+        if (next == null) return; // already at max
+        GameCanvas canvas = Game.UI().canvas();
+        ScreenPoint center = new ScreenPoint(location.x + FRAME_WIDTH / 2 - 1, location.y + FRAME_HEIGHT - 32);
+        int radius = next.getAttackRange();
+        
+        if (nextRangeCircle == null) {
+            nextRangeCircle = new Circle(this.id + "_nextRange", center, radius);
+            nextRangeCircle.setIsFilled(true);
+            nextRangeCircle.setFillColor(new java.awt.Color(0, 220, 30, 55));
+            nextRangeCircle.setColor(new java.awt.Color(0, 220, 30, 55));
+            nextRangeCircle.setzOrder(1);
+            canvas.addShape(nextRangeCircle);
+        } else {
+            nextRangeCircle.setRadius(radius);
+        }
+        canvas.revalidate();
+        canvas.repaint();
+    }
+
+    // Hides the next attack range circle
+    private void hideNextAttackRangeCircle() {
+        GameCanvas canvas = Game.UI().canvas();
+        if (nextRangeCircle != null) {
+            canvas.deleteShape(nextRangeCircle.getId());
+            nextRangeCircle = null;
+        }
+        canvas.revalidate();
+        canvas.repaint();
+    }
+    
+    // Highlight the tower when hovering with a circle
     private void showHighlight() {
         if (highlightCircle == null) {
-            // Determine the center of the tower (assuming location is the top-left corner)
-            ScreenPoint center = new ScreenPoint(location.x + FRAME_WIDTH / 2 - 1, location.y + FRAME_HEIGHT - 32);
-            int radius = FRAME_WIDTH / 2 - 2; // adjust radius as needed
+            ScreenPoint center = new ScreenPoint(location.x + FRAME_WIDTH / 2 - 1, location.y + FRAME_HEIGHT - 31);
+            int radius = FRAME_WIDTH / 2 - 3;
             
             // Create the highlight circle
             highlightCircle = new Circle(this.id + "_highlight", center, radius);
-            // Mark it as filled and set a semi-transparent yellow color (alpha 128 for ~50% opacity)
             highlightCircle.setIsFilled(true);
-            highlightCircle.setFillColor(new java.awt.Color(255, 255, 0, 128));
-            highlightCircle.setColor(new java.awt.Color(255, 255, 0, 128));
-            
-            // Optionally, if your canvas supports z-order, you can set it lower so it appears behind the tower.
+            highlightCircle.setFillColor(new java.awt.Color(240, 240, 160, 80));
+            highlightCircle.setColor(new java.awt.Color(240, 240, 160, 80));
             highlightCircle.setzOrder(0);
             
             // Add the circle to the canvas
@@ -298,9 +393,7 @@ public class Tower extends GameObject implements ShapeListener {
         }
     }
 
-    /**
-     * Removes the highlight circle from the canvas.
-     */
+    // Hides the highlight circle
     private void hideHighlight() {
         if (highlightCircle != null) {
             Game.UI().canvas().deleteShape(highlightCircle.getId());
@@ -318,8 +411,9 @@ public class Tower extends GameObject implements ShapeListener {
     @Override
     public void addToCanvas() {
         GameCanvas canvas = Game.UI().canvas();
-        animatedImage.setzOrder(1);
+        animatedImage.setzOrder(5);
         canvas.addShape(animatedImage);
+        // canvas.addShape(activityCircle);
         canvas.revalidate();
         canvas.repaint();
     }
@@ -332,20 +426,14 @@ public class Tower extends GameObject implements ShapeListener {
         canvas.repaint();
     }
 
-    
-
-    public TowerState getState() {
-        return state;
-    }
-
     // Show Build, Buy, and Sell buttons near the tower.
     private void showButtons() {
         GameCanvas canvas = Game.UI().canvas();
         // Calculate positions relative to the tower location.
         int buildX = location.x - BUTTON_WIDTH/2;
-        int buildY = location.y - 25;
+        int buildY = location.y - 45;
         int sellX = location.x + BUTTON_WIDTH/2;
-        int sellY = location.y - 25;
+        int sellY = location.y - 45;
 
         // Create Build button
     
@@ -356,49 +444,94 @@ public class Tower extends GameObject implements ShapeListener {
             }
             
             buildButton = new Image(this.id + "_build", buildButtonPath, BUTTON_WIDTH, BUTTON_HEIGHT, buildX, buildY);
+            buildButton.setzOrder(6);
             buildButton.setDraggable(false);
             buildButton.setShapeListener(new ShapeListener() {
                 @Override
                 public void shapeClicked(String shapeID, int x, int y) {
                     advanceState();
-                    hideButtons();
+                    hideAll();
                 }
                 @Override public void shapeMoved(String shapeID, int dx, int dy) {}
                 @Override public void shapeStartDrag(String shapeID) {}
                 @Override public void shapeEndDrag(String shapeID) {}
                 @Override public void shapeRightClicked(String shapeID, int x, int y) {}
-                @Override public void mouseEnterShape(String shapeID, int x, int y) {}
-                @Override public void mouseExitShape(String shapeID, int x, int y) {}
+                @Override
+                public void mouseEnterShape(String shapeID, int x, int y) {
+                    showNextAttackRangeCircle();
+                }
+                @Override
+                public void mouseExitShape(String shapeID, int x, int y) {
+                    hideNextAttackRangeCircle();
+                }
             });
-        } else {
-            buildButton.moveToLocation(buildX, buildY);
         }
         
         // Create Sell button
         if (sellButton == null) {
             sellButton = new Image(this.id + "_sell", "resources/objects/buttons/sell.png", BUTTON_WIDTH, BUTTON_HEIGHT, sellX, sellY);
+            sellButton.setzOrder(6);
             sellButton.setDraggable(false);
             sellButton.setShapeListener(new ShapeListener() {
                 @Override
                 public void shapeClicked(String shapeID, int x, int y) {
                     sell();
-                    hideButtons();
+                    hideAll();
                 }
                 @Override public void shapeMoved(String shapeID, int dx, int dy) {}
                 @Override public void shapeStartDrag(String shapeID) {}
                 @Override public void shapeEndDrag(String shapeID) {}
                 @Override public void shapeRightClicked(String shapeID, int x, int y) {}
-                @Override public void mouseEnterShape(String shapeID, int x, int y) {}
-                @Override public void mouseExitShape(String shapeID, int x, int y) {}
+                @Override
+                public void mouseEnterShape(String shapeID, int x, int y) {
+                    // Hold highlight when hovering
+                    // showHighlight();
+                }
+                @Override
+                public void mouseExitShape(String shapeID, int x, int y) {
+                    // hideHighlight();
+                }
             });
-        } else {
-            sellButton.moveToLocation(sellX, sellY);
-        }
+        } 
+
         // Add the buttons to the canvas
-        if (state != TowerState.CONSTRUCTED_LEVEL6) { // Can't upgrade at level 6
+        if (state != TowerState.CONSTRUCTED_LEVEL6) { // don't show the upgrade button at max level
             canvas.addShape(buildButton);
         }
         canvas.addShape(sellButton);
+
+        // --- Add text labels below the buttons ---
+        // We'll display the upgrade/build price below the archer/upgrade button...
+        int priceX = buildX + 10;
+        int priceY = buildY + BUTTON_HEIGHT + 5;
+        String priceText = "Price: " + getState().getUpgradeCost();
+        
+        if (priceLabel == null) {
+            priceLabel = new Text(this.id + "_price", priceText, priceX, priceY);
+            priceLabel.setColor(java.awt.Color.WHITE);
+            if (state != TowerState.CONSTRUCTED_LEVEL6) { // don't show the price at max level
+            canvas.addShape(priceLabel);
+        }
+            
+        } else {
+            priceLabel.setText(priceText);
+            priceLabel.moveToLocation(priceX, priceY);
+        }
+        
+        // And display the sell value below the sell button.
+        int sellTextX = sellX + 15;
+        int sellTextY = sellY + BUTTON_HEIGHT + 5;
+        String sellText = "Sell: " + getState().getSellValue();
+        
+        if (sellLabel == null) {
+            sellLabel = new Text(this.id + "_sellLabel", sellText, sellTextX, sellTextY);
+            sellLabel.setColor(java.awt.Color.WHITE);
+            canvas.addShape(sellLabel);
+        } else {
+            sellLabel.setText(sellText);
+            sellLabel.moveToLocation(sellTextX, sellTextY);
+        }
+
         canvas.revalidate();
         canvas.repaint();
     }
@@ -414,10 +547,27 @@ public class Tower extends GameObject implements ShapeListener {
             canvas.deleteShape(sellButton.getId());
             sellButton = null;
         }
+        if (priceLabel != null) {
+            canvas.deleteShape(priceLabel.getId());
+            priceLabel = null;
+        }
+        if (sellLabel != null) {
+            canvas.deleteShape(sellLabel.getId());
+            sellLabel = null;
+        }
         canvas.revalidate();
         canvas.repaint();
     }
 
+    // public method for MyMouseHandler
+    public void hideAll() {
+        isClicked = false;
+        hideButtons();
+        hideCurrentAttackRangeCircle();
+        hideHighlight();
+        hideNextAttackRangeCircle();
+    }     
+    
     @Override
     public void shapeMoved(String shapeID, int dx, int dy) {
     }
@@ -434,7 +584,9 @@ public class Tower extends GameObject implements ShapeListener {
 
     @Override
     public void shapeClicked(String shapeID, int x, int y) {
-        ;
+        isClicked = true;
+        showButtons();
+        showCurrentAttackRangeCircle();
     }
 
     @Override
@@ -445,13 +597,10 @@ public class Tower extends GameObject implements ShapeListener {
     @Override
     public void mouseEnterShape(String shapeID, int x, int y) {
         showHighlight();
-        showButtons();
-        
     }
 
     @Override
     public void mouseExitShape(String shapeID, int x, int y) {
-        hideHighlight();
-        hideButtons();
+        if (!isClicked) hideHighlight();
     }
 }

@@ -2,6 +2,8 @@ package my_base;
 
 import base.Game;
 import base.MouseHandler;
+import my_game.GameObject;
+import my_game.Tower;
 import shapes.Shape;
 
 public class MyMouseHandler extends MouseHandler {
@@ -12,7 +14,12 @@ public class MyMouseHandler extends MouseHandler {
 	@Override
 	public void screenClicked(int x, int y) {
 		super.screenClicked(x, y);
-		// Enter your specific code here
+		for (GameObject gameObject : content.getAllGameObjects()) {
+            if (gameObject instanceof Tower) {
+				Tower tower = (Tower) gameObject;
+				tower.hideAll();
+			}
+        }
 	}
 
 	@Override

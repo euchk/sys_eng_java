@@ -13,8 +13,11 @@ public abstract class Defender extends Character {
     private static final int FRAME_WIDTH = 48;   // Width of each frame
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
 
-    private int attackRange; // Defined in subclass
-    private int damage; // Defined in subclass
+    private int attackRange;
+    private int damage;
+    private int arrowFrequency; // Multiplier for cooldown
+    private int arrowCooldownFrames = 0; // cooldown time between arrows
+
     
     // Offset for arrow positioning depending on direction
     public ScreenPoint getBowOffset() {
@@ -31,12 +34,13 @@ public abstract class Defender extends Character {
                 return new ScreenPoint(0, 0);
         }
     }
-    
+
     public Defender(ScreenPoint startLocation, String id, Direction direction, Action action) {
         super(id, startLocation, FRAME_WIDTH, FRAME_HEIGHT, direction, action);
-        setShowHealthBar(false); // defender
+        setShowHealthBar(false); // Can't attack defender
         initializeMappings();
         updateAnimation();
+        
     }
 
     // Subclass should map the currect sprite for action and direction
@@ -48,6 +52,10 @@ public abstract class Defender extends Character {
 
     protected void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    protected void setArrowFrequency(int arrowFrequency) {
+        this.arrowFrequency = arrowFrequency;
     }
 
     private void shootArrow(Invader target) {
@@ -74,6 +82,13 @@ public abstract class Defender extends Character {
         // Add arrow to the game
         content.addToContent(arrow);
         arrow.addToCanvas();
+
+         // Set cooldown: arrowFrequency rounds of the IDLE animation
+        int idleFrames = frameCounts.get(Action.IDLE).get(direction);
+        arrowCooldownFrames = arrowFrequency  * idleFrames;
+        
+        // Return to IDLE after shooting
+        setAction(Action.IDLE);
     }
 
     private void updateDirection(ScreenPoint targetLocation) {
@@ -134,8 +149,17 @@ public abstract class Defender extends Character {
 
     @Override
     public void gameStep() {
+        // If cooldown is active, decrement and remain idle
+        if (arrowCooldownFrames > 0) {
+            arrowCooldownFrames--;
+            if(action != Action.IDLE){
+                setAction(Action.IDLE);
+            }
+            nextFrame();
+            return;
+        }
+
         Invader nearestTarget = getNearestTarget();
-        
         // Shoot arrow if there is a target in range
         if (nearestTarget != null) {
             shootArrow(nearestTarget);

@@ -78,10 +78,10 @@ public class StartWaveButton extends GameButton {
 	@Override
 	public void action() {
         spawnSlime(Paths.testPath());
-        spawnTroll(Paths.levelTwoPath());
-        spawnBee(Paths.levelThreePath());
-        spawnWolf(Paths.levelFourPath());
-        spawnRat(Paths.levelFivePath());
+        spawnTroll(Paths.testPath());
+        spawnBee(Paths.testPath());
+        spawnWolf(Paths.testPath());
+        spawnRat(Paths.testPath());
         spawnKnight(Paths.testPath());
         spawnWizard(Paths.testPath());
         

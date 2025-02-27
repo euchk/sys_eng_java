@@ -7,10 +7,11 @@ import ui_elements.ScreenPoint;
 
 public class Archer extends Defender {
 
-    public Archer(ScreenPoint startLocation, String id, Direction direction, Action action) {
+    public Archer(ScreenPoint startLocation, String id, Direction direction, Action action, int attackRange) {
         super(startLocation, id, direction, action);
-        setAttackRange(150);
         setDamage(5);
+        setAttackRange(attackRange);
+        setArrowFrequency(3);
     }
 
     @Override

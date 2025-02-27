@@ -7,10 +7,11 @@ import ui_elements.ScreenPoint;
 
 public class Sharpshooter extends Defender {
 
-    public Sharpshooter(ScreenPoint startLocation, String id, Direction direction, Action action) {
+    public Sharpshooter(ScreenPoint startLocation, String id, Direction direction, Action action, int attackRange) {
         super(startLocation, id, direction, action);
-        setAttackRange(300);
-        setDamage(7);
+        setDamage(9);
+        setAttackRange(attackRange);
+        setArrowFrequency(1);
     }
 
     @Override

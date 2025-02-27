@@ -7,10 +7,11 @@ import ui_elements.ScreenPoint;
 
 public class Marksman extends Defender {
 
-    public Marksman(ScreenPoint startLocation, String id, Direction direction, Action action) {
+    public Marksman(ScreenPoint startLocation, String id, Direction direction, Action action, int attackRange) {
         super(startLocation, id, direction, action);
-        setAttackRange(200);
-        setDamage(6);
+        setDamage(7);
+        setAttackRange(attackRange);
+        setArrowFrequency(2);
     }
 
     @Override
