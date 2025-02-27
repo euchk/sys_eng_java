@@ -1,5 +1,7 @@
 package my_game;
 
+import java.awt.Color;
+
 import base.Game;
 import base.GameCanvas;
 import shapes.TextLabel;
@@ -15,8 +17,9 @@ public class Score {
 
         // Create a TextLabel to display the score
         scoreText = new TextLabel("scoreDisplay", "Invaders passed: " + invadersPassed + "/" + maxInvadersPassed, posX, posY);
-        scoreText.setFontSize(50);
-        scoreText.setzOrder(10); // Set a high z-order to keep it visible
+        scoreText.setColor(Color.WHITE); // Color must be before setFontSize
+        scoreText.setFontSize(20);
+        scoreText.setzOrder(10);
     }
 
     // Increment the score when an enemy passes the gate

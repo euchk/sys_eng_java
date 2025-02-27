@@ -19,8 +19,9 @@ public class Coins {
 
         // Create a TextLabel to display the coins
         coinsText = new TextLabel("coinsDisplay", "Coins: " + currentCoins, posX, posY);
-        coinsText.setFontSize(50);
-        coinsText.setzOrder(10); // Set a high z-order to keep it visible
+        coinsText.setColor(Color.WHITE); // Color must be before setFontSize
+        coinsText.setFontSize(20);
+        coinsText.setzOrder(10);
     }
 
     // Add coins

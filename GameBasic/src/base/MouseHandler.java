@@ -55,16 +55,42 @@ public class MouseHandler {
 		}
 	}
 	
-    public void mouseMovedOverShape(Shape shape, int x, int y) {
-		//System.out.println("Mouse moved over Shape: " + shape.getId());
-		if (!onShape) {
+    // public void mouseMovedOverShape(Shape shape, int x, int y) {
+	// 	System.out.println("Mouse moved over Shape: " + shape.getId());
+	// 	if (!onShape) {
+	// 		shapeUnderMouse = shape;
+	// 		onShape = true;
+	// 		if (shapeUnderMouse.getshapeListener() != null) {
+	// 			shapeUnderMouse.getshapeListener().mouseEnterShape(shape.getId(), x, y);
+	// 		}
+	// 	}		
+    // }
+
+	// Changed mouseMovedOverShape logic to support switching between shapes while hovering
+	public void mouseMovedOverShape(Shape shape, int x, int y) {
+		// System.out.println("Mouse moved over Shape: " + shape.getId());
+		
+		// If we're already on a shape but it's a different one call exit
+		if (onShape && shapeUnderMouse != null && !shapeUnderMouse.equals(shape)) {
+			if (shapeUnderMouse.getshapeListener() != null) {
+				shapeUnderMouse.getshapeListener().mouseExitShape(shapeUnderMouse.getId(), x, y);
+			}
+			// Update to the new shape and call its enter event
+			shapeUnderMouse = shape;
+			if (shapeUnderMouse.getshapeListener() != null) {
+				shapeUnderMouse.getshapeListener().mouseEnterShape(shapeUnderMouse.getId(), x, y);
+			}
+		} 
+		// If we're not on any shape, original logic
+		else if (!onShape) {
 			shapeUnderMouse = shape;
 			onShape = true;
 			if (shapeUnderMouse.getshapeListener() != null) {
-				shapeUnderMouse.getshapeListener().mouseEnterShape(shape.getId(), x, y);
+				shapeUnderMouse.getshapeListener().mouseEnterShape(shapeUnderMouse.getId(), x, y);
 			}
-		}		
-    }
+		}
+	}
+	
     	
     public void mouseDraggedOverShape(Shape shape, int x, int y) {
 		//System.out.println("Mouse Dragged over Shape: " + shape.getId());

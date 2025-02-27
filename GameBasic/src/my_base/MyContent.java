@@ -42,7 +42,7 @@ public class MyContent extends GameContent{
 	public void initContent() {
 
 		score = new Score(5, 70, 20);
-		coins = new Coins(10000, 70, 100);
+		coins = new Coins(10000, 70, 50);
 
 		ScreenPoint location1 = new ScreenPoint(1200, 150);
 		tower1 = new Tower("tower1", location1);

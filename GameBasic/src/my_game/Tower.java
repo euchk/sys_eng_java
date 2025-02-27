@@ -87,8 +87,8 @@ public class Tower extends GameObject implements ShapeListener {
     // Button images for building/upgrading and selling
     private Image buildButton;
     private Image sellButton;
-    private static final int BUTTON_WIDTH = 75;
-    private static final int BUTTON_HEIGHT = 75;
+    private static final int BUTTON_WIDTH = 45;
+    private static final int BUTTON_HEIGHT = 45;
     private Text priceLabel;
     private Text sellLabel;
 
@@ -351,17 +351,33 @@ public class Tower extends GameObject implements ShapeListener {
         if (next == null) return; // already at max
         GameCanvas canvas = Game.UI().canvas();
         ScreenPoint center = new ScreenPoint(location.x + FRAME_WIDTH / 2 - 1, location.y + FRAME_HEIGHT - 32);
-        int radius = next.getAttackRange();
-        
-        if (nextRangeCircle == null) {
-            nextRangeCircle = new Circle(this.id + "_nextRange", center, radius);
-            nextRangeCircle.setIsFilled(true);
-            nextRangeCircle.setFillColor(new java.awt.Color(0, 220, 30, 55));
-            nextRangeCircle.setColor(new java.awt.Color(0, 220, 30, 55));
-            nextRangeCircle.setzOrder(1);
-            canvas.addShape(nextRangeCircle);
-        } else {
-            nextRangeCircle.setRadius(radius);
+
+        if (state != TowerState.NOT_CONSTRUCTED) { // if level !=0 show difference between levels
+            int addedRange = next.getAttackRange() - state.getAttackRange();
+            int radius = state.getAttackRange() + addedRange / 2;   
+            if (nextRangeCircle == null) {
+                nextRangeCircle = new Circle(this.id + "_nextRange", center, radius);
+                nextRangeCircle.setIsFilled(false);
+                // nextRangeCircle.setFillColor(new java.awt.Color(250, 0, 0, 80));
+                nextRangeCircle.setColor(new java.awt.Color(0, 255, 0, 40));
+                nextRangeCircle.setWeight(addedRange);
+                nextRangeCircle.setzOrder(1);
+                canvas.addShape(nextRangeCircle);
+            } else {
+                nextRangeCircle.setRadius(radius);
+            }
+        } else { // if level 0 show a filled circle
+            int radius = next.getAttackRange();
+            if (currentRangeCircle == null) {
+                currentRangeCircle = new Circle(this.id + "_currentRange", center, radius);
+                currentRangeCircle.setIsFilled(true);
+                currentRangeCircle.setFillColor(new java.awt.Color(51, 170, 255, 40));
+                currentRangeCircle.setColor(new java.awt.Color(51, 170, 255, 40));
+                currentRangeCircle.setzOrder(0);
+                canvas.addShape(currentRangeCircle);
+            } else {
+                currentRangeCircle.setRadius(radius);
+            }
         }
         canvas.revalidate();
         canvas.repaint();
@@ -435,10 +451,10 @@ public class Tower extends GameObject implements ShapeListener {
     private void showButtons() {
         GameCanvas canvas = Game.UI().canvas();
         // Calculate positions relative to the tower location.
-        int buildX = location.x - BUTTON_WIDTH/2 - 20;
-        int buildY = location.y - 45;
-        int sellX = location.x + BUTTON_WIDTH/2 + 20;
-        int sellY = location.y - 45;
+        int buildX = location.x - BUTTON_WIDTH/2;
+        int buildY = location.y - 20;
+        int sellX = location.x + BUTTON_WIDTH;
+        int sellY = location.y - 20;
 
         // Create Build button
     
@@ -449,7 +465,7 @@ public class Tower extends GameObject implements ShapeListener {
             }
             
             buildButton = new Image(this.id + "_build", buildButtonPath, BUTTON_WIDTH, BUTTON_HEIGHT, buildX, buildY);
-            buildButton.setzOrder(6);
+            buildButton.setzOrder(10);
             buildButton.setDraggable(false);
             buildButton.setShapeListener(new ShapeListener() {
                 @Override
@@ -477,7 +493,7 @@ public class Tower extends GameObject implements ShapeListener {
         // Create Sell button
         if (sellButton == null) {
             sellButton = new Image(this.id + "_sell", "resources/objects/buttons/sell.png", BUTTON_WIDTH, BUTTON_HEIGHT, sellX, sellY);
-            sellButton.setzOrder(6);
+            sellButton.setzOrder(10);
             sellButton.setDraggable(false);
             sellButton.setShapeListener(new ShapeListener() {
                 @Override
@@ -504,13 +520,14 @@ public class Tower extends GameObject implements ShapeListener {
         if (state != TowerState.CONSTRUCTED_LEVEL6) { // don't show the upgrade button at max level
             canvas.addShape(buildButton);
         }
-        canvas.addShape(sellButton);
+        if (state != TowerState.NOT_CONSTRUCTED) { // don't show sell if level 0
+            canvas.addShape(sellButton);
+        }
 
-        // --- Add text labels below the buttons ---
-        // We'll display the upgrade/build price below the archer/upgrade button...
-        int priceX = buildX + 10;
-        int priceY = buildY + BUTTON_HEIGHT + 5;
-        String priceText = "Price: " + getState().getUpgradeCost();
+        // Add text labels below the buttons
+        int priceX = buildX - 5;
+        int priceY = buildY + BUTTON_HEIGHT + 12;
+        String priceText = "Buy for " + getState().getUpgradeCost();
         
         if (priceLabel == null) {
             priceLabel = new Text(this.id + "_price", priceText, priceX, priceY);
@@ -525,14 +542,16 @@ public class Tower extends GameObject implements ShapeListener {
         }
         
         // And display the sell value below the sell button.
-        int sellTextX = sellX + 15;
-        int sellTextY = sellY + BUTTON_HEIGHT + 5;
-        String sellText = "Sell: " + getState().getSellValue();
+        int sellTextX = sellX - 1;
+        int sellTextY = sellY + BUTTON_HEIGHT + 12;
+        String sellText = "Sell for " + getState().getSellValue();
         
         if (sellLabel == null) {
             sellLabel = new Text(this.id + "_sellLabel", sellText, sellTextX, sellTextY);
             sellLabel.setColor(java.awt.Color.WHITE);
-            canvas.addShape(sellLabel);
+            if (state != TowerState.NOT_CONSTRUCTED) { // don't show sell if level 0
+                canvas.addShape(sellLabel);
+        }
         } else {
             sellLabel.setText(sellText);
             sellLabel.moveToLocation(sellTextX, sellTextY);
@@ -567,10 +586,10 @@ public class Tower extends GameObject implements ShapeListener {
 
     private void showBuildButtonHighlight() {
         GameCanvas canvas = Game.UI().canvas();
-        int rectX = location.x - BUTTON_WIDTH/2 - 10;
-        int rectY = location.y - 34;
-        int rectWidth = BUTTON_WIDTH - 22;
-        int rectHeight = BUTTON_HEIGHT - 22;
+        int rectX = location.x - BUTTON_WIDTH/2 - 2;
+        int rectY = location.y - 22;
+        int rectWidth = BUTTON_WIDTH + 4;
+        int rectHeight = BUTTON_HEIGHT + 4;
         if (buildButtonHighlight == null) {
             buildButtonHighlight = new Rectangle(this.id + "_buildHighlight", rectX, rectY, rectWidth, rectHeight);
             buildButtonHighlight.setIsFilled(true);
@@ -596,10 +615,10 @@ public class Tower extends GameObject implements ShapeListener {
 
     private void showSellButtonHighlight() {
         GameCanvas canvas = Game.UI().canvas();
-        int rectX = location.x + BUTTON_WIDTH/2 + 31;
-        int rectY = location.y - 34;
-        int rectWidth = BUTTON_WIDTH - 22;
-        int rectHeight = BUTTON_HEIGHT -22;
+        int rectX = location.x + BUTTON_WIDTH - 2;
+        int rectY = location.y - 22;
+        int rectWidth = BUTTON_WIDTH + 4;
+        int rectHeight = BUTTON_HEIGHT + 4;
         if (sellButtonHighlight == null) {
             sellButtonHighlight = new Rectangle(this.id + "_sellHighlight", rectX, rectY, rectWidth, rectHeight);
             sellButtonHighlight.setIsFilled(true);
@@ -623,9 +642,7 @@ public class Tower extends GameObject implements ShapeListener {
         }
     }
     
-    
-
-    // public method for MyMouseHandler
+    // public methods for MyMouseHandler
     public void hideAll() {
         isClicked = false;
         hideButtons();
@@ -634,7 +651,13 @@ public class Tower extends GameObject implements ShapeListener {
         hideNextAttackRangeCircle();
         hideBuildButtonHighlight();
         hideSellButtonHighlight();
-    }     
+    }
+
+    public void hideHoverLogic() {
+        hideNextAttackRangeCircle();
+        hideBuildButtonHighlight();
+        hideSellButtonHighlight();
+    }
     
     @Override
     public void shapeMoved(String shapeID, int dx, int dy) {
