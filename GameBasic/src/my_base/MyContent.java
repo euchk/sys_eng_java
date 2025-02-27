@@ -13,6 +13,7 @@ import my_game.Archer;
 import my_game.Coins;
 import my_game.Score;
 import my_game.Sharpshooter;
+import my_game.StartWave;
 import my_game.Tower;
 import base.GameContent;
 
@@ -21,6 +22,7 @@ public class MyContent extends GameContent{
 	private GameControl gameControl;
 	private Coins coins;
 	private Score score;
+	private StartWave startWave;
 
 	private Tower tower1, tower2, tower3;
 	private Archer archer1, archer2, archer3;
@@ -43,6 +45,7 @@ public class MyContent extends GameContent{
 
 		score = new Score(5, 70, 20);
 		coins = new Coins(10000, 70, 50);
+		startWave = new StartWave("startWaveButton", 1800, 500);
 
 		ScreenPoint location1 = new ScreenPoint(1200, 150);
 		tower1 = new Tower("tower1", location1);
@@ -134,6 +137,10 @@ public class MyContent extends GameContent{
 
 	public Score score() {
 		return score;
+	}
+
+	public StartWave startWave() {
+		return startWave;
 	}
 
 	public GameControl gameControl() {

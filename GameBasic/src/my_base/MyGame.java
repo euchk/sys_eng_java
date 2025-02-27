@@ -27,6 +27,9 @@ public class MyGame extends Game {
 		// Add Score text to the canvas
 		content.score().addToCanvas();
 
+		// Add startWave button to canvas
+		content.startWave().addToCanvas();
+
 		// Add all init characters to canvas
 		for (GameObject gameObject : content.getAllGameObjects()) {
 			gameObject.addToCanvas();
@@ -36,15 +39,16 @@ public class MyGame extends Game {
 	
 	@Override
 	protected void initDashboard() {
-		super.initDashboard();
-		GameDashboard dashboard = gameUI.dashboard();
+		;
+		// super.initDashboard();
+		// GameDashboard dashboard = gameUI.dashboard();
 		
-		dashboard.setBackground(Color.BLACK);
+		// dashboard.setBackground(Color.BLACK);
 
 		// Add a the AddArcherButton button
 		// dashboard.addUIElement(new AddArcherButton("addArcher", "Add Archer", 500, 40));
 		// Add a the StartWaveButton button
-		dashboard.addUIElement(new StartWaveButton("startWave", "Start Wave", 1500, 40));
+		// dashboard.addUIElement(new StartWaveButton("startWave", "Start Wave", 1500, 40));
 		
 
 	}

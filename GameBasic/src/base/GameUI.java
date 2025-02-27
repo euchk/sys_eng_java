@@ -19,9 +19,9 @@ public class GameUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
 		canvas = new GameCanvas();
-		dashboard = new GameDashboard();
+		// dashboard = new GameDashboard();
 		split.setTopComponent(canvas);
-		split.setBottomComponent(dashboard);
+		// split.setBottomComponent(dashboard);
 
 		/* 
 		 * -----------------------------------------------------------------------------

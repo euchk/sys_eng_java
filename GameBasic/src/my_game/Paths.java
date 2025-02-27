@@ -27,14 +27,15 @@ public class Paths {
 
     public static Path levelOnePath() {
         List<ScreenPoint> baseWaypoints = List.of(
-            new ScreenPoint(2000, 300),
-            new ScreenPoint(1620, 350),
-            new ScreenPoint(1600, 400),
-            new ScreenPoint(1030, 450),
-            new ScreenPoint(1000, 400),
-            new ScreenPoint(570, 350),
-            new ScreenPoint(500, 400),
-            new ScreenPoint(0, 370)
+            new ScreenPoint(1900, 100),
+            new ScreenPoint(1200, 200),
+            new ScreenPoint(1100, 100),
+            new ScreenPoint(900, 70),
+            new ScreenPoint(800, 200),
+            new ScreenPoint(500, 300),
+            new ScreenPoint(400, 400),
+            new ScreenPoint(800, 600),
+            new ScreenPoint(1100, 700)
         );
 
         List<ScreenPoint> randomizedWaypoints = applyRandomOffset(baseWaypoints);
