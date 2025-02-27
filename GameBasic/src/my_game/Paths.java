@@ -11,7 +11,7 @@ public class Paths {
 
     private static int generateRandomOffset() {
         Random random = new Random();
-        return random.nextInt(121) - 60; // Random value between -60 and 60
+        return random.nextInt(300) - 150; // Random value between -60 and 60
     }
 
     private static List<ScreenPoint> applyRandomOffset(List<ScreenPoint> baseWaypoints) {
@@ -28,18 +28,30 @@ public class Paths {
     public static Path levelOnePath() {
         List<ScreenPoint> baseWaypoints = List.of(
             new ScreenPoint(1900, 100),
+            new ScreenPoint(1600, 150),
             new ScreenPoint(1200, 200),
-            new ScreenPoint(1100, 100),
+            new ScreenPoint(1100, 150),
+            new ScreenPoint(1000, 120),
             new ScreenPoint(900, 70),
+            new ScreenPoint(850, 135),
             new ScreenPoint(800, 200),
+            new ScreenPoint(650, 250),
             new ScreenPoint(500, 300),
+            new ScreenPoint(450, 350),
             new ScreenPoint(400, 400),
+            new ScreenPoint(600, 500),
             new ScreenPoint(800, 600),
-            new ScreenPoint(1100, 700)
+            new ScreenPoint(650, 800),
+            new ScreenPoint(500, 1000),
+            new ScreenPoint(800, 1000),
+            new ScreenPoint(950, 900),
+            new ScreenPoint(1100, 800),
+            new ScreenPoint(1200, 850),
+            new ScreenPoint(1200, 900),
+            new ScreenPoint(1200, 1000)
         );
 
-        List<ScreenPoint> randomizedWaypoints = applyRandomOffset(baseWaypoints);
-        return new Path(randomizedWaypoints);
+        return new Path(applyRandomOffset(baseWaypoints));
     }
 
     public static Path levelTwoPath() {

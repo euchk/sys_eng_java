@@ -155,7 +155,7 @@ public abstract class Character extends GameObject {
     @Override
     public void addToCanvas() {
         GameCanvas canvas = Game.UI().canvas();
-        animatedImage.setzOrder(6);
+        animatedImage.setzOrder(10);
         canvas.addShape(animatedImage);
         healthBar.addToCanvas();
         canvas.revalidate();

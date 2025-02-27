@@ -121,7 +121,7 @@ public class StartWave implements ShapeListener {
 
     private void showHighlight() {
         GameCanvas canvas = Game.UI().canvas();
-        highlightCircle = new Rectangle(this.id + "_buildHighlight", getPosition().x - 2, getPosition().y - 2, 54, 54);
+        highlightCircle = new Rectangle(getId() + "_buildHighlight", getPosition().x - 2, getPosition().y - 2, 54, 54);
         highlightCircle.setIsFilled(true);
         highlightCircle.setFillColor(new java.awt.Color(240, 240, 160, 80));
         highlightCircle.setColor(new java.awt.Color(240, 240, 160, 80));

@@ -7,7 +7,6 @@ import base.GameCanvas;
 import base.GameContent;
 import base.GameDashboard;
 import my_game.GameObject;
-import my_ui_elements.StartWaveButton;
 
 public class MyGame extends Game {
 	
