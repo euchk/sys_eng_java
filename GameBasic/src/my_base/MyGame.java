@@ -18,7 +18,7 @@ public class MyGame extends Game {
 		GameCanvas canvas = gameUI.canvas();
 		canvas.setMouseHandler(Game.MouseHandler());
 		canvas.setBackground(Color.WHITE);
-		canvas.setBackgroundImage("resources/tiles/background.png");
+		canvas.setBackgroundImage("resources/tiles/level1_map.png");
 		
 		// Add coins text to the canvas
 		content.coins().addToCanvas();

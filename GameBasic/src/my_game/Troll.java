@@ -7,7 +7,7 @@ public class Troll extends Invader {
 
     private static final int FRAME_WIDTH = 48;   // Width of each frame
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
-    private static final int speed = 3;
+    private static final int speed = 6;
     private static final int coins = 25;
     private static final int maxHealth = 50;
     

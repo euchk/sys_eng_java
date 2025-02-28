@@ -49,7 +49,7 @@ public abstract class Game {
 	}
 	
 	public void initUI() {
-		gameUI = new GameUI("My Game", 2056, 1024);
+		gameUI = new GameUI("My Game", 2048, 1024);
 		initCanvas();
 		initDashboard();
 		gameUI.setFocusable(true);

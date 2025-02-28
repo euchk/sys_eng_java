@@ -2,6 +2,7 @@ package my_game;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import ui_elements.ScreenPoint;
 
@@ -13,12 +14,20 @@ public abstract class Invader extends Character {
     private boolean isPassed = false; // Passed the gate
     private Path path;
     private int currentWaypointIndex;
+    private double speedMultiplier;
+    private int startDelay; // Random delay before movement starts
+    private int delayCounter = 0; // Track delay before movement
 
     
     public Invader(String id, Direction direction, Action action, int FRAME_HEIGHT, int FRAME_WIDTH, Path path) {
         super(id, path.getWaypoint(0), FRAME_WIDTH, FRAME_HEIGHT, direction, action);
         this.path = path;
         this.currentWaypointIndex = 0;
+
+        Random random = new Random();
+        this.speedMultiplier = 0.85 + (random.nextDouble() * 0.3); // Speed variation factor
+        this.startDelay = random.nextInt(60); // Random delay before movement starts
+
         setShowHealthBar(true);
         initializeMappings();
         setDirection(determineDirection(path.getWaypoint(0), path.getWaypoint(1))); // Initial direction
@@ -39,6 +48,11 @@ public abstract class Invader extends Character {
 
     @Override
     public void gameStep() {
+        // Apply start delay to create slight desynchronization
+        if (delayCounter < startDelay) {
+            delayCounter++;
+            return;
+        }
         if (currentWaypointIndex < path.getPathLength()) {
             ScreenPoint currentWaypoint = path.getWaypoint(currentWaypointIndex);
             ScreenPoint currentPosition = getLocation();
@@ -47,8 +61,8 @@ public abstract class Invader extends Character {
             int deltaY = currentWaypoint.y - currentPosition.y;
             
             double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-            double normX = (distance > 0) ? (deltaX / distance) * speed : 0;
-            double normY = (distance > 0) ? (deltaY / distance) * speed : 0;
+            double normX = (distance > 0) ? (deltaX / distance) * speed * speedMultiplier : 0;
+            double normY = (distance > 0) ? (deltaY / distance) * speed * speedMultiplier : 0;
 
             move((int) normX, (int) normY);
 

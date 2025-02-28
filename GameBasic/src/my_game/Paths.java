@@ -11,7 +11,7 @@ public class Paths {
 
     private static int generateRandomOffset() {
         Random random = new Random();
-        return random.nextInt(300) - 150; // Random value between -60 and 60
+        return random.nextInt(40) - 20;
     }
 
     private static List<ScreenPoint> applyRandomOffset(List<ScreenPoint> baseWaypoints) {
@@ -27,28 +27,37 @@ public class Paths {
 
     public static Path levelOnePath() {
         List<ScreenPoint> baseWaypoints = List.of(
-            new ScreenPoint(1900, 100),
-            new ScreenPoint(1600, 150),
-            new ScreenPoint(1200, 200),
-            new ScreenPoint(1100, 150),
-            new ScreenPoint(1000, 120),
-            new ScreenPoint(900, 70),
-            new ScreenPoint(850, 135),
-            new ScreenPoint(800, 200),
-            new ScreenPoint(650, 250),
-            new ScreenPoint(500, 300),
-            new ScreenPoint(450, 350),
-            new ScreenPoint(400, 400),
-            new ScreenPoint(600, 500),
-            new ScreenPoint(800, 600),
-            new ScreenPoint(650, 800),
-            new ScreenPoint(500, 1000),
-            new ScreenPoint(800, 1000),
-            new ScreenPoint(950, 900),
-            new ScreenPoint(1100, 800),
-            new ScreenPoint(1200, 850),
-            new ScreenPoint(1200, 900),
-            new ScreenPoint(1200, 1000)
+            new ScreenPoint(2, 99),
+            new ScreenPoint(80, 99),
+            new ScreenPoint(148, 179),
+            new ScreenPoint(230, 238),
+            new ScreenPoint(266, 192),
+            new ScreenPoint(350, 157),
+            new ScreenPoint(391, 106),
+            new ScreenPoint(489, 98),
+            new ScreenPoint(548, 159),
+            new ScreenPoint(612, 191),
+            new ScreenPoint(657, 263),
+            new ScreenPoint(748, 307),
+            new ScreenPoint(831, 259),
+            new ScreenPoint(876, 178),
+            new ScreenPoint(948, 147),
+            new ScreenPoint(1018, 77),
+            new ScreenPoint(1105, 126),
+            new ScreenPoint(1198, 199),
+            new ScreenPoint(1216, 283),
+            new ScreenPoint(1341, 362),
+            new ScreenPoint(1335, 429),
+            new ScreenPoint(1282, 497),
+            new ScreenPoint(1182, 542),
+            new ScreenPoint(1128, 622),
+            new ScreenPoint(1026, 638),
+            new ScreenPoint(991, 678),
+            new ScreenPoint(892, 734),
+            new ScreenPoint(836, 810),
+            new ScreenPoint(890, 875),
+            new ScreenPoint(950, 925),
+            new ScreenPoint(989, 967)
         );
 
         return new Path(applyRandomOffset(baseWaypoints));
@@ -56,14 +65,27 @@ public class Paths {
 
     public static Path levelTwoPath() {
         List<ScreenPoint> baseWaypoints = List.of(
-            new ScreenPoint(1800, 250),
-            new ScreenPoint(1440, 280),
-            new ScreenPoint(1430, 330),
-            new ScreenPoint(920, 350),
-            new ScreenPoint(900, 280),
-            new ScreenPoint(470, 250),
-            new ScreenPoint(400, 310),
-            new ScreenPoint(50, 350) 
+            new ScreenPoint(1909, 224),
+            new ScreenPoint(1843, 187),
+            new ScreenPoint(1789, 151),
+            new ScreenPoint(1699, 136),
+            new ScreenPoint(1611, 144),
+            new ScreenPoint(1554, 201),
+            new ScreenPoint(1521, 277),
+            new ScreenPoint(1474, 341),
+            new ScreenPoint(1410, 362),
+            new ScreenPoint(1375, 423),
+            new ScreenPoint(1310, 439),
+            new ScreenPoint(1237, 531),
+            new ScreenPoint(1164, 557),
+            new ScreenPoint(1097, 619),
+            new ScreenPoint(1013, 648),
+            new ScreenPoint(946, 706),
+            new ScreenPoint(863, 762),
+            new ScreenPoint(868, 843),
+            new ScreenPoint(922, 885),
+            new ScreenPoint(977, 949),
+            new ScreenPoint(993, 968)
         );
 
         return new Path(applyRandomOffset(baseWaypoints));

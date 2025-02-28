@@ -3,16 +3,12 @@ package my_base;
 import java.util.Collection;
 import java.util.HashMap;
 
-import my_game.Character.Action;
-import my_game.Character.Direction;
+
 import ui_elements.ScreenPoint;
 import my_game.GameControl;
 import my_game.GameObject;
-import my_game.Marksman;
-import my_game.Archer;
 import my_game.Coins;
 import my_game.Score;
-import my_game.Sharpshooter;
 import my_game.StartWave;
 import my_game.Tower;
 import base.GameContent;
@@ -24,10 +20,7 @@ public class MyContent extends GameContent{
 	private Score score;
 	private StartWave startWave;
 
-	private Tower tower1, tower2, tower3;
-	private Archer archer1, archer2, archer3;
-	private Marksman marksman1, marksman2, marksman3;
-	private Sharpshooter sharpshooter1, sharpshooter2, sharpshooter3;
+	private Tower tower1, tower2, tower3, tower4, tower5, tower6;
 	
 	private final HashMap<String, GameObject> gameObjects; // Store all game objects with id as key
 	private final HashMap<String, GameObject> pendingGameObjects; //  // Stores all objects to be added to the game
@@ -47,35 +40,29 @@ public class MyContent extends GameContent{
 		coins = new Coins(10000, 70, 50);
 		startWave = new StartWave("startWaveButton", 1800, 500);
 
-		ScreenPoint location1 = new ScreenPoint(1200, 150);
+		ScreenPoint location1 = new ScreenPoint(400, 120);
 		tower1 = new Tower("tower1", location1);
 		addToContent(tower1);
-		// archer1 = new Archer(new ScreenPoint(location1.x + 12, location1.y + 120), "archer1", Direction.DOWN, Action.IDLE);
-		// addToContent(archer1);
-		// archer2 = new Archer(new ScreenPoint(location1.x - 8, location1.y + 110), "archer2", Direction.DOWN, Action.IDLE);
-		// addToContent(archer2);
-		// archer3 = new Archer(new ScreenPoint(location1.x + 28, location1.y + 110), "archer3", Direction.DOWN, Action.IDLE);
-		// addToContent(archer3);
 
-		ScreenPoint location2 = new ScreenPoint(800, 120);
+		ScreenPoint location2 = new ScreenPoint(715, 75);
 		tower2= new Tower("tower2", location2);
 		addToContent(tower2);
-		// marksman1 = new Marksman(new ScreenPoint(location2.x + 12, location2.y + 120), "marksman1", Direction.DOWN, Action.IDLE);
-		// addToContent(marksman1);
-		// marksman2 = new Marksman(new ScreenPoint(location2.x - 8, location2.y + 110), "marksman2", Direction.DOWN, Action.IDLE);
-		// addToContent(marksman2);
-		// marksman3 = new Marksman(new ScreenPoint(location2.x + 28, location2.y + 110), "marksman3", Direction.DOWN, Action.IDLE);
-		// addToContent(marksman3);
 
-		ScreenPoint location3 = new ScreenPoint(400, 150);
+		ScreenPoint location3 = new ScreenPoint(1000, 120);
 		tower3= new Tower("tower3", location3);
 		addToContent(tower3);
-		// sharpshooter1 = new Sharpshooter(new ScreenPoint(location3.x + 12, location3.y + 120), "sharpshooter1", Direction.DOWN, Action.IDLE);
-		// addToContent(sharpshooter1);
-		// sharpshooter2 = new Sharpshooter(new ScreenPoint(location3.x - 8, location3.y + 110), "sharpshooter2", Direction.DOWN, Action.IDLE);
-		// addToContent(sharpshooter2);
-		// sharpshooter3 = new Sharpshooter(new ScreenPoint(location3.x + 28, location3.y + 110), "sharpshooter3", Direction.DOWN, Action.IDLE);
-		// addToContent(sharpshooter3);
+
+		ScreenPoint location4 = new ScreenPoint(1360, 170);
+		tower4 = new Tower("tower4", location4);
+		addToContent(tower4);
+
+		ScreenPoint location5 = new ScreenPoint(1160, 320);
+		tower5= new Tower("tower5", location5);
+		addToContent(tower5);
+
+		ScreenPoint location6 = new ScreenPoint(960, 690);
+		tower6= new Tower("tower6", location6);
+		addToContent(tower6);
 
 		addPendingObjects();
 

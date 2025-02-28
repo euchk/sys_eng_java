@@ -38,8 +38,13 @@ public class StartWave implements ShapeListener {
     public void startWave() {
         // spawnSlime(Paths.levelOnePath());
         spawnTroll(Paths.levelOnePath());
+        spawnTroll(Paths.levelTwoPath());
         spawnTroll(Paths.levelOnePath());
+        spawnTroll(Paths.levelTwoPath());
         spawnTroll(Paths.levelOnePath());
+        spawnTroll(Paths.levelTwoPath());
+        spawnTroll(Paths.levelOnePath());
+        spawnTroll(Paths.levelTwoPath());
         // spawnBee(Paths.levelOnePath());
         // spawnWolf(Paths.levelOnePath());
         // spawnRat(Paths.levelOnePath());
