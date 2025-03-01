@@ -1,15 +1,8 @@
 package my_game;
 
-import java.awt.Graphics2D;
-import java.awt.Color;
-import java.awt.BasicStroke;
-
 import base.Game;
 import base.GameCanvas;
 import base.ShapeListener;
-import my_base.MyContent;
-import my_game.Character.Action;
-import my_game.Character.Direction;
 import shapes.Image;
 import shapes.Rectangle;
 import ui_elements.ScreenPoint;
@@ -22,86 +15,19 @@ public class StartWave implements ShapeListener {
     private Rectangle highlightCircle;
 
     private final String imageSrc = "resources/objects/buttons/startWave.png";    
+    
+    private GameControl gameControl; // reference to GameControl
 
-    MyContent content = (MyContent) Game.Content();
- 
-    public StartWave(String id, int posX, int posY) {
+    public StartWave(String id, int posX, int posY, GameControl gameControl) {
         this.id = id;
         this.position = new ScreenPoint(posX, posY);
+        this.gameControl = gameControl;
         image = new Image(id, imageSrc, 50, 50, posX, posY);
         image.setzOrder(3);
         image.setShapeListener(this);
         image.setDraggable(false);
     }
 
-    // Start the wave when clicking
-    public void startWave() {
-        // spawnSlime(Paths.levelOnePath());
-        spawnTroll(Paths.levelOnePath());
-        spawnTroll(Paths.levelTwoPath());
-        spawnTroll(Paths.levelOnePath());
-        spawnTroll(Paths.levelTwoPath());
-        spawnTroll(Paths.levelOnePath());
-        spawnTroll(Paths.levelTwoPath());
-        spawnTroll(Paths.levelOnePath());
-        spawnTroll(Paths.levelTwoPath());
-        // spawnBee(Paths.levelOnePath());
-        // spawnWolf(Paths.levelOnePath());
-        // spawnRat(Paths.levelOnePath());
-        // spawnKnight(Paths.levelOnePath());
-        // spawnWizard(Paths.levelOnePath());
-    }
-
-    public void spawnKnight(Path path) {
-        String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Knight(invaderId, Direction.LEFT, Action.ATTACK, path);
-        invader.addToCanvas(); // Add the invader to the game canvas
-        content.addToContent(invader); // Add the invader to content
-    }
-
-    public void spawnWizard(Path path) {
-        String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Wizard(invaderId, Direction.LEFT, Action.ATTACK, path);
-        invader.addToCanvas(); // Add the invader to the game canvas
-        content.addToContent(invader); // Add the invader to content
-    }
-
-    public void spawnSlime(Path path) {
-        String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Slime(invaderId, Direction.LEFT, Action.IDLE, path);
-        invader.addToCanvas(); // Add the invader to the game canvas
-        content.addToContent(invader); // Add the invader to content
-    }
-
-    public void spawnRat(Path path) {
-        String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Rat(invaderId, Direction.LEFT, Action.IDLE, path);
-        invader.addToCanvas(); // Add the invader to the game canvas
-        content.addToContent(invader); // Add the invader to content
-    }
-
-    public void spawnTroll(Path path) {
-        String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Troll(invaderId, Direction.LEFT, Action.IDLE, path);
-        invader.addToCanvas(); // Add the invader to the game canvas
-        content.addToContent(invader); // Add the invader to content
-    }
-
-    public void spawnBee(Path path) {
-        String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Bee(invaderId, Direction.LEFT, Action.IDLE, path);
-        invader.addToCanvas(); // Add the invader to the game canvas
-        content.addToContent(invader); // Add the invader to content
-    }
-
-    public void spawnWolf(Path path) {
-        String invaderId = "invader_" + System.currentTimeMillis(); // Unique ID for each archer
-        Invader invader = new Wolf(invaderId, Direction.LEFT, Action.IDLE, path);
-        invader.addToCanvas(); // Add the invader to the game canvas
-        content.addToContent(invader); // Add the invader to content
-    }
-    
-    // Add the button to the canvas
     public void addToCanvas() {
         GameCanvas canvas = Game.UI().canvas();
         canvas.addShape(image);
@@ -114,14 +40,6 @@ public class StartWave implements ShapeListener {
         canvas.deleteShape(image.getId());
         canvas.revalidate();
         canvas.repaint();
-    }
-
-    public String getId() {
-        return id;
-    }
-    
-    public ScreenPoint getPosition() {
-        return position;
     }
 
     private void showHighlight() {
@@ -147,33 +65,33 @@ public class StartWave implements ShapeListener {
         }
     }
 
+    public String getId() {
+        return id;
+    }
+    
+    public ScreenPoint getPosition() {
+        return position;
+    }
 
     @Override
-    public void shapeMoved(String shapeID, int dx, int dy) {
-        ;
-    }
-    
+    public void shapeMoved(String shapeID, int dx, int dy) { }
+
     @Override
-    public void shapeStartDrag(String shapeID) {
-        ;
-    }
-    
+    public void shapeStartDrag(String shapeID) { }
+
     @Override
-    public void shapeEndDrag(String shapeID) {
-        ;
-    }
-    
+    public void shapeEndDrag(String shapeID) { }
+
+    // Instead of spawning invaders directly, we signal GameControl to start the wave
     @Override
     public void shapeClicked(String shapeID, int x, int y) {
-        startWave();
+        gameControl.startWaveClicked();
         hideHighlight();
         removeFromCanvas();
     }
     
     @Override
-    public void shapeRightClicked(String shapeID, int x, int y) {
-        ;
-    }
+    public void shapeRightClicked(String shapeID, int x, int y) { }
     
     @Override
     public void mouseEnterShape(String shapeID, int x, int y) {

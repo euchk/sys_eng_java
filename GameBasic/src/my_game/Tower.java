@@ -23,12 +23,12 @@ public class Tower extends GameObject implements ShapeListener {
     public enum TowerState {
         // Build cost; Sell value; numOfDefenders; attackRange;
         NOT_CONSTRUCTED(100, 0, 0),
-        CONSTRUCTED_LEVEL1(110, 85, 110),
-        CONSTRUCTED_LEVEL2(130, 180, 130),
-        CONSTRUCTED_LEVEL3(165, 290, 150),
+        CONSTRUCTED_LEVEL1(30, 85, 150),
+        CONSTRUCTED_LEVEL2(130, 110, 170),
+        CONSTRUCTED_LEVEL3(165, 220, 190),
         // CONSTRUCTED_LEVEL4(150, 80, 190),       // Cancelled level 4 because the sprite has a roof
-        CONSTRUCTED_LEVEL5(200, 430, 170),
-        CONSTRUCTED_LEVEL6(0, 600, 190); 
+        CONSTRUCTED_LEVEL5(200, 350, 210),
+        CONSTRUCTED_LEVEL6(0, 520, 230); 
 
         private final int upgradeCost;
         private final int sellValue;

@@ -7,9 +7,9 @@ public class Wolf extends Invader {
 
     private static final int FRAME_WIDTH = 48;   // Width of each frame
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
-    private static final int speed = 4;
-    private static final int coins = 5;
-    private static final int maxHealth = 250;
+    private static final int speed = 5;
+    private static final int coins = 23;
+    private static final int maxHealth = 55;
     
     public Wolf(String id, Direction direction, Action action, Path path) {
         super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);

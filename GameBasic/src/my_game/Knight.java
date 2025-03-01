@@ -7,8 +7,8 @@ public class Knight extends Invader {
 
     private static final int FRAME_WIDTH = 96;   // Width of each frame
     private static final int FRAME_HEIGHT = 96;  // Height of each frame
-    private static final int speed = 5;
-    private static final int coins = 18;
+    private static final int speed = 6;
+    private static final int coins = 80;
     private static final int maxHealth = 800;
     
     public Knight(String id, Direction direction, Action action, Path path) {

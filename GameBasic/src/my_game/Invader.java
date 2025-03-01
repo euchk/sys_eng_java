@@ -26,7 +26,7 @@ public abstract class Invader extends Character {
 
         Random random = new Random();
         this.speedMultiplier = 0.85 + (random.nextDouble() * 0.3); // Speed variation factor
-        this.startDelay = random.nextInt(60); // Random delay before movement starts
+        this.startDelay = random.nextInt(5); // Random delay before movement starts
 
         setShowHealthBar(true);
         initializeMappings();

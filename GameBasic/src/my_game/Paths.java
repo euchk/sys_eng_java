@@ -27,7 +27,7 @@ public class Paths {
 
     public static Path levelOnePath() {
         List<ScreenPoint> baseWaypoints = List.of(
-            new ScreenPoint(2, 99),
+            new ScreenPoint(-80, 99),
             new ScreenPoint(80, 99),
             new ScreenPoint(148, 179),
             new ScreenPoint(230, 238),
@@ -65,27 +65,27 @@ public class Paths {
 
     public static Path levelTwoPath() {
         List<ScreenPoint> baseWaypoints = List.of(
-            new ScreenPoint(1909, 224),
-            new ScreenPoint(1843, 187),
-            new ScreenPoint(1789, 151),
-            new ScreenPoint(1699, 136),
-            new ScreenPoint(1611, 144),
-            new ScreenPoint(1554, 201),
-            new ScreenPoint(1521, 277),
-            new ScreenPoint(1474, 341),
-            new ScreenPoint(1410, 362),
-            new ScreenPoint(1375, 423),
-            new ScreenPoint(1310, 439),
-            new ScreenPoint(1237, 531),
-            new ScreenPoint(1164, 557),
-            new ScreenPoint(1097, 619),
-            new ScreenPoint(1013, 648),
-            new ScreenPoint(946, 706),
-            new ScreenPoint(863, 762),
-            new ScreenPoint(868, 843),
-            new ScreenPoint(922, 885),
-            new ScreenPoint(977, 949),
-            new ScreenPoint(993, 968)
+            new ScreenPoint(1879, 224),
+            new ScreenPoint(1813, 187),
+            new ScreenPoint(1759, 151),
+            new ScreenPoint(1669, 136),
+            new ScreenPoint(1581, 124),
+            new ScreenPoint(1524, 201),
+            new ScreenPoint(1491, 277),
+            new ScreenPoint(1444, 341),
+            new ScreenPoint(1380, 362),
+            new ScreenPoint(1345, 394),
+            new ScreenPoint(1280, 410),
+            new ScreenPoint(1207, 501),
+            new ScreenPoint(1134, 527),
+            new ScreenPoint(1067, 619),
+            new ScreenPoint(920, 648),
+            new ScreenPoint(916, 706),
+            new ScreenPoint(800, 762),
+            new ScreenPoint(838, 843),
+            new ScreenPoint(892, 885),
+            new ScreenPoint(947, 949),
+            new ScreenPoint(963, 968)
         );
 
         return new Path(applyRandomOffset(baseWaypoints));

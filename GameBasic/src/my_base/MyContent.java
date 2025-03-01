@@ -20,7 +20,7 @@ public class MyContent extends GameContent{
 	private Score score;
 	private StartWave startWave;
 
-	private Tower tower1, tower2, tower3, tower4, tower5, tower6;
+	private Tower tower1, tower2, tower3, tower4, tower5, tower6, tower7, tower8;
 	
 	private final HashMap<String, GameObject> gameObjects; // Store all game objects with id as key
 	private final HashMap<String, GameObject> pendingGameObjects; //  // Stores all objects to be added to the game
@@ -36,9 +36,11 @@ public class MyContent extends GameContent{
 	@Override
 	public void initContent() {
 
-		score = new Score(5, 70, 20);
-		coins = new Coins(10000, 70, 50);
-		startWave = new StartWave("startWaveButton", 1800, 500);
+		gameControl = new GameControl(this);
+
+		score = new Score(1, 70, 20);
+		coins = new Coins(2900, 70, 50);
+		startWave = new StartWave("startWaveButton", 1800, 500, gameControl);
 
 		ScreenPoint location1 = new ScreenPoint(400, 120);
 		tower1 = new Tower("tower1", location1);
@@ -60,13 +62,20 @@ public class MyContent extends GameContent{
 		tower5= new Tower("tower5", location5);
 		addToContent(tower5);
 
-		ScreenPoint location6 = new ScreenPoint(960, 690);
+		ScreenPoint location6 = new ScreenPoint(960, 710);
 		tower6= new Tower("tower6", location6);
 		addToContent(tower6);
 
+		ScreenPoint location7 = new ScreenPoint(1630, 155);
+		tower7= new Tower("tower7", location7);
+		addToContent(tower7);
+
+		ScreenPoint location8 = new ScreenPoint(1430, 420);
+		tower8= new Tower("tower8", location8);
+		addToContent(tower8);
+
 		addPendingObjects();
 
-		gameControl = new GameControl(this);
 	}
 
 	// Retrieves a GameObject from the game by its ID, returns `null` if doesn't exist

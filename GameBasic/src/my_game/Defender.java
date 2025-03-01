@@ -17,6 +17,8 @@ public abstract class Defender extends Character {
     private int damage;
     private int arrowFrequency; // Multiplier for cooldown
     private int arrowCooldownFrames = 0; // cooldown time between arrows
+    private Invader currentTarget = null; // Locks on a target after first arrow
+
 
     
     // Offset for arrow positioning depending on direction
@@ -119,6 +121,11 @@ public abstract class Defender extends Character {
     }
 
     private Invader getNearestTarget(){
+        // If there is a target already and it's in range, keep shooting it
+        if (currentTarget != null && currentTarget.isActive() && isInRange(currentTarget)) {
+            return currentTarget;
+        }
+
         // Find the nearest target in range
         Invader nearestTarget = null;
         double minDistance = Double.MAX_VALUE;
@@ -137,6 +144,8 @@ public abstract class Defender extends Character {
                 }
             }
         }
+        // Lock on to the new target
+        currentTarget = nearestTarget;
         return nearestTarget;
     }
 
@@ -149,6 +158,11 @@ public abstract class Defender extends Character {
 
     @Override
     public void gameStep() {
+        // Check if current target is deactivated
+        if (currentTarget != null && !currentTarget.isActive()) {
+            currentTarget = null;
+        }
+        
         // If cooldown is active, decrement and remain idle
         if (arrowCooldownFrames > 0) {
             arrowCooldownFrames--;

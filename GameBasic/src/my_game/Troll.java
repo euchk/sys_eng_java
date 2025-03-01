@@ -8,8 +8,8 @@ public class Troll extends Invader {
     private static final int FRAME_WIDTH = 48;   // Width of each frame
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
     private static final int speed = 6;
-    private static final int coins = 25;
-    private static final int maxHealth = 50;
+    private static final int coins = 21;
+    private static final int maxHealth = 45;
     
     public Troll(String id, Direction direction, Action action, Path path) {
         super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);

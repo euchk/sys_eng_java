@@ -9,9 +9,9 @@ public class Archer extends Defender {
 
     public Archer(ScreenPoint startLocation, String id, Direction direction, Action action, int attackRange) {
         super(startLocation, id, direction, action);
-        setDamage(5);
+        setDamage(9);
         setAttackRange(attackRange);
-        setArrowFrequency(3);
+        setArrowFrequency(1);
     }
 
     @Override

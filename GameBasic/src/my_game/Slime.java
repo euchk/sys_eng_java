@@ -7,9 +7,9 @@ public class Slime extends Invader {
 
     private static final int FRAME_WIDTH = 48;   // Width of each frame
     private static final int FRAME_HEIGHT = 48;  // Height of each frame
-    private static final int speed = 10;
-    private static final int coins = 3;
-    private static final int maxHealth = 80;
+    private static final int speed = 5;
+    private static final int coins = 17;
+    private static final int maxHealth = 45;
     
     public Slime(String id, Direction direction, Action action, Path path) {
         super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);
