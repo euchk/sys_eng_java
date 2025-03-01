@@ -46,9 +46,9 @@ public class MyContent extends GameContent{
 		gameControl = new GameControl(this);
 
 		// Status texts
-		score = new Score(10, 70, 850);
-		coins = new Coins(290, 70, 900);
-		waveStatus = new WaveStatus(7, 70, 800);
+		score = new Score(10, 80, 850);
+		coins = new Coins(290, 80, 900);
+		waveStatus = new WaveStatus(7, 80, 800);
 		
 		// Buttons
 		startWaveButton = new StartWaveButton("startWaveButton", 1700, 800, gameControl);

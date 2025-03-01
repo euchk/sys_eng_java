@@ -7,6 +7,7 @@ import base.GameCanvas;
 import base.GameContent;
 import base.GameDashboard;
 import my_game.GameObject;
+import shapes.Image;
 
 public class MyGame extends Game {
 	
@@ -35,6 +36,9 @@ public class MyGame extends Game {
 		// Add slowDown button to canvas
 		content.slowDownButton().addToCanvas();
 		content.slowDownButton().disableButton();
+
+		Image scroll = new Image("scroll", "resources/tiles/scroll.png", 533, 300, -110, 710);
+		canvas.addShape(scroll);
 
 		// Add all init characters to canvas
 		for (GameObject gameObject : content.getAllGameObjects()) {

@@ -18,9 +18,9 @@ public class Score {
         this.lifeRemaining = maxInvadersPassed - invadersPassed;
 
         // Create a TextLabel to display the score
-        scoreText = new TextLabel("scoreDisplay", "Life remaining: " + lifeRemaining + "/" + maxInvadersPassed, posX, posY);
-        scoreText.setColor(Color.WHITE); // Color must be before setFontSize
-        scoreText.setFontSize(25);
+        scoreText = new TextLabel("scoreDisplay", "Life: " + lifeRemaining + "/" + maxInvadersPassed, posX, posY);
+        scoreText.setColor(Color.BLACK); // Color must be before setFontSize
+        scoreText.setFontSize(20);
         scoreText.setzOrder(10);
     }
 

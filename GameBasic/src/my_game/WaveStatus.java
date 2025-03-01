@@ -15,7 +15,7 @@ public class WaveStatus {
         this.currentWave = 0;
         this.totalWaves = totalWaves;
         waveStatusText = new TextLabel("waveStatusDisplay", "Wave: " + currentWave + "/" + totalWaves, posX, posY);
-        waveStatusText.setColor(Color.WHITE);  // Must be before setFontSize
+        waveStatusText.setColor(Color.BLACK);  // Must be before setFontSize
         waveStatusText.setFontSize(20);
         waveStatusText.setzOrder(10);
     }
