@@ -13,7 +13,7 @@ public class Wolf extends Invader {
     
     public Wolf(String id, Direction direction, Action action, Path path) {
         super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);
-        setSpeed(speed);
+        setOriginalSpeed(speed);
         setCoins(coins);
         setScoreValue(1);
         setMaxHealth(maxHealth);

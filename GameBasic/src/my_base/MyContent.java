@@ -10,7 +10,8 @@ import my_game.GameObject;
 import my_game.Coins;
 import my_game.Score;
 import my_game.Tower;
-import my_shapes.StartWave;
+import my_shapes.SlowDownButton;
+import my_shapes.StartWaveButton;
 import base.GameContent;
 
 
@@ -18,7 +19,8 @@ public class MyContent extends GameContent{
 	private GameControl gameControl;
 	private Coins coins;
 	private Score score;
-	private StartWave startWave;
+	private StartWaveButton startWave;
+	private SlowDownButton slowDown;
 
 	private Tower tower1, tower2, tower3, tower4, tower5, tower6, tower7, tower8;
 	
@@ -39,8 +41,9 @@ public class MyContent extends GameContent{
 		gameControl = new GameControl(this);
 
 		score = new Score(10, 70, 870);
-		coins = new Coins(2900, 70, 900);
-		startWave = new StartWave("startWaveButton", 80, 700, gameControl);
+		coins = new Coins(290, 70, 900);
+		startWave = new StartWaveButton("startWaveButton", 1700, 800, gameControl);
+		slowDown = new SlowDownButton("slowDownButton", 1800, 800, gameControl);
 
 		ScreenPoint location1 = new ScreenPoint(400, 120);
 		tower1 = new Tower("tower1", location1);
@@ -135,8 +138,12 @@ public class MyContent extends GameContent{
 		return score;
 	}
 
-	public StartWave startWave() {
+	public StartWaveButton startWave() {
 		return startWave;
+	}
+
+	public SlowDownButton slowDown() {
+		return slowDown;
 	}
 
 	public GameControl gameControl() {

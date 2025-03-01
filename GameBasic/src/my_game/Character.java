@@ -27,7 +27,8 @@ public abstract class Character extends GameObject {
     private HealthBar healthBar;
     private boolean isKilled = false;
 
-    protected int speed;
+    protected int originalSpeed;
+    protected int speed; // speed may change temporarily during game
     protected int coins; // Amount of coins to be received if killed/Sold
 
     protected MyContent content = (MyContent) Game.Content();
@@ -58,11 +59,24 @@ public abstract class Character extends GameObject {
         return frameHeight;
     }
 
+    public int getOriginalSpeed() {
+        return originalSpeed;
+    }
+
+    protected void setOriginalSpeed(int originalSpeed) {
+        this.originalSpeed = originalSpeed;
+        setSpeed(originalSpeed);
+    }
+
+    public void resetSpeed() {
+        setSpeed(originalSpeed);
+    }
+    
     public int getSpeed() {
         return speed;
     }
 
-    protected void setSpeed(int speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 

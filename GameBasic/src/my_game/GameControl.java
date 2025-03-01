@@ -8,19 +8,20 @@ import base.GameCanvas;
 import my_base.MyContent;
 import my_game.Character.Action;
 import my_game.Character.Direction;
-import my_shapes.StartWave;
+import my_shapes.SlowDownButton;
+import my_shapes.StartWaveButton;
 import shapes.Text;
 
 public class GameControl {
     private MyContent content;
-    private StartWave startWaveButton = null;
+    private StartWaveButton startWaveButton = null;
     private boolean gameOver = false;
 
     // Wave management
     private List<Wave> waves = new ArrayList<>();
     private Wave activeWave = null;
     private int currentWaveIndex = 0;
-    private int interWaveDelay = 5000; // Number of gameSteps between waves
+    private int interWaveDelay = 300; // Number of gameSteps between waves
     private int interWaveDelayCounter = 0;
     private boolean wavesStarted = false;
     private boolean waveEnded = false;
@@ -31,6 +32,13 @@ public class GameControl {
     private int bonusTextCounter = 0;
     private final int BONUS_TEXT_LIFETIME = 20;
 
+    // Spell buttons
+    private SlowDownButton slowDownButton = null;
+    private int slowDownTimerCounter = 0;
+    private final int SLOWDOWN_INTERVAL = 350;
+    private boolean slowDownEffectActive = false;
+    private int slowDownEffectTimer = 0;
+    private final int SLOWDOWN_EFFECT_DURATION = 70;
     
     public GameControl(MyContent content) {
         this.content = content;
@@ -76,7 +84,7 @@ public class GameControl {
                 } else {
                     // Allow user to start next wave if current wave is almost done
                     if (waveEnded && getActiveInvaderCount() <= 0.5 * lastWaveTotalSpawnCount && startWaveButton == null) {
-                        startWaveButton = new StartWave("startWaveButton", 70, 700, this);
+                        startWaveButton = new StartWaveButton("startWaveButton", 1700, 800, this);
                         startWaveButton.addToCanvas();
                     }
         
@@ -100,6 +108,30 @@ public class GameControl {
                 }
             }
             
+        }
+
+        // Spell buttons logic
+        if (slowDownButton == null) {
+            slowDownTimerCounter++;
+        }
+        // Add button if the timer expires
+        if (slowDownTimerCounter >= SLOWDOWN_INTERVAL && slowDownButton == null) {
+            slowDownButton = new SlowDownButton("slowDownButton", 1800, 800, this);
+            slowDownButton.addToCanvas();
+        }
+
+        if (slowDownEffectActive) {
+            slowDownEffectTimer--;
+            if (slowDownEffectTimer <= 0) {
+                // Restore invaders' speeds
+                for (GameObject gameObject : content.getAllGameObjects()) {
+                    if (gameObject instanceof Invader) {
+                        Invader invader = (Invader) gameObject;
+                        invader.resetSpeed(); 
+                    }
+                }
+                slowDownEffectActive = false;
+            }
         }
         
         // Check game over conditions
@@ -165,7 +197,7 @@ public class GameControl {
 
     private void showBonusText(int bonusCoins) {
         // Create a text shape with the bonus message.
-        // if (bonusCoins == 0) return;
+        if (bonusCoins == 0) return;
         int posX = content.coins().getLocation().x + 120;
         int posY = content.coins().getLocation().y + 16;
         bonusText = new Text("bonusText", "+" + bonusCoins, posX, posY);
@@ -402,26 +434,50 @@ public class GameControl {
         wavesStarted = true;
     }
 
-    public void startWaveClicked() {
+    public boolean slowDownClicked() {
+        if (!wavesStarted) return false; // Not a valid click, don't remove from canvas
+
+        if (slowDownButton != null) {
+            slowDownButton.removeFromCanvas();
+            slowDownButton = null;
+        }
+        // Reset the slowDown timer.
+        slowDownTimerCounter = 0;
+        
+        // Set the slowDown effect active and initialize the effect timer.
+        slowDownEffectActive = true;
+        slowDownEffectTimer = SLOWDOWN_EFFECT_DURATION;
+        
+        // For each invader, reduce speed to zero.
+        for (GameObject gameObject : content.getAllGameObjects()) {
+            if (gameObject instanceof Invader) {
+                Invader invader = (Invader) gameObject;
+                int currentSpeed = invader.getSpeed();
+                int newSpeed = Math.max(currentSpeed - 3, 2);
+                invader.setSpeed(newSpeed);
+            }
+        }
+        return true; // Valid click
+    }
+
+    public boolean startWaveClicked() {
         if (!wavesStarted) {
             startWaves();
         }
         // Force start the next wave regardless of delay.
         else if (activeWave == null && currentWaveIndex < waves.size()) {
-            // Add bonus coins if user started wave before time (relative to time passed)
-            int bonusCoins = (int)(((double)(interWaveDelay - interWaveDelayCounter) / interWaveDelay) * 50);
-            content.coins().addCoins(bonusCoins);
             forceNextWave();
         }
+        return true; // Valid click
     }
     
     public void forceNextWave() {
-        // Remove the button if it's currently displayed.
+        // Remove the button if it's currently displayed
         if (startWaveButton != null) {
             startWaveButton.removeFromCanvas();
             startWaveButton = null;
         }
-        // Immediately start the next wave.
+        // Immediately start the next wave
         if (wavesStarted && activeWave == null && currentWaveIndex < waves.size()) {
             startNextWave();
         }

@@ -12,6 +12,9 @@ import ui_elements.ScreenPoint;
 public abstract class ShapeButton implements ShapeListener {
     protected String id;
     protected ScreenPoint position;
+    
+    protected int height, width;
+    
     protected Image image;
     protected Text text;
     protected Rectangle highlightCircle;
@@ -22,18 +25,20 @@ public abstract class ShapeButton implements ShapeListener {
     ShapeListener logic
     Highlight rectangle when hovering over the button
     */
-    public ShapeButton(String id, int posX, int posY, String imageSrc, String buttonText) {
+    public ShapeButton(String id, int width, int height, int posX, int posY, String imageSrc, String buttonText) {
         this.id = id;
         this.position = new ScreenPoint(posX, posY);
+        this.height = height;
+        this.width = width;
         
         // Create the button image.
-        image = new Image(id, imageSrc, 50, 50, posX, posY);
+        image = new Image(id, imageSrc, width, height, posX, posY);
         image.setzOrder(3);
         image.setShapeListener(this);
         image.setDraggable(false);
         
         // Create the text label.
-        text = new Text(id + "_text", buttonText, posX - image.getWeight() / 2 - 10, posY + image.getHeight() + 15);
+        text = new Text(id + "_text", buttonText, posX - 1, posY + height + 15);
         text.setFontSize(13);
         text.setColor(Color.WHITE);
         text.setzOrder(10);
@@ -57,7 +62,7 @@ public abstract class ShapeButton implements ShapeListener {
 
     protected void showHighlight() {
         GameCanvas canvas = Game.UI().canvas();
-        highlightCircle = new Rectangle(getId() + "_buildHighlight", getPosition().x - 2, getPosition().y - 2, 54, 54);
+        highlightCircle = new Rectangle(getId() + "_buildHighlight", getPosition().x - 2, getPosition().y - 2, width + 4, height + 4);
         highlightCircle.setIsFilled(true);
         highlightCircle.setFillColor(new java.awt.Color(240, 240, 160, 80));
         highlightCircle.setColor(new java.awt.Color(240, 240, 160, 80));
@@ -86,14 +91,15 @@ public abstract class ShapeButton implements ShapeListener {
         return position;
     }
 
-    // Abstract method for subclass to implement
-    protected abstract void onClick();
+    // if returns true the click was valid and the button will be removed from canvas
+    protected abstract boolean onClick(); 
 
     @Override
     public void shapeClicked(String shapeID, int x, int y) {
-        onClick();
         hideHighlight();
-        removeFromCanvas();
+        if (onClick()) {
+            removeFromCanvas();
+        }
     }
     
     @Override public void shapeMoved(String shapeID, int dx, int dy) { }

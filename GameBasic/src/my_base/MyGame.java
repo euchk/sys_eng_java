@@ -29,6 +29,9 @@ public class MyGame extends Game {
 		// Add startWave button to canvas
 		content.startWave().addToCanvas();
 
+		// Add slowDown button to canvas
+		content.slowDown().addToCanvas();
+
 		// Add all init characters to canvas
 		for (GameObject gameObject : content.getAllGameObjects()) {
 			gameObject.addToCanvas();
