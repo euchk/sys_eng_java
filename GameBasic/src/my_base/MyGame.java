@@ -43,11 +43,6 @@ public class MyGame extends Game {
 		// GameDashboard dashboard = gameUI.dashboard();
 		
 		// dashboard.setBackground(Color.BLACK);
-
-		// Add a the AddArcherButton button
-		// dashboard.addUIElement(new AddArcherButton("addArcher", "Add Archer", 500, 40));
-		// Add a the StartWaveButton button
-		// dashboard.addUIElement(new StartWaveButton("startWave", "Start Wave", 1500, 40));
 		
 
 	}

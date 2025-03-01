@@ -15,6 +15,7 @@ public class Rat extends Invader {
         super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);
         setSpeed(speed);
         setCoins(coins);
+        setScoreValue(2);
         setMaxHealth(maxHealth);
         initializeMappings();
         updateAnimation();

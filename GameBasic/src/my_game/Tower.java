@@ -6,7 +6,7 @@ import base.ShapeListener;
 import my_base.MyContent;
 import my_game.Character.Action;
 import my_game.Character.Direction;
-import shapes.AnimatedImage;
+import my_shapes.AnimatedImage;
 import shapes.Circle;
 import shapes.Image;
 import shapes.Rectangle;

@@ -9,8 +9,8 @@ import my_game.GameControl;
 import my_game.GameObject;
 import my_game.Coins;
 import my_game.Score;
-import my_game.StartWave;
 import my_game.Tower;
+import my_shapes.StartWave;
 import base.GameContent;
 
 
@@ -38,9 +38,9 @@ public class MyContent extends GameContent{
 
 		gameControl = new GameControl(this);
 
-		score = new Score(1, 70, 20);
-		coins = new Coins(2900, 70, 50);
-		startWave = new StartWave("startWaveButton", 1800, 500, gameControl);
+		score = new Score(10, 70, 870);
+		coins = new Coins(2900, 70, 900);
+		startWave = new StartWave("startWaveButton", 80, 700, gameControl);
 
 		ScreenPoint location1 = new ScreenPoint(400, 120);
 		tower1 = new Tower("tower1", location1);

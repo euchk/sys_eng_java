@@ -1,5 +1,6 @@
 package my_game;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import base.Game;
@@ -7,6 +8,7 @@ import base.GameCanvas;
 import my_base.MyContent;
 import my_game.Character.Action;
 import my_game.Character.Direction;
+import my_shapes.StartWave;
 import shapes.Text;
 
 public class GameControl {
@@ -24,6 +26,11 @@ public class GameControl {
     private boolean waveEnded = false;
     private int lastWaveTotalSpawnCount = 0;
 
+    // Fields for text messages during game
+    private Text bonusText = null;
+    private int bonusTextCounter = 0;
+    private final int BONUS_TEXT_LIFETIME = 20;
+
     
     public GameControl(MyContent content) {
         this.content = content;
@@ -37,6 +44,16 @@ public class GameControl {
         // Process all game objects
         for (GameObject gameObject : content.getAllGameObjects()) {
             gameObject.gameStep();
+        }
+
+        // Update texts
+        if (bonusText != null) {
+            bonusTextCounter++;
+            if (bonusTextCounter >= BONUS_TEXT_LIFETIME) {
+                canvas.deleteShape(bonusText.getId());
+                bonusText = null;
+                bonusTextCounter = 0;
+            }
         }
         
         addPendingObjects();
@@ -58,8 +75,8 @@ public class GameControl {
                     startNextWave();
                 } else {
                     // Allow user to start next wave if current wave is almost done
-                    if (waveEnded && getActiveInvaderCount() < 0.3 * lastWaveTotalSpawnCount && startWaveButton == null) {
-                        startWaveButton = new StartWave("startWaveButton", 1800, 50, this);
+                    if (waveEnded && getActiveInvaderCount() <= 0.5 * lastWaveTotalSpawnCount && startWaveButton == null) {
+                        startWaveButton = new StartWave("startWaveButton", 70, 700, this);
                         startWaveButton.addToCanvas();
                     }
         
@@ -89,8 +106,9 @@ public class GameControl {
         // Losing because of max invaders passed the gate
         if (content.score().getCurrentScore() >= content.score().getMaxInvadersPassed()) {
             gameOver = true;
-            Text losingText = new Text("game over", "YOU LOST!", 700, 350);
+            Text losingText = new Text("game over", "YOU LOST!", 850, 450);
             losingText.setFontSize(50);
+            losingText.setColor(Color.RED);
             canvas.addShape(losingText);
             return;
         }
@@ -98,8 +116,9 @@ public class GameControl {
         // Winning because all waves ended and no active invaders
         if (wavesStarted && currentWaveIndex >= waves.size() && activeWave == null && noInvadersPresent()) {
             gameOver = true;
-            Text victoryText = new Text("victory", "YOU WIN!", 700, 350);
+            Text victoryText = new Text("victory", "YOU WIN!", 850, 450);
             victoryText.setFontSize(50);
+            victoryText.setColor(Color.BLUE);
             canvas.addShape(victoryText);
             return;
         }
@@ -112,7 +131,11 @@ public class GameControl {
         // Add bonus coins based on remaining inter-wave time
         int bonusCoins = (int)(((double)(interWaveDelay - interWaveDelayCounter) / interWaveDelay) * currentWaveIndex * 50);
         content.coins().addCoins(bonusCoins);
+
+        // Show the bonus text
+        showBonusText(bonusCoins);
         
+        // Start the wave
         activeWave = waves.get(currentWaveIndex);
         currentWaveIndex++;
         interWaveDelayCounter = 0;
@@ -140,6 +163,19 @@ public class GameControl {
         return count;
     }
 
+    private void showBonusText(int bonusCoins) {
+        // Create a text shape with the bonus message.
+        // if (bonusCoins == 0) return;
+        int posX = content.coins().getLocation().x + 120;
+        int posY = content.coins().getLocation().y + 16;
+        bonusText = new Text("bonusText", "+" + bonusCoins, posX, posY);
+        bonusText.setFontSize(15);
+        bonusText.setColor(Color.WHITE);
+        bonusText.setzOrder(10);
+        Game.UI().canvas().addShape(bonusText);
+        bonusTextCounter = 0;
+    }
+
     public void addPendingObjects() {
         content.addPendingObjects();
     }
@@ -156,7 +192,7 @@ public class GameControl {
                     if (invader.getIsKilled()) {
                         content.coins().addCoins(invader.getCoins());
                     } else if (invader.getisPassed()) {
-                        content.score().increment();
+                        content.score().addScore(invader.getScoreValue());
                     }
                 }
                 content.removeFromContent(gameObject.getId());
@@ -253,7 +289,7 @@ public class GameControl {
         wave2Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
         wave2Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
         wave2Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
-        waves.add(new Wave(10, wave2Instructions));
+        waves.add(new Wave(13, wave2Instructions));
 
         // Define Wave 3
         List<SpawnInstruction> wave3Instructions = new ArrayList<>();
@@ -268,7 +304,7 @@ public class GameControl {
         wave3Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         wave3Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         wave3Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
-        waves.add(new Wave(12, wave3Instructions));
+        waves.add(new Wave(14, wave3Instructions));
 
         // Define Wave 4
         List<SpawnInstruction> wave4Instructions = new ArrayList<>();
@@ -291,7 +327,73 @@ public class GameControl {
         wave4Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         wave4Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         wave4Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
-        waves.add(new Wave(13, wave4Instructions));
+        waves.add(new Wave(15, wave4Instructions));
+
+        // Define Wave 5
+        List<SpawnInstruction> wave5Instructions = new ArrayList<>();
+        wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        waves.add(new Wave(15, wave5Instructions));
+
+        // Define Wave 6
+        List<SpawnInstruction> wave6Instructions = new ArrayList<>();
+        wave6Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
+        wave6Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
+        wave6Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
+        waves.add(new Wave(15, wave6Instructions));
+
+        // Define Wave 7
+        List<SpawnInstruction> wave7Instructions = new ArrayList<>();
+        wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         
         // Reset counters and flags
         currentWaveIndex = 0;

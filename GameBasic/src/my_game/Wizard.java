@@ -15,6 +15,7 @@ public class Wizard extends Invader {
         super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);
         setSpeed(speed);
         setCoins(coins);
+        setScoreValue(10); // If wizard passed the game is over
         setMaxHealth(maxHealth);
         initializeMappings();
         updateAnimation();

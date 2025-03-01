@@ -5,10 +5,12 @@ import java.awt.Color;
 import base.Game;
 import base.GameCanvas;
 import shapes.TextLabel;
+import ui_elements.ScreenPoint;
 
 public class Coins {
     private int currentCoins;
     private TextLabel coinsText;
+    private ScreenPoint location;
 
 
     public Coins(int initialCoins, int posX, int posY) {
@@ -16,6 +18,7 @@ public class Coins {
             throw new IllegalArgumentException("Initial coins cannot be negative.");
         }
         this.currentCoins = initialCoins;
+        this.location = new ScreenPoint(posX, posY);
 
         // Create a TextLabel to display the coins
         coinsText = new TextLabel("coinsDisplay", "Coins: " + currentCoins, posX, posY);
@@ -54,6 +57,10 @@ public class Coins {
     // Update the displayed coin count
     private void updateText() {
         coinsText.setText("Coins: " + currentCoins);
+    }
+
+    public ScreenPoint getLocation() {
+        return location;
     }
 
     // Add the coin display to the canvas

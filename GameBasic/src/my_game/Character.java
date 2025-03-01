@@ -4,7 +4,7 @@ import ui_elements.ScreenPoint;
 import base.Game;
 import base.GameCanvas;
 import my_base.MyContent;
-import shapes.AnimatedImage;
+import my_shapes.AnimatedImage;
 import shapes.HealthBar;
 
 

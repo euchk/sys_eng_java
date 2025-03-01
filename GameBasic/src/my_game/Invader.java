@@ -16,7 +16,8 @@ public abstract class Invader extends Character {
     private int currentWaypointIndex;
     private double speedMultiplier;
     private int startDelay; // Random delay before movement starts
-    private int delayCounter = 0; // Track delay before movement
+    private int delayCounter = 0; // Random delay before start moving
+    protected int scoreValue; // Score points differ between invaders
 
     
     public Invader(String id, Direction direction, Action action, int FRAME_HEIGHT, int FRAME_WIDTH, Path path) {
@@ -35,6 +36,14 @@ public abstract class Invader extends Character {
     }
 
     protected abstract void initializeMappings();
+
+    public int getScoreValue() {
+        return scoreValue;
+    }
+
+    public void setScoreValue(int scoreValue) {
+        this.scoreValue = scoreValue;
+    }
 
     private void setisPassed() {
         this.isPassed = true;

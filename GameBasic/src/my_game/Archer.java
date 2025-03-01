@@ -11,7 +11,7 @@ public class Archer extends Defender {
         super(startLocation, id, direction, action);
         setDamage(9);
         setAttackRange(attackRange);
-        setArrowFrequency(1);
+        setArrowFrequency(3);
     }
 
     @Override

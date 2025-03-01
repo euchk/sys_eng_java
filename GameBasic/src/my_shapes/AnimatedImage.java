@@ -1,8 +1,11 @@
-package shapes;
+package my_shapes;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+
+import shapes.Shape;
+
 import java.io.File;
 import java.io.IOException;
 

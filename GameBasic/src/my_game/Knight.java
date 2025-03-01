@@ -15,6 +15,7 @@ public class Knight extends Invader {
         super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);
         setSpeed(speed);
         setCoins(coins);
+        setScoreValue(3);
         setMaxHealth(maxHealth);
         initializeMappings();
         updateAnimation();

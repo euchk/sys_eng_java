@@ -9,22 +9,25 @@ import shapes.TextLabel;
 public class Score {
     private int invadersPassed;
     private int maxInvadersPassed;
+    private int lifeRemaining;
     private TextLabel scoreText;
 
     public Score(int maxInvadersPassed, int posX, int posY) {
         this.invadersPassed = 0;
         this.maxInvadersPassed = maxInvadersPassed;
+        this.lifeRemaining = maxInvadersPassed - invadersPassed;
 
         // Create a TextLabel to display the score
-        scoreText = new TextLabel("scoreDisplay", "Invaders passed: " + invadersPassed + "/" + maxInvadersPassed, posX, posY);
+        scoreText = new TextLabel("scoreDisplay", "Life remaining: " + lifeRemaining + "/" + maxInvadersPassed, posX, posY);
         scoreText.setColor(Color.WHITE); // Color must be before setFontSize
         scoreText.setFontSize(20);
         scoreText.setzOrder(10);
     }
 
     // Increment the score when an enemy passes the gate
-    public void increment() {
-        invadersPassed++;
+    public void addScore(int scoreValue) {
+        invadersPassed += scoreValue;
+        lifeRemaining = maxInvadersPassed - invadersPassed;
         updateText();
     }
 
@@ -39,7 +42,7 @@ public class Score {
 
     // Update the displayed score
     private void updateText() {
-        scoreText.setText("Invaders passed: " + invadersPassed + "/" + maxInvadersPassed);
+        scoreText.setText("Life remaining: " + lifeRemaining + "/" + maxInvadersPassed);
     }
 
     // Add the score display to the canvas

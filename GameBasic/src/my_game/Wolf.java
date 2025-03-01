@@ -15,6 +15,7 @@ public class Wolf extends Invader {
         super(id, direction, action, FRAME_HEIGHT, FRAME_WIDTH, path);
         setSpeed(speed);
         setCoins(coins);
+        setScoreValue(1);
         setMaxHealth(maxHealth);
         initializeMappings();
         updateAnimation();
