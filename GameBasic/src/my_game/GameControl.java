@@ -390,13 +390,24 @@ public class GameControl {
         // Define Wave 6
         List<SpawnInstruction> wave6Instructions = new ArrayList<>();
         wave6Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
-        wave6Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
-        wave6Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
+        wave6Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave6Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
         waves.add(new Wave(15, wave6Instructions));
 
         // Define Wave 7
         List<SpawnInstruction> wave7Instructions = new ArrayList<>();
-        wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
         wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
         wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
         wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));

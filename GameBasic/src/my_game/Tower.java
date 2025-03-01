@@ -432,9 +432,8 @@ public class Tower extends GameObject implements ShapeListener {
     @Override
     public void addToCanvas() {
         GameCanvas canvas = Game.UI().canvas();
-        animatedImage.setzOrder(5);
+        animatedImage.setzOrder(9);
         canvas.addShape(animatedImage);
-        // canvas.addShape(activityCircle);
         canvas.revalidate();
         canvas.repaint();
     }

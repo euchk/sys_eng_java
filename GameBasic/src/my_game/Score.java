@@ -20,7 +20,7 @@ public class Score {
         // Create a TextLabel to display the score
         scoreText = new TextLabel("scoreDisplay", "Life remaining: " + lifeRemaining + "/" + maxInvadersPassed, posX, posY);
         scoreText.setColor(Color.WHITE); // Color must be before setFontSize
-        scoreText.setFontSize(20);
+        scoreText.setFontSize(25);
         scoreText.setzOrder(10);
     }
 

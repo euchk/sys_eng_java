@@ -9,6 +9,7 @@ import my_game.GameControl;
 import my_game.GameObject;
 import my_game.Coins;
 import my_game.Score;
+import my_game.StaticAnimatedObject;
 import my_game.Tower;
 import my_shapes.SlowDownButton;
 import my_shapes.StartWaveButton;
@@ -23,6 +24,8 @@ public class MyContent extends GameContent{
 	private SlowDownButton slowDown;
 
 	private Tower tower1, tower2, tower3, tower4, tower5, tower6, tower7, tower8;
+
+	private StaticAnimatedObject flag1, flag2, campfire1, campfire2, tent1, tent2, tent3, tent4, tent5, tent6;
 	
 	private final HashMap<String, GameObject> gameObjects; // Store all game objects with id as key
 	private final HashMap<String, GameObject> pendingGameObjects; //  // Stores all objects to be added to the game
@@ -40,7 +43,7 @@ public class MyContent extends GameContent{
 
 		gameControl = new GameControl(this);
 
-		score = new Score(10, 70, 870);
+		score = new Score(10, 70, 850);
 		coins = new Coins(290, 70, 900);
 		startWave = new StartWaveButton("startWaveButton", 1700, 800, gameControl);
 		slowDown = new SlowDownButton("slowDownButton", 1800, 800, gameControl);
@@ -77,7 +80,51 @@ public class MyContent extends GameContent{
 		tower8= new Tower("tower8", location8);
 		addToContent(tower8);
 
+		// Animated objects on map
+		ScreenPoint flag1_location = new ScreenPoint(1050, 900);
+		flag1 = new StaticAnimatedObject("flag1", flag1_location, "resources/objects/objects/flag.png", 6, 32, 64, false);
+		addToContent(flag1);
+
+		ScreenPoint flag2_location = new ScreenPoint(830, 900);
+		flag2 = new StaticAnimatedObject("flag2", flag2_location, "resources/objects/objects/flag.png", 6, 32, 64, false);
+		addToContent(flag2);
+
+		ScreenPoint tent1_location = new ScreenPoint(1450, 750);
+		tent1 = new StaticAnimatedObject("tent1", tent1_location, "resources/objects/objects/tent1.png", 1, 57, 36, false);
+		addToContent(tent1);
+
+		ScreenPoint tent2_location = new ScreenPoint(1320, 750);
+		tent2 = new StaticAnimatedObject("tent2", tent2_location, "resources/objects/objects/tent2.png", 1, 57, 36, true);
+		addToContent(tent2);
+
+		ScreenPoint tent3_location = new ScreenPoint(1400, 690);
+		tent3 = new StaticAnimatedObject("tent3", tent3_location, "resources/objects/objects/tent4.png", 1, 36, 51, false);
+		addToContent(tent3);
+
+		ScreenPoint campfire1_location = new ScreenPoint(1400, 720);
+		campfire1 = new StaticAnimatedObject("campfire1", campfire1_location, "resources/objects/objects/campfire1.png", 6, 32, 64, false);
+		addToContent(campfire1);
+
+		ScreenPoint tent4_location = new ScreenPoint(450, 400);
+		tent4 = new StaticAnimatedObject("tent4", tent4_location, "resources/objects/objects/tent1.png", 1, 57, 36, false);
+		addToContent(tent4);
+
+		ScreenPoint tent5_location = new ScreenPoint(320, 400);
+		tent5 = new StaticAnimatedObject("tent5", tent5_location, "resources/objects/objects/tent2.png", 1, 57, 36, true);
+		addToContent(tent5);
+
+		ScreenPoint tent6_location = new ScreenPoint(400, 340);
+		tent6 = new StaticAnimatedObject("tent6", tent6_location, "resources/objects/objects/tent4.png", 1, 36, 51, false);
+		addToContent(tent6);
+
+		ScreenPoint campfire2_location = new ScreenPoint(400, 400);
+		campfire2 = new StaticAnimatedObject("campfire2", campfire2_location, "resources/objects/objects/campfire2.png", 6, 32, 64, false);
+		addToContent(campfire2);
+		
+		
+
 		addPendingObjects();
+
 
 	}
 
