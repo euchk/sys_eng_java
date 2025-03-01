@@ -26,11 +26,15 @@ public class MyGame extends Game {
 		// Add Score text to the canvas
 		content.score().addToCanvas();
 
+		content.waveStatus().addToCanvas();
+
 		// Add startWave button to canvas
-		content.startWave().addToCanvas();
+		content.startWaveButton().addToCanvas();
+		content.startWaveButton().enableButton();
 
 		// Add slowDown button to canvas
-		content.slowDown().addToCanvas();
+		content.slowDownButton().addToCanvas();
+		content.slowDownButton().disableButton();
 
 		// Add all init characters to canvas
 		for (GameObject gameObject : content.getAllGameObjects()) {

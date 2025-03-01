@@ -17,7 +17,12 @@ public abstract class ShapeButton implements ShapeListener {
     
     protected Image image;
     protected Text text;
-    protected Rectangle highlightCircle;
+    protected Rectangle highlightCircle; // hovering effect
+    protected Rectangle disabledOverlay; // when button disabled
+    protected boolean isDisabled = false;
+
+    protected String normalImageSrc;   // image for normal state
+    protected String disabledImageSrc; // image for disabled state
 
     /*
     This abstract class hold all common logic for shape buttons (rectangles)
@@ -25,23 +30,29 @@ public abstract class ShapeButton implements ShapeListener {
     ShapeListener logic
     Highlight rectangle when hovering over the button
     */
-    public ShapeButton(String id, int width, int height, int posX, int posY, String imageSrc, String buttonText) {
+    public ShapeButton(String id, int width, int height, int posX, int posY, String normalImageSrc, String disabledImageSrc, String buttonText) {
         this.id = id;
         this.position = new ScreenPoint(posX, posY);
         this.height = height;
         this.width = width;
-        
+        this.normalImageSrc = normalImageSrc;
+        this.disabledImageSrc = disabledImageSrc;
+
         // Create the button image.
-        image = new Image(id, imageSrc, width, height, posX, posY);
-        image.setzOrder(3);
-        image.setShapeListener(this);
-        image.setDraggable(false);
+        updateImage(id, normalImageSrc, width, height, posX, posY);
         
         // Create the text label.
         text = new Text(id + "_text", buttonText, posX - 1, posY + height + 15);
         text.setFontSize(13);
         text.setColor(Color.WHITE);
         text.setzOrder(10);
+    }
+
+    private void updateImage (String id, String imageSrc, int width, int height, int posX, int posY) {
+        image = new Image(id, imageSrc, width, height, posX, posY);
+        image.setzOrder(10);
+        image.setShapeListener(this);
+        image.setDraggable(false);
     }
 
     public void addToCanvas() {
@@ -91,15 +102,22 @@ public abstract class ShapeButton implements ShapeListener {
         return position;
     }
 
+    public boolean isDisabled() {
+        return isDisabled;
+    }
+
     // if returns true the click was valid and the button will be removed from canvas
-    protected abstract boolean onClick(); 
+    protected abstract void onClick(); 
 
     @Override
     public void shapeClicked(String shapeID, int x, int y) {
-        hideHighlight();
-        if (onClick()) {
-            removeFromCanvas();
+        // Prevent when disabled
+        if (isDisabled) {
+            return;
         }
+        hideHighlight();
+        onClick();
+        disableButton();
     }
     
     @Override public void shapeMoved(String shapeID, int dx, int dy) { }
@@ -109,11 +127,42 @@ public abstract class ShapeButton implements ShapeListener {
     
     @Override
     public void mouseEnterShape(String shapeID, int x, int y) {
+        // Prevent when disabled
+        if (isDisabled) {
+            return;
+        }
         showHighlight();
     }
     
     @Override
     public void mouseExitShape(String shapeID, int x, int y) {
+        // Prevent when disabled
+        if (isDisabled) {
+            return;
+        }
         hideHighlight();
     }
+
+    // Show disabled button
+    public void disableButton() {
+        updateImage(id, disabledImageSrc, width, height, position.x, position.y);
+        isDisabled = true;
+
+        GameCanvas canvas = Game.UI().canvas();
+        canvas.deleteShape(id);
+        canvas.addShape(image);
+        canvas.revalidate();
+        canvas.repaint();
+    }
+
+    // Show enabled button
+    public void enableButton() {
+        updateImage(id, normalImageSrc, width, height, position.x, position.y);
+        isDisabled = false;
+        
+        GameCanvas canvas = Game.UI().canvas();
+        canvas.deleteShape(id);
+        canvas.addShape(image);
+    }
+
 }

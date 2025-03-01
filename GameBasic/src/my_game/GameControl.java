@@ -8,13 +8,10 @@ import base.GameCanvas;
 import my_base.MyContent;
 import my_game.Character.Action;
 import my_game.Character.Direction;
-import my_shapes.SlowDownButton;
-import my_shapes.StartWaveButton;
 import shapes.Text;
 
 public class GameControl {
     private MyContent content;
-    private StartWaveButton startWaveButton = null;
     private boolean gameOver = false;
 
     // Wave management
@@ -33,7 +30,6 @@ public class GameControl {
     private final int BONUS_TEXT_LIFETIME = 20;
 
     // Spell buttons
-    private SlowDownButton slowDownButton = null;
     private int slowDownTimerCounter = 0;
     private final int SLOWDOWN_INTERVAL = 350;
     private boolean slowDownEffectActive = false;
@@ -54,7 +50,7 @@ public class GameControl {
             gameObject.gameStep();
         }
 
-        // Update texts
+        // Update text timer
         if (bonusText != null) {
             bonusTextCounter++;
             if (bonusTextCounter >= BONUS_TEXT_LIFETIME) {
@@ -71,33 +67,24 @@ public class GameControl {
         // Wave spawning logic
         if (wavesStarted) {
             if (activeWave == null && currentWaveIndex < waves.size()) {
-                // Increment the delay counter each gameStep when no wave is active
-                interWaveDelayCounter++;
+            interWaveDelayCounter++;
         
-                // If there are no invaders force the next wave
-                if (noInvadersPresent()) {
-                    if (startWaveButton != null) {
-                        startWaveButton.removeFromCanvas();
-                        startWaveButton = null;
-                    }
+            // If there are no invaders force the next wave
+            if (noInvadersPresent()) {
+                startNextWave();
+            } else {
+                // Allow user to start next wave if current wave is almost done
+                if (waveEnded && getActiveInvaderCount() <= 0.5 * lastWaveTotalSpawnCount && content.startWaveButton() != null) {
+                    content.startWaveButton().enableButton();
+                }
+    
+                // When full delay is reached start the wave
+                if (interWaveDelayCounter >= interWaveDelay) {
                     startNextWave();
-                } else {
-                    // Allow user to start next wave if current wave is almost done
-                    if (waveEnded && getActiveInvaderCount() <= 0.5 * lastWaveTotalSpawnCount && startWaveButton == null) {
-                        startWaveButton = new StartWaveButton("startWaveButton", 1700, 800, this);
-                        startWaveButton.addToCanvas();
-                    }
-        
-                    // When full delay is reached start the wave
-                    if (interWaveDelayCounter >= interWaveDelay) {
-                        if (startWaveButton != null) {
-                            startWaveButton.removeFromCanvas();
-                            startWaveButton = null;
-                        }
-                        startNextWave();
-                    }
+                }
                 }
             }
+        
 
             if (activeWave != null) {
                 activeWave.update();
@@ -111,13 +98,12 @@ public class GameControl {
         }
 
         // Spell buttons logic
-        if (slowDownButton == null) {
+        if (content.slowDownButton().isDisabled()) {
             slowDownTimerCounter++;
         }
-        // Add button if the timer expires
-        if (slowDownTimerCounter >= SLOWDOWN_INTERVAL && slowDownButton == null) {
-            slowDownButton = new SlowDownButton("slowDownButton", 1800, 800, this);
-            slowDownButton.addToCanvas();
+        // Enable the button if the timer expires
+        if (slowDownTimerCounter >= SLOWDOWN_INTERVAL) {
+            content.slowDownButton().enableButton();
         }
 
         if (slowDownEffectActive) {
@@ -162,16 +148,19 @@ public class GameControl {
     private void startNextWave() {
         // Add bonus coins based on remaining inter-wave time
         int bonusCoins = (int)(((double)(interWaveDelay - interWaveDelayCounter) / interWaveDelay) * currentWaveIndex * 50);
-        content.coins().addCoins(bonusCoins);
-
-        // Show the bonus text
-        showBonusText(bonusCoins);
+        if (bonusCoins > 0) {
+            content.coins().addCoins(bonusCoins);
+            showBonusText(bonusCoins);
+        }
         
         // Start the wave
         activeWave = waves.get(currentWaveIndex);
         currentWaveIndex++;
         interWaveDelayCounter = 0;
         waveEnded = false;
+
+        // Update WaveStatus
+        content.waveStatus().setcurrentWave(currentWaveIndex);
     }
 
     // Checks if there are no active invaders in the game (for forcing next wave)
@@ -197,7 +186,6 @@ public class GameControl {
 
     private void showBonusText(int bonusCoins) {
         // Create a text shape with the bonus message.
-        if (bonusCoins == 0) return;
         int posX = content.coins().getLocation().x + 120;
         int posY = content.coins().getLocation().y + 16;
         bonusText = new Text("bonusText", "+" + bonusCoins, posX, posY);
@@ -445,14 +433,8 @@ public class GameControl {
         wavesStarted = true;
     }
 
-    public boolean slowDownClicked() {
-        if (!wavesStarted) return false; // Not a valid click, don't remove from canvas
-
-        if (slowDownButton != null) {
-            slowDownButton.removeFromCanvas();
-            slowDownButton = null;
-        }
-        // Reset the slowDown timer.
+    public void slowDownClicked() {
+        // Reset the slowDown timer
         slowDownTimerCounter = 0;
         
         // Set the slowDown effect active and initialize the effect timer.
@@ -468,26 +450,19 @@ public class GameControl {
                 invader.setSpeed(newSpeed);
             }
         }
-        return true; // Valid click
     }
 
-    public boolean startWaveClicked() {
+    public void startWaveClicked() {
         if (!wavesStarted) {
             startWaves();
         }
         // Force start the next wave regardless of delay.
-        else if (activeWave == null && currentWaveIndex < waves.size()) {
+        if (activeWave == null && currentWaveIndex < waves.size()) {
             forceNextWave();
         }
-        return true; // Valid click
     }
     
     public void forceNextWave() {
-        // Remove the button if it's currently displayed
-        if (startWaveButton != null) {
-            startWaveButton.removeFromCanvas();
-            startWaveButton = null;
-        }
         // Immediately start the next wave
         if (wavesStarted && activeWave == null && currentWaveIndex < waves.size()) {
             startNextWave();
