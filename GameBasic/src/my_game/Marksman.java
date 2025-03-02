@@ -9,7 +9,7 @@ public class Marksman extends Defender {
 
     public Marksman(ScreenPoint startLocation, String id, Direction direction, Action action, int attackRange) {
         super(startLocation, id, direction, action);
-        setDamage(11);
+        setDamage(12);
         setAttackRange(attackRange);
         setArrowFrequency(2);
     }

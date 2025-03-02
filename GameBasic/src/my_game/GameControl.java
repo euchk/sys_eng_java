@@ -426,12 +426,15 @@ public class GameControl {
         wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
         wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        waves.add(new Wave(15, wave7Instructions));
 
         // Define Wave 8
         List<SpawnInstruction> wave8Instructions = new ArrayList<>();
+        wave8Instructions.add(new SpawnInstruction("Wizard", Paths.levelTwoPath()));
         wave8Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
         wave8Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
         wave8Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
         wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
         wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
         wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
@@ -469,6 +472,16 @@ public class GameControl {
         wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
         wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Troll", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Troll", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Troll", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
         wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
         wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
         wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
@@ -481,7 +494,7 @@ public class GameControl {
         wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
         wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
         wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
-        wave8Instructions.add(new SpawnInstruction("Wizard", Paths.levelOnePath()));
+        waves.add(new Wave(15, wave8Instructions));
 
         // Reset counters and flags
         currentWaveIndex = 0;

@@ -9,9 +9,9 @@ public class Sharpshooter extends Defender {
 
     public Sharpshooter(ScreenPoint startLocation, String id, Direction direction, Action action, int attackRange) {
         super(startLocation, id, direction, action);
-        setDamage(14);
+        setDamage(17);
         setAttackRange(attackRange);
-        setArrowFrequency(1);
+        setArrowFrequency(2);
     }
 
     @Override

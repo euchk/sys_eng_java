@@ -42,7 +42,7 @@ public class Score {
 
     // Update the displayed score
     private void updateText() {
-        scoreText.setText("Life remaining: " + lifeRemaining + "/" + maxInvadersPassed);
+        scoreText.setText("Life: " + lifeRemaining + "/" + maxInvadersPassed);
     }
 
     // Add the score display to the canvas
