@@ -27,11 +27,6 @@ public abstract class Game {
 		scheduler.setPeriodicLoop(periodicLoop);
 	}
 
-	// Allow adding tasks to PeriodicLoop 
-	public static PeriodicLoop getPeriodicLoop() {
-		return scheduler.getPeriodicLoop();
-	}
-
 	public void setMouseHandler(MouseHandler myMouseHandler) {
 		mouseHandler = myMouseHandler;
 	}

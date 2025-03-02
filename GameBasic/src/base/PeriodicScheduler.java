@@ -20,11 +20,6 @@ public class PeriodicScheduler {
 	public void setPeriodicLoop(PeriodicLoop myPeriodicLoop) {
 		this.periodicLoop = myPeriodicLoop;
 	}
-	
-	// Allow adding tasks to PeriodicLoop
-	public PeriodicLoop getPeriodicLoop() {
-		return periodicLoop;
-	}
 
 	public void start() {
 		  

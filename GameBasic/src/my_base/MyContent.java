@@ -151,7 +151,7 @@ public class MyContent extends GameContent{
 
 	}
 
-	// Retrieves a GameObject from the game by its ID, returns `null` if doesn't exist
+	// Retrieves a GameObject from the game by its ID, returns null if doesn't exist
 	public GameObject getFromContent(String id) {
 		return gameObjects.get(id);
 	}
@@ -161,24 +161,23 @@ public class MyContent extends GameContent{
         return gameObjects.values();
     }
 
-    /**
+    /*
      * Adds a GameObject to the pending list.
-     * This object will be added to the main gameObjects list at the end of the game loop.
+     * This object will be added to the main gameObjects list at the end of the game loop to avoid changing list while iterating
      */
     public void addToContent(GameObject gameObject) {
         pendingGameObjects.put(gameObject.getId(), gameObject);
     }
 
-    /**
+    /*
      * Moves all pending game objects to the main content list
-     * This should be called at the end of the game loop to finalize additions
      */
     public void addPendingObjects() {
         gameObjects.putAll(pendingGameObjects);
         pendingGameObjects.clear();
     }
 
-	/**
+	/*
      * Marks a game object for removal
      * The object will be removed at the end of the loop
      */
@@ -189,9 +188,8 @@ public class MyContent extends GameContent{
         }
     }
 	
-	/**
-     * Finalizes removals: removes all objects that were marked for deletion
-     *  This should be called at the end of the game loop to finalize removals
+	/*
+     * Removes all objects that were marked for deletion at the end of the iteration
      */
     public void removePendingObjects() {
         for (String id : pendingRemovals.keySet()) {

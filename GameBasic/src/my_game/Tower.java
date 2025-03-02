@@ -21,7 +21,7 @@ import java.util.Map;
 public class Tower extends GameObject implements ShapeListener {
 
     public enum TowerState {
-        // Build cost; Sell value; numOfDefenders; attackRange;
+        // Build cost; Sell value; attackRange;
         NOT_CONSTRUCTED(100, 0, 0),
         CONSTRUCTED_LEVEL1(30, 85, 150),
         CONSTRUCTED_LEVEL2(130, 110, 170),
@@ -69,8 +69,7 @@ public class Tower extends GameObject implements ShapeListener {
     private Rectangle buildButtonHighlight;
     private Rectangle sellButtonHighlight;
 
-
-    // Defenders linked to the tower
+    // Defenders linked to the tower (by id only)
     private static final int MAX_DEFENDERS = 2;
     private static int nextDefenderId = 0;
     private final List<String> defenders = new ArrayList<>();
@@ -173,7 +172,6 @@ public class Tower extends GameObject implements ShapeListener {
     // Advance tower state and update animation
     public void advanceState() {
         if (state == TowerState.CONSTRUCTED_LEVEL6) {
-            System.out.println("Already at max upgrade.");
             return;
         }
         // Check for sufficiant coins
@@ -204,7 +202,6 @@ public class Tower extends GameObject implements ShapeListener {
                 upgradeDefenders();
                 break;
             case CONSTRUCTED_LEVEL6:
-                System.out.println("Already at max upgrade.");
                 return;
         }
         updateAnimation();
@@ -219,19 +216,17 @@ public class Tower extends GameObject implements ShapeListener {
         updateAnimation();
     }
 
-    // Adds a defender based on the tower state (max 2 defenders)
+    // Add a defender based on the tower state (max 2 defenders)
     public void addDefender() {
         if (defenders.size() >= MAX_DEFENDERS) return;
         
         ScreenPoint defenderLocation = getDefenderSpawnLocation();
         nextDefenderId += 1;
-        String defenderId = "defender_" + getId() + "_" + nextDefenderId; // use counter instead of time
+        String defenderId = "defender_" + getId() + "_" + nextDefenderId;
         Defender defender = null;
     
-        // Cannot add a defender if the tower hasn't been built.
         if (state == TowerState.NOT_CONSTRUCTED) return;
         
-        // Using ordinal comparisons to choose defender type:
         if (state.ordinal() > TowerState.NOT_CONSTRUCTED.ordinal() 
                 && state.ordinal() <= TowerState.CONSTRUCTED_LEVEL3.ordinal()) {
             defender = new Archer(defenderLocation, defenderId, Direction.DOWN, Action.IDLE, state.getAttackRange());
@@ -246,21 +241,21 @@ public class Tower extends GameObject implements ShapeListener {
         
         content.addToContent(defender);
         defender.addToCanvas();
-        defender.animatedImage.setShapeListener(this); // Avoid z-order mouse activity issues
+        defender.animatedImage.setShapeListener(this);
         defenders.add(defenderId);
     }
     
 
     /* 
-    Upgrades defenders to the correct type based on tower state.
+    Upgrades defenders to the correct type based on tower state
     It deactivates all current defenders and then re-adds the same number
     (because of changes in locations and defender type or stats)
     */
     private void upgradeDefenders() {
         if (defenders.isEmpty()) return;
         
-        int defenderCount = defenders.size(); // store current number of defenders
-        deactivateAllDefenders();             // remove current defenders
+        int defenderCount = defenders.size(); 
+        deactivateAllDefenders();
         
         for (int i = 0; i < defenderCount; i++) {
             addDefender();
@@ -272,7 +267,7 @@ public class Tower extends GameObject implements ShapeListener {
         nextDefenderId = 0; 
         /* 
         Resetting the id counter is not necessary theoretically 
-        However not resetting introduces a bug where sometimes a defender is not properly deactivated
+        However not resetting introduced a bug where sometimes a defender is not properly deactivated
         */
         for (String defenderId : defenders) {
             Defender defender = (Defender) content.getFromContent(defenderId);
@@ -284,7 +279,7 @@ public class Tower extends GameObject implements ShapeListener {
         defenders.clear();
     }
 
-    // Determines spawn location for the next defender
+    // Determines spawn location for the next defender (baed on trial and error)
     private ScreenPoint getDefenderSpawnLocation() {
         int offsetX = 0;
         int offsetY = 0;
@@ -358,7 +353,6 @@ public class Tower extends GameObject implements ShapeListener {
             if (nextRangeCircle == null) {
                 nextRangeCircle = new Circle(this.id + "_nextRange", center, radius);
                 nextRangeCircle.setIsFilled(false);
-                // nextRangeCircle.setFillColor(new java.awt.Color(250, 0, 0, 80));
                 nextRangeCircle.setColor(new java.awt.Color(0, 255, 0, 40));
                 nextRangeCircle.setWeight(addedRange);
                 nextRangeCircle.setzOrder(1);
@@ -449,7 +443,6 @@ public class Tower extends GameObject implements ShapeListener {
     // Show Build/Upgrade and Sell buttons near the tower
     private void showButtons() {
         GameCanvas canvas = Game.UI().canvas();
-        // Calculate positions relative to the tower location.
         int buildX = location.x - BUTTON_WIDTH/2;
         int buildY = location.y - 20;
         int sellX = location.x + BUTTON_WIDTH;
@@ -540,7 +533,7 @@ public class Tower extends GameObject implements ShapeListener {
             priceLabel.moveToLocation(priceX, priceY);
         }
         
-        // And display the sell value below the sell button.
+        // Display the sell value below the sell button
         int sellTextX = sellX - 1;
         int sellTextY = sellY + BUTTON_HEIGHT + 12;
         String sellText = "Sell for " + getState().getSellValue();
@@ -560,7 +553,7 @@ public class Tower extends GameObject implements ShapeListener {
         canvas.repaint();
     }
 
-    // Hide (remove) the buttons from the canvas
+    // Remove the buttons from the canvas
     private void hideButtons() {
         GameCanvas canvas = Game.UI().canvas();
         if (buildButton != null) {
@@ -641,7 +634,7 @@ public class Tower extends GameObject implements ShapeListener {
         }
     }
     
-    // public methods for MyMouseHandler
+    // public methods for MyMouseHandler (when clicking screen)
     public void hideAll() {
         isClicked = false;
         hideButtons();

@@ -28,7 +28,7 @@ public abstract class Character extends GameObject {
     private boolean isKilled = false;
 
     protected int originalSpeed;
-    protected int speed; // speed may change temporarily during game
+    protected int speed; // Speed may change temporarily during game (spell)
     protected int coins; // Amount of coins to be received if killed/Sold
 
     protected MyContent content = (MyContent) Game.Content();

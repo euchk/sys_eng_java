@@ -32,7 +32,7 @@ public abstract class Invader extends Character {
         setShowHealthBar(true);
         initializeMappings();
         setDirection(determineDirection(path.getWaypoint(0), path.getWaypoint(1))); // Initial direction
-        // updateAnimation(); // setDirection updates animation
+        // updateAnimation(); // setDirection already updates animation
     }
 
     protected abstract void initializeMappings();
@@ -57,7 +57,7 @@ public abstract class Invader extends Character {
 
     @Override
     public void gameStep() {
-        // Apply start delay to create slight desynchronization
+        // Apply start delay
         if (delayCounter < startDelay) {
             delayCounter++;
             return;

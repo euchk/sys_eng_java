@@ -174,7 +174,7 @@ public class GameControl {
         return true;
     }
 
-    // Inside your GameControl class, add a helper method:
+    // get active invaders countn for enabling start wave button logic
     private int getActiveInvaderCount() {
         int count = 0;
         for (GameObject gameObject : content.getAllGameObjects()) {
@@ -186,7 +186,6 @@ public class GameControl {
     }
 
     private void showBonusText(int bonusCoins) {
-        // Create a text shape with the bonus message.
         int posX = content.coins().getLocation().x + 120;
         int posY = content.coins().getLocation().y + 16;
         bonusText = new Text("bonusText", "+" + bonusCoins, posX, posY);
@@ -221,7 +220,7 @@ public class GameControl {
         }
     }
     
-    // Generalized method to spawn invaders based on type
+    // Method to spawn invaders based on type
     private void spawnInvader(String invaderType, Path path) {
         String invaderId = "invader_" + System.currentTimeMillis();
         Invader invader;
@@ -255,42 +254,11 @@ public class GameControl {
         content.addToContent(invader);
     }    
     
-    // Inner class representing a wave of spawns
-    private class Wave {
-        private int spawnInterval; // gameSteps between spawns within this wave
-        private List<SpawnInstruction> instructions;
-        private int waveStepCounter = 0;
-        private int nextSpawnIndex = 0;
-        
-        public Wave(int spawnInterval, List<SpawnInstruction> instructions) {
-            this.spawnInterval = spawnInterval;
-            this.instructions = instructions;
-        }
-        
-        // Called on each gameStep to update the wave progress
-        public void update() {
-            waveStepCounter++;
-            if (waveStepCounter % spawnInterval == 0 && nextSpawnIndex < instructions.size()) {
-                SpawnInstruction instruction = instructions.get(nextSpawnIndex);
-                spawnInvader(instruction.getInvaderType(), instruction.getSpawnPath());
-                nextSpawnIndex++;
-            }
-        }
-        
-        public boolean isCompleted() {
-            return nextSpawnIndex >= instructions.size();
-        }
-
-        public int getTotalSpawnCount() {
-            return instructions.size();
-        }
-    }
-    
-    // Called from the StartWave button to initialize and start waves
+    // Initialize and start waves
     public void startWaves() {
         waves.clear();
         
-        // Define Wave 1
+        // Wave 1
         List<SpawnInstruction> wave1Instructions = new ArrayList<>();
         wave1Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
         wave1Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
@@ -298,7 +266,7 @@ public class GameControl {
         wave1Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
         waves.add(new Wave(10, wave1Instructions));
         
-        // Define Wave 2
+        // Wave 2
         List<SpawnInstruction> wave2Instructions = new ArrayList<>();
         wave2Instructions.add(new SpawnInstruction("Slime", Paths.levelOnePath()));
         wave2Instructions.add(new SpawnInstruction("Slime", Paths.levelOnePath()));
@@ -312,7 +280,7 @@ public class GameControl {
         wave2Instructions.add(new SpawnInstruction("Troll", Paths.levelOnePath()));
         waves.add(new Wave(13, wave2Instructions));
 
-        // Define Wave 3
+        // Wave 3
         List<SpawnInstruction> wave3Instructions = new ArrayList<>();
         wave3Instructions.add(new SpawnInstruction("Slime", Paths.levelOnePath()));
         wave3Instructions.add(new SpawnInstruction("Slime", Paths.levelOnePath()));
@@ -327,7 +295,7 @@ public class GameControl {
         wave3Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         waves.add(new Wave(14, wave3Instructions));
 
-        // Define Wave 4
+        // Wave 4
         List<SpawnInstruction> wave4Instructions = new ArrayList<>();
         wave4Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
         wave4Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
@@ -350,7 +318,7 @@ public class GameControl {
         wave4Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         waves.add(new Wave(15, wave4Instructions));
 
-        // Define Wave 5
+        // Wave 5
         List<SpawnInstruction> wave5Instructions = new ArrayList<>();
         wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
         wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
@@ -376,7 +344,7 @@ public class GameControl {
         wave5Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
         waves.add(new Wave(15, wave5Instructions));
 
-        // Define Wave 6
+        // Wave 6
         List<SpawnInstruction> wave6Instructions = new ArrayList<>();
         wave6Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
         wave6Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
@@ -395,7 +363,7 @@ public class GameControl {
         wave6Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
         waves.add(new Wave(15, wave6Instructions));
 
-        // Define Wave 7
+        // Wave 7
         List<SpawnInstruction> wave7Instructions = new ArrayList<>();
         wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
         wave7Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
@@ -428,7 +396,7 @@ public class GameControl {
         wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         waves.add(new Wave(15, wave7Instructions));
 
-        // Define Wave 8
+        // Wave 8
         List<SpawnInstruction> wave8Instructions = new ArrayList<>();
         wave8Instructions.add(new SpawnInstruction("Wizard", Paths.levelTwoPath()));
         wave8Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
@@ -496,7 +464,6 @@ public class GameControl {
         wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
         waves.add(new Wave(15, wave8Instructions));
 
-        // Reset counters and flags
         currentWaveIndex = 0;
         interWaveDelayCounter = 0;
         activeWave = null;
@@ -509,11 +476,11 @@ public class GameControl {
         // Reset the slowDown timer
         slowDownTimerCounter = 0;
         
-        // Set the slowDown effect active and initialize the effect timer.
+        // Set the slowDown effect active and initialize the effect timer
         slowDownEffectActive = true;
         slowDownEffectTimer = SLOWDOWN_EFFECT_DURATION;
         
-        // For each invader, reduce speed to zero.
+        // For each invader reduce speed
         for (GameObject gameObject : content.getAllGameObjects()) {
             if (gameObject instanceof Invader) {
                 Invader invader = (Invader) gameObject;
@@ -528,20 +495,50 @@ public class GameControl {
         if (!wavesStarted) {
             startWaves();
         }
-        // Force start the next wave regardless of delay.
+        // Force start the next wave
         if (activeWave == null && currentWaveIndex < waves.size()) {
             forceNextWave();
         }
     }
     
     public void forceNextWave() {
-        // Immediately start the next wave
+        // Force start the next wave
         if (wavesStarted && activeWave == null && currentWaveIndex < waves.size()) {
             startNextWave();
         }
     }
 
-    // Inner class representing a spawn instruction
+    // Class for a wave of spawns
+    private class Wave {
+        private int spawnInterval; // gameSteps between spawns within this wave
+        private List<SpawnInstruction> instructions;
+        private int waveStepCounter = 0;
+        private int nextSpawnIndex = 0;
+        
+        public Wave(int spawnInterval, List<SpawnInstruction> instructions) {
+            this.spawnInterval = spawnInterval;
+            this.instructions = instructions;
+        }
+        
+        public void update() {
+            waveStepCounter++;
+            if (waveStepCounter % spawnInterval == 0 && nextSpawnIndex < instructions.size()) {
+                SpawnInstruction instruction = instructions.get(nextSpawnIndex);
+                spawnInvader(instruction.getInvaderType(), instruction.getSpawnPath());
+                nextSpawnIndex++;
+            }
+        }
+        
+        public boolean isCompleted() {
+            return nextSpawnIndex >= instructions.size();
+        }
+
+        public int getTotalSpawnCount() {
+            return instructions.size();
+        }
+    }
+    
+    // Class for spawn instruction
     private class SpawnInstruction {
         private String invaderType;
         private Path spawnPath;

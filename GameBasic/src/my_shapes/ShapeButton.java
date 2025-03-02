@@ -21,7 +21,7 @@ public abstract class ShapeButton implements ShapeListener {
     protected Rectangle disabledOverlay; // when button disabled
     protected boolean isDisabled = false;
 
-    protected String normalImageSrc;   // image for normal state
+    protected String normalImageSrc;   // image for enabled state
     protected String disabledImageSrc; // image for disabled state
 
     /*
@@ -38,10 +38,10 @@ public abstract class ShapeButton implements ShapeListener {
         this.normalImageSrc = normalImageSrc;
         this.disabledImageSrc = disabledImageSrc;
 
-        // Create the button image.
+        // Button image
         updateImage(id, normalImageSrc, width, height, posX, posY);
         
-        // Create the text label.
+        // Text label
         text = new Text(id + "_text", buttonText, posX - 1, posY + height + 15);
         text.setFontSize(13);
         text.setColor(Color.WHITE);
@@ -106,7 +106,6 @@ public abstract class ShapeButton implements ShapeListener {
         return isDisabled;
     }
 
-    // if returns true the click was valid and the button will be removed from canvas
     protected abstract void onClick(); 
 
     @Override
@@ -143,7 +142,7 @@ public abstract class ShapeButton implements ShapeListener {
         hideHighlight();
     }
 
-    // Show disabled button
+    // Show disabled button (black and white)
     public void disableButton() {
         updateImage(id, disabledImageSrc, width, height, position.x, position.y);
         isDisabled = true;

@@ -33,12 +33,11 @@ public class WaveStatus {
         return totalWaves;
     }
 
-    // Update the displayed text.
+    // Update the displayed text
     private void updateText() {
         waveStatusText.setText("Wave: " + currentWave + "/" + totalWaves);
     }
 
-    // Add the wave status display to the canvas.
     public void addToCanvas() {
         GameCanvas canvas = Game.UI().canvas();
         canvas.addShape(waveStatusText);

@@ -54,17 +54,6 @@ public class MouseHandler {
 			shape.getshapeListener().shapeRightClicked(shape.getId(), x, y);
 		}
 	}
-	
-    // public void mouseMovedOverShape(Shape shape, int x, int y) {
-	// 	System.out.println("Mouse moved over Shape: " + shape.getId());
-	// 	if (!onShape) {
-	// 		shapeUnderMouse = shape;
-	// 		onShape = true;
-	// 		if (shapeUnderMouse.getshapeListener() != null) {
-	// 			shapeUnderMouse.getshapeListener().mouseEnterShape(shape.getId(), x, y);
-	// 		}
-	// 	}		
-    // }
 
 	// Changed mouseMovedOverShape logic to support switching between shapes while hovering
 	public void mouseMovedOverShape(Shape shape, int x, int y) {

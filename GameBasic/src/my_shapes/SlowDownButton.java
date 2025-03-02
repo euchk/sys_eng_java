@@ -18,7 +18,7 @@ public class SlowDownButton extends ShapeButton {
 
     @Override
     protected void onClick() {
-        // Signal GameControl that this button was clicked.
+        // Signal GameControl that this button was clicked
         gameControl.slowDownClicked();
     }
 }

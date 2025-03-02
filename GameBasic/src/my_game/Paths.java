@@ -91,51 +91,6 @@ public class Paths {
         return new Path(applyRandomOffset(baseWaypoints));
     }
 
-    public static Path levelThreePath() {
-        List<ScreenPoint> baseWaypoints = List.of(
-            new ScreenPoint(1900, 540),
-            new ScreenPoint(1500, 520),
-            new ScreenPoint(1510, 610),
-            new ScreenPoint(1110, 640),
-            new ScreenPoint(1130, 530),
-            new ScreenPoint(610, 500),
-            new ScreenPoint(600, 620),
-            new ScreenPoint(100, 600)
-        );
-
-        return new Path(applyRandomOffset(baseWaypoints));
-    }
-
-    public static Path levelFourPath() {
-        List<ScreenPoint> baseWaypoints = List.of(
-            new ScreenPoint(1750, 400),
-            new ScreenPoint(1350, 400),
-            new ScreenPoint(1350, 500),
-            new ScreenPoint(850, 500),
-            new ScreenPoint(850, 400),
-            new ScreenPoint(350, 400),
-            new ScreenPoint(350, 500),
-            new ScreenPoint(0, 500)
-        );
-
-        return new Path(applyRandomOffset(baseWaypoints));
-    }
-
-    public static Path levelFivePath() {
-        List<ScreenPoint> baseWaypoints = List.of(
-            new ScreenPoint(2100, 350),
-            new ScreenPoint(1700, 350),
-            new ScreenPoint(1700, 450),
-            new ScreenPoint(1200, 450),
-            new ScreenPoint(1200, 350),
-            new ScreenPoint(700, 350),
-            new ScreenPoint(700, 450),
-            new ScreenPoint(200, 450)
-        );
-
-        return new Path(applyRandomOffset(baseWaypoints));
-    }
-
     public static Path testPath() {
         List<ScreenPoint> baseWaypoints = List.of(
             new ScreenPoint(1500, 350),
