@@ -161,6 +161,7 @@ public class GameControl {
 
         // Update WaveStatus
         content.waveStatus().setcurrentWave(currentWaveIndex);
+        Game.audioPlayer().play("resources/audio/drum.wav", 1);
     }
 
     // Checks if there are no active invaders in the game (for forcing next wave)
@@ -425,7 +426,63 @@ public class GameControl {
         wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
         wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
         wave7Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
-        
+
+        // Define Wave 8
+        List<SpawnInstruction> wave8Instructions = new ArrayList<>();
+        wave8Instructions.add(new SpawnInstruction("Knight", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Knight", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Rat", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Bee", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelTwoPath()));
+        wave8Instructions.add(new SpawnInstruction("Wolf", Paths.levelOnePath()));
+        wave8Instructions.add(new SpawnInstruction("Wizard", Paths.levelOnePath()));
+
         // Reset counters and flags
         currentWaveIndex = 0;
         interWaveDelayCounter = 0;
@@ -434,6 +491,8 @@ public class GameControl {
     }
 
     public void slowDownClicked() {
+        Game.audioPlayer().play("resources/audio/slow_down.wav", 1);
+
         // Reset the slowDown timer
         slowDownTimerCounter = 0;
         

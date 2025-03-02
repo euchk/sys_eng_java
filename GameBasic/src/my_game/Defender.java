@@ -3,6 +3,7 @@ package my_game;
 import java.util.HashMap;
 import java.util.Map;
 
+import base.Game;
 import ui_elements.ScreenPoint;
 
 public abstract class Defender extends Character {
@@ -84,6 +85,7 @@ public abstract class Defender extends Character {
         // Add arrow to the game
         content.addToContent(arrow);
         arrow.addToCanvas();
+        Game.audioPlayer().play("resources/audio/arrow_shoot.wav", 1);
 
          // Set cooldown: arrowFrequency rounds of the IDLE animation
         int idleFrames = frameCounts.get(Action.IDLE).get(direction);

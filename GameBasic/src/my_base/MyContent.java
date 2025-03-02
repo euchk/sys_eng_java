@@ -27,7 +27,7 @@ public class MyContent extends GameContent{
 
 	private Tower tower1, tower2, tower3, tower4, tower5, tower6, tower7, tower8;
 
-	private StaticAnimatedObject flag1, flag2, campfire1, campfire2, tent1, tent2, tent3, tent4, tent5, tent6;
+	private StaticAnimatedObject flag1, flag2, campfire1, campfire2, tent1, tent2, tent3, tent4, tent5, tent6, citizen1, citizen2, citizen3, citizen4;
 	
 	private final HashMap<String, GameObject> gameObjects; // Store all game objects with id as key
 	private final HashMap<String, GameObject> pendingGameObjects; //  // Stores all objects to be added to the game
@@ -127,6 +127,22 @@ public class MyContent extends GameContent{
 		ScreenPoint campfire2_location = new ScreenPoint(400, 400);
 		campfire2 = new StaticAnimatedObject("campfire2", campfire2_location, "resources/objects/objects/campfire2.png", 6, 32, 64, false);
 		addToContent(campfire2);
+
+		ScreenPoint citizen1_location = new ScreenPoint(410, 450);
+		citizen1 = new StaticAnimatedObject("citizen1", citizen1_location, "resources/objects/objects/citizen1.png", 6, 48, 48, false);
+		addToContent(citizen1);
+
+		ScreenPoint citizen2_location = new ScreenPoint(380, 440);
+		citizen2 = new StaticAnimatedObject("citizen2", citizen2_location, "resources/objects/objects/citizen2.png", 4, 48, 48, true);
+		addToContent(citizen2);
+
+		ScreenPoint citizen3_location = new ScreenPoint(1400, 850);
+		citizen3 = new StaticAnimatedObject("citizen3", citizen3_location, "resources/objects/objects/citizen3.png", 6, 48, 48, false);
+		addToContent(citizen3);
+
+		ScreenPoint citizen4_location = new ScreenPoint(1320, 810);
+		citizen4 = new StaticAnimatedObject("citizen4", citizen4_location, "resources/objects/objects/citizen4.png", 4, 48, 48, true);
+		addToContent(citizen4);
 		
 		
 

@@ -81,6 +81,7 @@ public class Arrow extends GameObject {
         if (Math.abs(location.x - targetLocation.x) < speed && 
             Math.abs(location.y - targetLocation.y) < speed) {
             setHitTarget();
+            // Game.audioPlayer().play("resources/audio/arrow_hit.wav", 1);
             target.reduceHealth(damage);
             deactivate();
             return;
