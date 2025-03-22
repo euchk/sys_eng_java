@@ -22,6 +22,7 @@ public class MyPeriodicLoop extends PeriodicLoop {
 		
 		// You can comment this line if you don't want the pokimon to move.
 		redrawPokimon();
+		redrawWarrior();
 		
 		//TODO
 		//Redraw your character periodically by calling the correct method
@@ -30,6 +31,10 @@ public class MyPeriodicLoop extends PeriodicLoop {
 	
 	private void redrawPokimon() {
 		content.pokimon().move();
+	}
+
+	private void redrawWarrior() {
+		content.warrior().nextFrame();
 	}
 
 	private void redrawCharacter() {

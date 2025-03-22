@@ -4,6 +4,7 @@ package my_base;
 
 
 import my_game.Pokimon;
+import my_game.Warrior;
 import ui_elements.ScreenPoint;
 import base.Game;
 import base.GameCanvas;
@@ -13,6 +14,7 @@ import my_game.MyPolygon;
 public class MyContent extends GameContent{
 	private Pokimon pokimon;
 	private MyPolygon myPolygon;
+	private Warrior warrior;
 	
 	//TODO
 	//Declare your own character
@@ -32,6 +34,8 @@ public class MyContent extends GameContent{
 		};
 
 		myPolygon = new MyPolygon(points);
+
+		warrior = new Warrior();
 	}	
 	
 	public Pokimon pokimon() {
@@ -40,6 +44,10 @@ public class MyContent extends GameContent{
 
 	public MyPolygon polygon() {
 		return myPolygon;
+	}
+
+	public Warrior warrior() {
+		return warrior;
 	}
 	
 	public void addCharacter() {
