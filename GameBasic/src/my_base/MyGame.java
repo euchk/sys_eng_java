@@ -7,6 +7,7 @@ import base.GameCanvas;
 import base.GameContent;
 import base.GameDashboard;
 import my_game.Pokimon;
+import my_game.StopAnimationButton;
 import my_game.Warrior;
 import my_ui_elements.AddButton;
 import my_ui_elements.ChangeButton;
@@ -35,8 +36,12 @@ public class MyGame extends Game {
 		Circle c = new Circle("circle", 300, 300, 50);
 		c.setDraggable(false);
 		canvas.addShape(c);
+		
 		Warrior warrior = content.warrior();
 		warrior.addToCanvas();
+
+		StopAnimationButton startAnimationButton = content.startAnimationButton();
+		startAnimationButton.addToCanvas();
 	}
 	
 	@Override

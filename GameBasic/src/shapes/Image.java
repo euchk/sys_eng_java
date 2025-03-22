@@ -2,6 +2,7 @@ package shapes;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 
@@ -70,8 +71,12 @@ public class Image extends Shape {
 		if (textLabel != null) {
 			addTextLabel(textLabel);
 		}
-	} 
-	
+	}
+
+	public void setBufferedImage(BufferedImage bufferedImage) {
+		img.setIcon(new ImageIcon(bufferedImage));  // Replaces the image content
+		draw(null);
+	}	
 
 	public double getRotation() {
 		return rotation;

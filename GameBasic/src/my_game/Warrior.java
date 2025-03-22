@@ -24,8 +24,10 @@ public class Warrior implements ShapeListener {
     private AnimatedImage sprite;
     private ScreenPoint location;
 
-    public Warrior() {
-        setLocation(new ScreenPoint(100, 600));
+    private boolean isDisabled = false; // Stops animation when true
+
+    public Warrior(ScreenPoint startLocation) {
+        setLocation(startLocation);
     }
 
     public void addToCanvas() {
@@ -39,13 +41,19 @@ public class Warrior implements ShapeListener {
     }
 
     public void nextFrame() {
-        sprite.nextFrame();
+        if (!isDisabled) { // Don't animate when disabled
+            sprite.nextFrame();
+        }
     }
 
     public void switchToNextRow() {
         currentRow = (currentRow + 1) % totalRows;
         frameCount = frameCounts[currentRow];
         sprite.setAnimationRow(currentRow, frameCount);
+    }
+
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled = isDisabled;
     }
 
     public void moveLocation(int dx, int dy) {

@@ -4,6 +4,7 @@ package my_base;
 
 
 import my_game.Pokimon;
+import my_game.StopAnimationButton;
 import my_game.Warrior;
 import ui_elements.ScreenPoint;
 import base.Game;
@@ -15,6 +16,7 @@ public class MyContent extends GameContent{
 	private Pokimon pokimon;
 	private MyPolygon myPolygon;
 	private Warrior warrior;
+	private StopAnimationButton startAnimationButton;
 	
 	//TODO
 	//Declare your own character
@@ -35,7 +37,9 @@ public class MyContent extends GameContent{
 
 		myPolygon = new MyPolygon(points);
 
-		warrior = new Warrior();
+		warrior = new Warrior(new ScreenPoint(150, 550));
+
+		startAnimationButton = new StopAnimationButton(50, 600);
 	}	
 	
 	public Pokimon pokimon() {
@@ -48,6 +52,10 @@ public class MyContent extends GameContent{
 
 	public Warrior warrior() {
 		return warrior;
+	}
+
+	public StopAnimationButton startAnimationButton() {
+		return startAnimationButton;
 	}
 	
 	public void addCharacter() {
