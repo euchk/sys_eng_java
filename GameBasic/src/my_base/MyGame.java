@@ -40,8 +40,8 @@ public class MyGame extends Game {
 		Warrior warrior = content.warrior();
 		warrior.addToCanvas();
 
-		StopAnimationButton startAnimationButton = content.startAnimationButton();
-		startAnimationButton.addToCanvas();
+		StopAnimationButton stopAnimationButton = content.stopAnimationButton();
+		stopAnimationButton.addToCanvas();
 	}
 	
 	@Override

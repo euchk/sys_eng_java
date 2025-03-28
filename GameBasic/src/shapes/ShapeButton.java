@@ -10,23 +10,56 @@ import base.GameCanvas;
 import base.ShapeListener;
 import ui_elements.ScreenPoint;
 
+/**
+ * ShapeButton is an abstract base class for creating interactive UI buttons that are
+ * based on rectangle images and can be added to the canvas (not to the dashboard).
+ *
+ * Features:
+ * - Shows a visual image with optional text below it.
+ * - Responds to mouse clicks and hover events.
+ * - Supports visual glow effect on hover.
+ * - Supports disabling/enabling the button (disabling shows grayscale image).
+ * - Subclasses implement the onClick() method to define behavior when clicked.
+ * - Optionally disables itself on click, configurable via setDisableOnClick(true/false).
+ * - Text can be updated dynamically using setText().
+ *
+ * Usage:
+ * 1. Extend this class and implement the onClick() method.
+ * 2. Use addToCanvas() after construction to make the button visible.
+ * 3. Call setText() to configure or update the button label.
+ * 4. Use disableButton() and enableButton() to control interactivity.
+ * 5. Use setDisableOnClick(false) if you want to manage disabling manually.
+ * 6. Use setGlowEnabled(false) if you don't want the glow when hovering effect.
+ *
+ * Example:
+ * public class MyButton extends ShapeButton {
+ *     public MyButton(int x, int y) {
+ *         super("my_button", 50, 50, x, y, "res/image.png");
+ *         setText("Click Me");
+ *         setDisableOnClick(true);
+ *     }
+ *     protected void onClick() {
+ *         System.out.println("Button clicked!");
+ *     }
+ * }
+ */
+
 public abstract class ShapeButton implements ShapeListener {
     protected String id;
     protected ScreenPoint position;
-    
     protected int height, width;
-
     protected Image image;
     protected Text text;
-    protected Rectangle highlightCircle;
-
+    protected Rectangle glowEffect;
     protected boolean isDisabled = false;
+    protected boolean disableOnClick = true;
+    protected boolean glowEnabled = true;
 
     protected String imagePath;
     protected BufferedImage originalImage;
     protected BufferedImage grayscaleImage;
 
-    public ShapeButton(String id, int width, int height, int posX, int posY, String imagePath, String buttonText) {
+    public ShapeButton(String id, int width, int height, int posX, int posY, String imagePath) {
         this.id = id;
         this.position = new ScreenPoint(posX, posY);
         this.width = width;
@@ -45,10 +78,18 @@ public abstract class ShapeButton implements ShapeListener {
         image.setShapeListener(this);
         image.setDraggable(false);
 
-        text = new Text(id + "_text", buttonText, posX - 1, posY + height + 15);
+        text = new Text(id + "_text", "", posX - 1, posY + height + 15);
         text.setFontSize(13);
         text.setColor(Color.WHITE);
         text.setzOrder(10);
+    }
+
+    public void setText(String buttonText) {
+        text.setText(buttonText);
+    }
+
+    public void setGlowEnabled(boolean enabled) {
+        this.glowEnabled = enabled;
     }
 
     public void addToCanvas() {
@@ -77,38 +118,41 @@ public abstract class ShapeButton implements ShapeListener {
         image.setBufferedImage(originalImage);
     }
 
-    protected void showHighlight() {
-        if (isDisabled) return;
+    protected void showGlow() {
+        if (isDisabled || !glowEnabled) return;
 
         GameCanvas canvas = Game.UI().canvas();
-    
         int extraWidth = (int) (width * 0.1);
         int extraHeight = (int) (height * 0.1);
-    
-        int highlightX = position.x - (extraWidth / 2);
-        int highlightY = position.y - (extraHeight / 2);
-        int highlightWidth = width + extraWidth;
-        int highlightHeight = height + extraHeight;
-    
-        highlightCircle = new Rectangle(id + "_highlight", highlightX, highlightY, highlightWidth, highlightHeight);
-        highlightCircle.setIsFilled(true);
-        highlightCircle.setFillColor(new Color(240, 240, 160, 80));
-        highlightCircle.setColor(new Color(240, 240, 160, 80));
-        highlightCircle.setWeight(0);
-        highlightCircle.setzOrder(2);
-        canvas.addShape(highlightCircle);
+
+        int glowX = position.x - (extraWidth / 2);
+        int glowY = position.y - (extraHeight / 2);
+        int glowWidth = width + extraWidth;
+        int glowHeight = height + extraHeight;
+
+        glowEffect = new Rectangle(id + "_glow", glowX, glowY, glowWidth, glowHeight);
+        glowEffect.setIsFilled(true);
+        glowEffect.setFillColor(new Color(0, 240, 160, 80));
+        glowEffect.setColor(new Color(0, 240, 160, 80));
+        glowEffect.setWeight(0);
+        glowEffect.setzOrder(2);
+        canvas.addShape(glowEffect);
         canvas.revalidate();
         canvas.repaint();
     }
 
-    protected void hideHighlight() {
+    protected void hideGlow() {
         GameCanvas canvas = Game.UI().canvas();
-        if (highlightCircle != null) {
-            canvas.deleteShape(highlightCircle.getId());
-            highlightCircle = null;
+        if (glowEffect != null) {
+            canvas.deleteShape(glowEffect.getId());
+            glowEffect = null;
             canvas.revalidate();
             canvas.repaint();
         }
+    }
+
+    public void setDisableOnClick(boolean disable) {
+        this.disableOnClick = disable;
     }
 
     public String getId() {
@@ -128,9 +172,9 @@ public abstract class ShapeButton implements ShapeListener {
     @Override
     public void shapeClicked(String shapeID, int x, int y) {
         if (isDisabled) return;
-        hideHighlight();
+        hideGlow();
         onClick();
-        disableButton(); // Disabled when clicked. Override to change behaviour
+        if (disableOnClick) disableButton();
     }
 
     @Override public void shapeMoved(String shapeID, int dx, int dy) {}
@@ -140,15 +184,14 @@ public abstract class ShapeButton implements ShapeListener {
 
     @Override
     public void mouseEnterShape(String shapeID, int x, int y) {
-        if (!isDisabled) showHighlight();
+        if (!isDisabled) showGlow();
     }
 
     @Override
     public void mouseExitShape(String shapeID, int x, int y) {
-        if (!isDisabled) hideHighlight();
+        if (!isDisabled) hideGlow();
     }
 
-    // Convert to grayscale
     private BufferedImage toGrayscale(BufferedImage src) {
         BufferedImage gray = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_ARGB);
         for (int y = 0; y < src.getHeight(); y++) {

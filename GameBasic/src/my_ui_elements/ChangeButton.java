@@ -19,6 +19,8 @@ public class ChangeButton extends GameButton{
 		MyContent content = (MyContent) Game.Content();
 		content.polygon().exitEditMode();
 		content.polygon().getVisualPolygon().rotate(45);
+		content.warrior().switchToNextRow();
+
 		//TODO
 		//Change your character properties by calling the appropriate method of
 		//MyContent

@@ -16,7 +16,7 @@ public class MyContent extends GameContent{
 	private Pokimon pokimon;
 	private MyPolygon myPolygon;
 	private Warrior warrior;
-	private StopAnimationButton startAnimationButton;
+	private StopAnimationButton stopAnimationButton;
 	
 	//TODO
 	//Declare your own character
@@ -37,9 +37,9 @@ public class MyContent extends GameContent{
 
 		myPolygon = new MyPolygon(points);
 
-		warrior = new Warrior(new ScreenPoint(150, 550));
+		warrior = new Warrior(new ScreenPoint(150, 560));
 
-		startAnimationButton = new StopAnimationButton(50, 600);
+		stopAnimationButton = new StopAnimationButton(170, 500);
 	}	
 	
 	public Pokimon pokimon() {
@@ -54,8 +54,8 @@ public class MyContent extends GameContent{
 		return warrior;
 	}
 
-	public StopAnimationButton startAnimationButton() {
-		return startAnimationButton;
+	public StopAnimationButton stopAnimationButton() {
+		return stopAnimationButton;
 	}
 	
 	public void addCharacter() {
